@@ -3,8 +3,6 @@
  * Documentation: https://sandbox.vnpayment.vn/apis/docs/huong-dan-tich-hop/
  */
 
-import crypto from 'crypto'
-
 export interface VNPayConfig {
   tmnCode: string // Terminal ID (Mã website)
   hashSecret: string // Secret key for HMAC SHA512
@@ -37,20 +35,38 @@ function sortObject(obj: Record<string, any>): Record<string, any> {
 }
 
 /**
- * Create HMAC SHA512 signature
+ * Create HMAC SHA512 signature using Web Crypto API
  */
-function createSignature(data: string, secretKey: string): string {
-  const hmac = crypto.createHmac('sha512', secretKey)
-  return hmac.update(Buffer.from(data, 'utf-8')).digest('hex')
+async function createSignature(data: string, secretKey: string): Promise<string> {
+  const encoder = new TextEncoder()
+  const keyData = encoder.encode(secretKey)
+  const messageData = encoder.encode(data)
+
+  // Import key for HMAC
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-512' },
+    false,
+    ['sign']
+  )
+
+  // Sign the data
+  const signature = await crypto.subtle.sign('HMAC', key, messageData)
+
+  // Convert to hex string
+  return Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('')
 }
 
 /**
  * Generate VNPay payment URL
  */
-export function createPaymentUrl(
+export async function createPaymentUrl(
   config: VNPayConfig,
   payment: PaymentRequest
-): string {
+): Promise<string> {
   const date = new Date()
   const createDate = formatDate(date)
   const expireDate = formatDate(new Date(date.getTime() + 15 * 60 * 1000)) // 15 minutes
@@ -83,7 +99,7 @@ export function createPaymentUrl(
   const signData = new URLSearchParams(vnpParams).toString()
   
   // Create signature
-  const signature = createSignature(signData, config.hashSecret)
+  const signature = await createSignature(signData, config.hashSecret)
   
   // Add signature to params
   vnpParams.vnp_SecureHash = signature
@@ -97,10 +113,10 @@ export function createPaymentUrl(
 /**
  * Verify VNPay IPN (Instant Payment Notification) callback
  */
-export function verifyIpnCall(
+export async function verifyIpnCall(
   vnpParams: Record<string, string>,
   secretKey: string
-): { isValid: boolean; message: string } {
+): Promise<{ isValid: boolean; message: string }> {
   const secureHash = vnpParams.vnp_SecureHash
   delete vnpParams.vnp_SecureHash
   delete vnpParams.vnp_SecureHashType
@@ -110,7 +126,7 @@ export function verifyIpnCall(
   const signData = new URLSearchParams(sortedParams).toString()
   
   // Verify signature
-  const checkSum = createSignature(signData, secretKey)
+  const checkSum = await createSignature(signData, secretKey)
   
   if (secureHash === checkSum) {
     // Check response code

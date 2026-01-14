@@ -133,7 +133,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     }
 
     // Generate payment URL
-    const paymentUrl = createPaymentUrl(vnpayConfig, paymentRequest)
+    const paymentUrl = await createPaymentUrl(vnpayConfig, paymentRequest)
 
     console.log(`✅ Created payment for user ${userId}:`, {
       orderId,

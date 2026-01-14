@@ -27,7 +27,7 @@ export async function onRequestGet(context: { request: Request; env: Env }) {
     })
 
     // Verify signature
-    const verification = verifyIpnCall(vnpParams, env.VNPAY_HASH_SECRET)
+    const verification = await verifyIpnCall(vnpParams, env.VNPAY_HASH_SECRET)
 
     if (!verification.isValid) {
       console.error('❌ Invalid VNPay signature')
