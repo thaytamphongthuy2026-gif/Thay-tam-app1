@@ -21,6 +21,12 @@ export async function login(email: string, password: string) {
 
   if (error) throw error
   
+  // Save to localStorage for Payment API
+  if (data.session?.access_token) {
+    localStorage.setItem('jwt_token', data.session.access_token)
+    localStorage.setItem('user_email', email)
+  }
+  
   // Fetch user data from users table
   const { data: userData, error: userError } = await supabase
     .from('users')
@@ -57,6 +63,10 @@ export async function register(email: string, password: string, name: string) {
 export async function logout() {
   const { error } = await supabase.auth.signOut()
   if (error) throw error
+  
+  // Clear localStorage
+  localStorage.removeItem('jwt_token')
+  localStorage.removeItem('user_email')
 }
 
 export async function getCurrentUser(): Promise<User | null> {

@@ -45,10 +45,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       if (session?.user) {
         setSupabaseUser(session.user)
+        
+        // Sync to localStorage for Payment API
+        if (session.access_token) {
+          localStorage.setItem('jwt_token', session.access_token)
+          localStorage.setItem('user_email', session.user.email || '')
+        }
+        
         await loadUserProfile(session.user.id)
       } else {
         setSupabaseUser(null)
         setUser(null)
+        
+        // Clear localStorage
+        localStorage.removeItem('jwt_token')
+        localStorage.removeItem('user_email')
       }
       setLoading(false)
     })
