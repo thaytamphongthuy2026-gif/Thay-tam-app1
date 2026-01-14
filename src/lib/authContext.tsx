@@ -34,8 +34,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check active session
     checkUser()
 
-    // Listen for auth changes
+    // Listen for auth changes with abort controller
+    const abortController = new AbortController()
+    
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      // Skip if aborted
+      if (abortController.signal.aborted) return
+      
       console.log('Auth state changed:', event, session?.user?.email)
       
       if (session?.user) {
@@ -49,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return () => {
+      abortController.abort()
       subscription.unsubscribe()
     }
   }, [])
@@ -74,10 +80,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .from('users')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle() // Use maybeSingle instead of single to avoid errors
 
-      if (error) throw error
-      setUser(data as User)
+      if (error && error.code !== 'PGRST116') {
+        // PGRST116 is "not found" - ignore it
+        throw error
+      }
+      
+      if (data) {
+        setUser(data as User)
+      }
     } catch (error) {
       console.error('Error loading user profile:', error)
     }
