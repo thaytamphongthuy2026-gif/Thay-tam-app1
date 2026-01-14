@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X } from 'lucide-react'
+import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X, BookOpen } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../lib/authContext'
 
@@ -70,6 +70,10 @@ export default function Header() {
               </>
             ) : (
               <>
+                <Link to="/blog" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <BookOpen className="w-4 h-4" />
+                  <span>Blog</span>
+                </Link>
                 <Link to="/pricing" className="text-gray-600 hover:text-purple-600">
                   Bảng giá
                 </Link>

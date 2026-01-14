@@ -16,6 +16,7 @@ import PaymentResult from './pages/PaymentResult'
 import QRPayment from './pages/QRPayment'
 import PaymentStatus from './pages/PaymentStatus'
 import AdminDashboard from './pages/AdminDashboard'
+import Blog from './pages/Blog'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/tu-vi" element={<TuVi />} />
               <Route path="/lich-phong-thuy" element={<LichPhongThuy />} />
               <Route path="/pricing" element={<Pricing />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment-result" element={<PaymentResult />} />
               <Route path="/qr-payment" element={<QRPayment />} />

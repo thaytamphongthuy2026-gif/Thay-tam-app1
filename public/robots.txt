@@ -1,0 +1,24 @@
+# robots.txt for Thầy Tám Phong Thủy 2026
+User-agent: *
+Allow: /
+Allow: /pricing
+Allow: /xem-ngay-tot
+Allow: /tu-vi
+Allow: /chat
+Allow: /lich-phong-thuy
+Allow: /blog
+
+# Disallow admin and auth pages
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /qr-payment
+Disallow: /payment-status
+
+# Sitemap
+Sitemap: https://thaytamphongthuy.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

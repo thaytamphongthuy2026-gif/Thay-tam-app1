@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Star, Mail, Phone, MapPin } from 'lucide-react'
+import { Star, Mail } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -63,16 +63,14 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-sm text-gray-400">
                 <Mail className="w-4 h-4" />
-                <span>contact@thaytam.com</span>
+                <a href="mailto:thaytamphongthuy2026@gmail.com" className="hover:text-white">
+                  thaytamphongthuy2026@gmail.com
+                </a>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <Phone className="w-4 h-4" />
-                <span>0123 456 789</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <MapPin className="w-4 h-4" />
-                <span>Hà Nội, Việt Nam</span>
-              </div>
+              <p className="text-xs text-gray-500 mt-4">
+                Hỗ trợ trực tuyến 24/7 qua website.<br />
+                Gửi email để được tư vấn chuyên sâu.
+              </p>
             </div>
           </div>
         </div>
