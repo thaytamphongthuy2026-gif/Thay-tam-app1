@@ -4,8 +4,8 @@ Nền tảng tư vấn phong thủy chuyên nghiệp cho Tết 2026 (Ất Tỵ) 
 
 ## 🌐 URLs PRODUCTION
 
-- **Production Website**: https://5dacb420.thaytam-phongthuy-v2.pages.dev
-- **Custom Domain** (setup pending): https://thaytamphongthuy.com
+- **Production Website**: https://97747078.thaytam-phongthuy-v2.pages.dev
+- **Custom Domain** (pending setup): https://thaytamphongthuy.com
 - **GitHub Repository**: https://github.com/thaytamphongthuy2026-gif/Thay-tam-app1
 - **SEO Content Repo**: https://github.com/thaytamphongthuy2026-gif/thaytamphongthuy-lp
 
