@@ -60,4 +60,54 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/ngay-tot-khai-truong-2026</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/tu-vi-12-con-giap-2026</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/phong-thuy-tet-2026</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/ngay-cuoi-tot-2026</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/huong-nha-tot-2026</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/tuoi-ty-nam-2026</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://thaytamphongthuy.com/blog/mau-sac-may-man-2026</loc>
+    <lastmod>2026-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

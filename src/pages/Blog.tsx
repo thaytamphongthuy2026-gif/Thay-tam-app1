@@ -117,51 +117,54 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <article 
+            <Link
               key={post.id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
+              to={`/blog/${post.slug}`}
+              className="block"
             >
-              <div className="p-6">
-                {/* Category Badge */}
-                <div className="mb-4">
-                  <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    {post.category}
-                  </span>
-                </div>
+              <article className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer h-full">
+                <div className="p-6 flex flex-col h-full">
+                  {/* Category Badge */}
+                  <div className="mb-4">
+                    <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
+                      {post.category}
+                    </span>
+                  </div>
 
-                {/* Title */}
-                <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition line-clamp-2">
-                  {post.title}
-                </h2>
+                  {/* Title */}
+                  <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition line-clamp-2">
+                    {post.title}
+                  </h2>
 
-                {/* Excerpt */}
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
+                  {/* Excerpt */}
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-grow">
+                    {post.excerpt}
+                  </p>
 
-                {/* Meta */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{post.date}</span>
+                  {/* Meta */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{post.date}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{post.readTime}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{post.readTime}</span>
+                  </div>
+
+                  {/* Read More */}
+                  <div className="pt-4 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-purple-600 font-semibold group-hover:text-purple-700 transition">
+                      <span>Đọc tiếp</span>
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
                     </div>
                   </div>
                 </div>
-
-                {/* Read More */}
-                <div className="pt-4 border-t border-gray-100">
-                  <div className="flex items-center justify-between text-purple-600 font-semibold group-hover:text-purple-700 transition">
-                    <span>Đọc tiếp</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
-                  </div>
-                </div>
-              </div>
-            </article>
+              </article>
+            </Link>
           ))}
         </div>
 

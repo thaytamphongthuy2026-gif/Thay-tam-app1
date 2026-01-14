@@ -17,6 +17,7 @@ import QRPayment from './pages/QRPayment'
 import PaymentStatus from './pages/PaymentStatus'
 import AdminDashboard from './pages/AdminDashboard'
 import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/lich-phong-thuy" element={<LichPhongThuy />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment-result" element={<PaymentResult />} />
               <Route path="/qr-payment" element={<QRPayment />} />
