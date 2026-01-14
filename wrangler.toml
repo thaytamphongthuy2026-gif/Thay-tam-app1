@@ -6,6 +6,15 @@ pages_build_output_dir = "dist"
 [vars]
 ENVIRONMENT = "production"
 
+# KV Namespaces for performance optimization
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "a0168b1dd5c4401a926ca9b5fb004362"
+
+[[kv_namespaces]]
+binding = "RESPONSE_CACHE"
+id = "aa01db90bc514a91959d97a5a93cdead"
+
 # Note: Cron Triggers must be configured via Cloudflare Dashboard
 # For Pages Functions, cron is not supported in wrangler.toml
 # Use Cloudflare Workers Cron Triggers instead:

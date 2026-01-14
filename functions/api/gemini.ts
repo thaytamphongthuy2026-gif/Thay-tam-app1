@@ -1,31 +1,16 @@
 import { verifyJWT, extractToken } from '../_lib/auth'
 import { getUser, hasQuota, decrementQuota, updateUserQuota } from '../_lib/database'
 import type { Env } from '../_lib/database'
+import { checkRateLimit } from '../_lib/rateLimit'
+import { getCachedResponse, setCachedResponse, generateCacheKey, getCacheConfig, incrementCacheHit, incrementCacheMiss } from '../_lib/cache'
 
 interface RequestBody {
   prompt: string
   quotaType: 'chat' | 'xemNgay' | 'tuVi'
 }
 
-// SECURITY: Rate limiting per user (simple in-memory cache)
-const rateLimitCache = new Map<string, { count: number; resetAt: number }>()
-
-function checkRateLimit(userId: string, maxRequests: number = 60, windowMs: number = 60000): boolean {
-  const now = Date.now()
-  const userLimit = rateLimitCache.get(userId)
-  
-  if (!userLimit || now > userLimit.resetAt) {
-    rateLimitCache.set(userId, { count: 1, resetAt: now + windowMs })
-    return true
-  }
-  
-  if (userLimit.count >= maxRequests) {
-    return false
-  }
-  
-  userLimit.count++
-  return true
-}
+// Rate limiting now handled by KV in rateLimit.ts
+// Cache handling now in cache.ts
 
 // SECURITY: Input validation
 function validatePrompt(prompt: string): { valid: boolean; error?: string } {
@@ -96,20 +81,25 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     console.log('✅ JWT verified, user ID:', payload.sub)
     const userId = payload.sub
 
-    // SECURITY: Rate limiting
-    if (!checkRateLimit(userId, 60, 60000)) {
+    // PERFORMANCE: KV-based distributed rate limiting
+    const rateLimit = await checkRateLimit(env.RATE_LIMIT, userId, { limit: 60, window: 60 })
+    if (!rateLimit.allowed) {
       console.warn(`⚠️ Rate limit exceeded for user ${userId}`)
       return new Response(
         JSON.stringify({ 
           error: 'Bạn đang thao tác quá nhanh. Vui lòng đợi 1 phút rồi thử lại.',
-          retryAfter: 60 
+          retryAfter: rateLimit.retryAfter,
+          remaining: rateLimit.remaining
         }), 
         {
           status: 429,
           headers: { 
             'Content-Type': 'application/json', 
             'Access-Control-Allow-Origin': '*',
-            'Retry-After': '60'
+            'Retry-After': rateLimit.retryAfter?.toString() || '60',
+            'X-RateLimit-Limit': '60',
+            'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+            'X-RateLimit-Reset': rateLimit.resetAt.toString()
           },
         }
       )
@@ -175,6 +165,44 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       )
     }
 
+    // PERFORMANCE: Check cache first
+    const cacheConfig = getCacheConfig(quotaType)
+    const cacheKey = generateCacheKey(cacheConfig.prefix, prompt, quotaType)
+    
+    const cachedResult = await getCachedResponse(env.RESPONSE_CACHE, cacheKey)
+    if (cachedResult) {
+      console.log(`💾 Cache hit for ${quotaType} - skipping Gemini API call`)
+      await incrementCacheHit(env.RESPONSE_CACHE)
+      
+      // Still decrement quota
+      const newQuota = decrementQuota(currentQuota, quotaType)
+      await updateUserQuota(userId, newQuota, env)
+      
+      return new Response(
+        JSON.stringify({
+          success: true,
+          result: cachedResult.result,
+          remainingQuota: newQuota,
+          metadata: {
+            ...cachedResult.metadata,
+            cached: true,
+            cacheKey
+          }
+        }),
+        {
+          status: 200,
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'HIT',
+            'Cache-Control': 'no-store'
+          },
+        }
+      )
+    }
+    
+    await incrementCacheMiss(env.RESPONSE_CACHE)
+    
     // Call Gemini API with enhanced error handling
     console.log(`📡 Calling Gemini API for user ${userId}, quotaType: ${quotaType}`)
     const geminiStartTime = Date.now()
@@ -276,6 +304,19 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       duration: geminiDuration
     })
 
+    // PERFORMANCE: Cache the response for future requests
+    const responseData = {
+      result,
+      metadata: {
+        model: 'gemini-2.5-flash',
+        processingTime: geminiDuration,
+        quotaType,
+        cached: false
+      }
+    }
+    
+    await setCachedResponse(env.RESPONSE_CACHE, cacheKey, responseData, cacheConfig.ttl)
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -284,12 +325,18 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         metadata: {
           model: 'gemini-2.5-flash',
           processingTime: geminiDuration,
-          quotaType
+          quotaType,
+          cached: false
         }
       }),
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Access-Control-Allow-Origin': '*',
+          'X-Cache': 'MISS',
+          'Cache-Control': 'no-store'
+        },
       }
     )
   } catch (error: any) {

@@ -3,6 +3,8 @@ export interface Env {
   SUPABASE_SERVICE_KEY: string
   SUPABASE_JWT_SECRET: string
   GEMINI_API_KEY: string
+  RATE_LIMIT: KVNamespace
+  RESPONSE_CACHE: KVNamespace
 }
 
 export async function getUser(userId: string, env: Env) {
