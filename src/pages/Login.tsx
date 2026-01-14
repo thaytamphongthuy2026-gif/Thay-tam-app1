@@ -19,7 +19,20 @@ export default function Login() {
       await login(email, password)
       navigate('/dashboard')
     } catch (err: any) {
-      setError(err.message || 'Đăng nhập thất bại')
+      // Parse error messages
+      let errorMsg = 'Đăng nhập thất bại'
+      
+      if (err.message.includes('Invalid login credentials')) {
+        errorMsg = '❌ Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại.\n\n💡 Nếu vừa đăng ký, bạn cần xác nhận email trước. Kiểm tra hộp thư (kể cả spam).'
+      } else if (err.message.includes('Email not confirmed')) {
+        errorMsg = '❌ Email chưa được xác nhận. Vui lòng kiểm tra hộp thư để xác nhận tài khoản.'
+      } else if (err.message.includes('User not found')) {
+        errorMsg = '❌ Tài khoản không tồn tại. Vui lòng đăng ký trước.'
+      } else if (err.message) {
+        errorMsg = `❌ ${err.message}`
+      }
+      
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }

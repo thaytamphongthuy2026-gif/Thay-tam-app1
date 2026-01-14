@@ -41,6 +41,7 @@ export async function register(email: string, password: string, name: string) {
       data: {
         name: name, // Lưu name vào metadata để trigger dùng
       },
+      emailRedirectTo: undefined, // Không cần redirect
     },
   })
 
@@ -49,6 +50,7 @@ export async function register(email: string, password: string, name: string) {
 
   // Profile sẽ được tự động tạo bởi database trigger
   // Không cần insert thủ công nữa
+  
   return data.user
 }
 

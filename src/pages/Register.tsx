@@ -30,8 +30,8 @@ export default function Register() {
 
     try {
       await register(email, password, name)
-      // Show success message before redirect
-      alert('Đăng ký thành công! Bạn có thể đăng nhập ngay.')
+      // Show success message with instructions
+      alert('✅ Đăng ký thành công!\n\n📧 Vui lòng kiểm tra email để xác nhận tài khoản (kể cả thư mục spam).\n\n💡 Sau khi xác nhận, bạn có thể đăng nhập.')
       navigate('/login')
     } catch (err: any) {
       // Parse error message
