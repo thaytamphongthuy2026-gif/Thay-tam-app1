@@ -308,8 +308,8 @@ Authorization: Bearer <JWT_TOKEN>
 
 1. Clone repository:
 ```bash
-git clone https://github.com/thaytamphongthuy2026-gif/thay-tam-app.git
-cd thay-tam-app
+git clone https://github.com/thaytamphongthuy2026-gif/Thay-tam-app1.git
+cd Thay-tam-app1
 ```
 
 2. Install dependencies:
@@ -345,6 +345,37 @@ npm run build
 ```bash
 npm run deploy
 ```
+
+## 🚀 AUTO-DEPLOY VỚI GITHUB ACTIONS
+
+### ✅ Đã setup: Auto-deploy khi push to GitHub
+
+**Workflow**: Push code → GitHub Actions → Build → Deploy to Cloudflare Pages
+
+**Cách sử dụng**:
+```bash
+# 1. Edit code
+vim src/pages/Home.tsx
+
+# 2. Commit & push
+git add .
+git commit -m "Feature: Update homepage"
+git push origin main
+
+# 3. GitHub Actions tự động:
+#    ✅ npm install
+#    ✅ npm run build
+#    ✅ Deploy to Cloudflare Pages
+#    ✅ New URL: https://xyz.thaytam-phongthuy-v2.pages.dev
+```
+
+**Monitoring**:
+- GitHub: Actions tab → See deployment status
+- Cloudflare: Pages → Deployments tab
+
+**Documentation**:
+- Setup guide: `AUTO_DEPLOY_GITHUB_GUIDE.md`
+- API Token guide: `CLOUDFLARE_API_TOKEN_GUIDE.md`
 
 ## 📦 Project Structure
 
