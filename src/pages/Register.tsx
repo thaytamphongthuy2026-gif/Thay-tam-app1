@@ -38,15 +38,17 @@ export default function Register() {
       let errorMsg = 'Đăng ký thất bại'
       
       if (err.message.includes('already registered')) {
-        errorMsg = 'Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.'
-      } else if (err.message.includes('invalid email')) {
-        errorMsg = 'Email không hợp lệ. Vui lòng kiểm tra lại.'
+        errorMsg = '❌ Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.'
+      } else if (err.message.includes('invalid') || err.message.includes('Invalid')) {
+        errorMsg = '❌ Email không hợp lệ. Vui lòng dùng email thật (VD: yourname@gmail.com) hoặc email tạm từ temp-mail.org'
       } else if (err.message.includes('weak password')) {
-        errorMsg = 'Mật khẩu quá yếu. Vui lòng dùng mật khẩu mạnh hơn.'
-      } else if (err.message.includes('rate limit')) {
-        errorMsg = 'Bạn đang thao tác quá nhanh. Vui lòng thử lại sau 1 phút.'
+        errorMsg = '❌ Mật khẩu quá yếu. Vui lòng dùng mật khẩu có ít nhất 6 ký tự, bao gồm chữ và số.'
+      } else if (err.message.includes('rate limit') || err.message.includes('too many')) {
+        errorMsg = '❌ Bạn đang thao tác quá nhanh. Vui lòng đợi 1-2 phút rồi thử lại.'
+      } else if (err.message.includes('User already registered')) {
+        errorMsg = '❌ Tài khoản đã tồn tại. Hãy thử đăng nhập.'
       } else if (err.message) {
-        errorMsg = err.message
+        errorMsg = `❌ ${err.message}`
       }
       
       setError(errorMsg)
@@ -115,8 +117,11 @@ export default function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="email@example.com"
+                placeholder="yourname@gmail.com"
               />
+              <p className="text-xs text-gray-500 mt-1">
+                💡 Dùng email thật hoặc email tạm từ <a href="https://temp-mail.org" target="_blank" rel="noopener" className="text-purple-600 underline">temp-mail.org</a>
+              </p>
             </div>
 
             <div>
