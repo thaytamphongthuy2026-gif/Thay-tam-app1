@@ -11,6 +11,8 @@ import XemNgayTot from './pages/XemNgayTot'
 import TuVi from './pages/TuVi'
 import Pricing from './pages/Pricing'
 import LichPhongThuy from './pages/LichPhongThuy'
+import Payment from './pages/Payment'
+import PaymentResult from './pages/PaymentResult'
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
               <Route path="/tu-vi" element={<TuVi />} />
               <Route path="/lich-phong-thuy" element={<LichPhongThuy />} />
               <Route path="/pricing" element={<Pricing />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/payment-result" element={<PaymentResult />} />
             </Routes>
           </main>
           <Footer />

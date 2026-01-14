@@ -19,34 +19,34 @@ export default function Pricing() {
     },
     {
       name: 'Pro',
-      price: '99,000 VNĐ',
+      price: '299,000 VNĐ',
       period: 'tháng',
       features: [
-        '50 lượt xem ngày tốt/ngày',
-        '10 lượt xem tử vi/ngày',
-        '100 câu hỏi chat/ngày',
+        '50 lượt xem ngày tốt/tháng',
+        '10 lượt xem tử vi/tháng',
+        '100 câu hỏi chat/tháng',
         'Lịch phong thủy đầy đủ',
         'Hỗ trợ ưu tiên',
       ],
       cta: 'Nâng cấp Pro',
-      href: '/payment',
+      href: '/payment?plan=pro',
       popular: false
     },
     {
       name: 'Premium',
-      price: '299,000 VNĐ',
+      price: '999,000 VNĐ',
       period: 'tháng',
       features: [
         'Không giới hạn xem ngày tốt',
         'Không giới hạn xem tử vi',
         'Không giới hạn chat',
         'Lịch phong thủy VIP',
-        'Tư vấn 1-1 với chuyên gia',
-        'Báo cáo chi tiết PDF',
+        'Tư vấn chuyên sâu',
+        'Báo cáo chi tiết',
         'Hỗ trợ 24/7',
       ],
       cta: 'Nâng cấp Premium',
-      href: '/payment',
+      href: '/payment?plan=premium',
       popular: true
     }
   ]
