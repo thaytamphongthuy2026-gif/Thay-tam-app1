@@ -1,13 +1,13 @@
-# 🔮 Thầy Tám Phong Thủy 2026 - PRODUCTION VERSION
+# 🔮 Thầy Tám Phong Thủy 2026 - Tư Vấn Phong Thủy Tết Ất Tỵ
 
-Nền tảng tư vấn phong thủy chuyên nghiệp với công nghệ AI, giúp người dùng xem ngày tốt, xem tử vi, và nhận tư vấn phong thủy trực tuyến 24/7.
+Nền tảng tư vấn phong thủy chuyên nghiệp cho Tết 2026 (Ất Tỵ) với công nghệ AI. Xem ngày tốt khai trương, cưới hỏi, động thổ. Xem tử vi 12 con giáp năm Rắn 2026. Tư vấn phong thủy trực tuyến 24/7.
 
 ## 🌐 URLs PRODUCTION
 
-- **Production Website**: https://760e22cf.thaytam-phongthuy-v2.pages.dev
-- **Main Branch**: https://main.thaytam-phongthuy-v2.pages.dev
-- **Custom Domain**: https://thaytam-phongthuy-v2.pages.dev
+- **Production Website**: https://5dacb420.thaytam-phongthuy-v2.pages.dev
+- **Custom Domain** (setup pending): https://thaytamphongthuy.com
 - **GitHub Repository**: https://github.com/thaytamphongthuy2026-gif/Thay-tam-app1
+- **SEO Content Repo**: https://github.com/thaytamphongthuy2026-gif/thaytamphongthuy-lp
 
 ## 🔒 NÂNG CẤP BẢO MẬT PRODUCTION
 
@@ -51,6 +51,89 @@ Nền tảng tư vấn phong thủy chuyên nghiệp với công nghệ AI, giú
 - **HARM_CATEGORY_HATE_SPEECH**: Block medium and above
 - **HARM_CATEGORY_SEXUALLY_EXPLICIT**: Block medium and above
 - **HARM_CATEGORY_DANGEROUS_CONTENT**: Block medium and above
+
+## 🎯 SEO OPTIMIZATION TẾT 2026
+
+### ✅ Đã Hoàn Thành
+
+**Homepage SEO:**
+- Keywords: `phong thủy 2026`, `tết ất tỵ`, `xem ngày tốt 2026`, `tử vi năm rắn`
+- Meta tags: title (65 chars), description (155 chars), OG/Twitter cards
+- JSON-LD structured data (ProfessionalService schema)
+- Canonical URLs
+- H1-H3 semantic structure
+- SEO-rich content: 12 con giáp analysis, FAQ section
+
+**Blog Content Marketing:**
+- `/blog` page với 7 bài viết SEO:
+  1. Top 10 Ngày Tốt Khai Trương 2026
+  2. Tử Vi 12 Con Giáp 2026
+  3. Phong Thủy Tết 2026
+  4. Xem Ngày Cưới Tốt 2026
+  5. Hướng Nhà Tốt 2026
+  6. Tuổi Tỵ Phạm Tuổi 2026
+  7. Màu Sắc May Mắn 2026
+- Internal linking strategy
+- Category badges + reading time
+
+**Technical SEO:**
+- `sitemap.xml` (8 pages với priority)
+- `robots.txt` (crawl rules)
+- Mobile-optimized
+- Page speed: 526KB bundle
+- Contact: `thaytamphongthuy2026@gmail.com`
+
+### 📊 Google Search Console Setup
+
+**Bước 1: Verify Domain (Pending)**
+1. Vào: https://search.google.com/search-console
+2. Chọn: "Add property" → URL prefix: `https://thaytamphongthuy.com`
+3. Verify bằng HTML tag hoặc DNS TXT record
+
+**Bước 2: Submit Sitemap**
+```
+Sitemap URL: https://thaytamphongthuy.com/sitemap.xml
+```
+
+**Bước 3: Request Indexing**
+- Submit homepage: `https://thaytamphongthuy.com/`
+- Submit blog page: `https://thaytamphongthuy.com/blog`
+- Submit key pages: `/xem-ngay-tot`, `/tu-vi`, `/pricing`
+
+**Bước 4: Monitor (7-14 days)**
+- Check "Coverage" report
+- Monitor "Performance" (clicks, impressions)
+- Fix any errors
+
+### 🎯 Target Keywords (Tết 2026)
+
+| Keyword | Volume | Difficulty | Status |
+|---------|--------|------------|--------|
+| phong thủy 2026 | High | Medium | ✅ Optimized |
+| xem ngày tốt 2026 | High | Medium | ✅ Optimized |
+| tử vi 2026 | Very High | High | ✅ Optimized |
+| tết ất tỵ 2026 | High | Low | ✅ Optimized |
+| ngày hoàng đạo 2026 | Medium | Medium | ✅ Optimized |
+| phong thủy tết | High | Medium | ✅ Optimized |
+| xem ngày khai trương | Medium | Low | ✅ Optimized |
+| tử vi 12 con giáp | High | High | ✅ Optimized |
+
+### 📈 Expected SEO Results
+
+**Week 1-2:**
+- Google starts crawling sitemap
+- Homepage + Blog indexed
+- Branded searches appear
+
+**Week 3-4:**
+- Long-tail keywords start ranking
+- Blog articles indexed
+- Social shares increase
+
+**Month 2-3:**
+- Top 10 for "phong thủy tết 2026"
+- Top 20 for "xem ngày tốt 2026"
+- Organic traffic: 1000+ visits/month
 
 ## 🎯 Tính năng
 

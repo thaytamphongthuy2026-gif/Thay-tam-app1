@@ -24,7 +24,7 @@ export default function Home() {
 
     metaTags.forEach(({ name, property, content }) => {
       const attr = name ? 'name' : 'property'
-      const value = name || property
+      const value = (name || property) as string
       let meta = document.querySelector(`meta[${attr}="${value}"]`)
       if (!meta) {
         meta = document.createElement('meta')
