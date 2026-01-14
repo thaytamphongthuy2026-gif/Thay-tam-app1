@@ -37,24 +37,18 @@ export async function register(email: string, password: string, name: string) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        name: name, // Lưu name vào metadata để trigger dùng
+      },
+    },
   })
 
   if (error) throw error
-  if (!data.user) throw new Error('Registration failed')
+  if (!data.user) throw new Error('Đăng ký thất bại')
 
-  // Create user profile in users table
-  const { error: profileError } = await supabase
-    .from('users')
-    .insert({
-      id: data.user.id,
-      email,
-      name,
-      plan: 'free',
-      quota: { xemNgay: 3, tuVi: 1, chat: 10 },
-    })
-
-  if (profileError) throw profileError
-
+  // Profile sẽ được tự động tạo bởi database trigger
+  // Không cần insert thủ công nữa
   return data.user
 }
 

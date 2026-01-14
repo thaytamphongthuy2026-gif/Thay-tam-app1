@@ -30,9 +30,26 @@ export default function Register() {
 
     try {
       await register(email, password, name)
+      // Show success message before redirect
+      alert('Đăng ký thành công! Bạn có thể đăng nhập ngay.')
       navigate('/login')
     } catch (err: any) {
-      setError(err.message || 'Đăng ký thất bại')
+      // Parse error message
+      let errorMsg = 'Đăng ký thất bại'
+      
+      if (err.message.includes('already registered')) {
+        errorMsg = 'Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.'
+      } else if (err.message.includes('invalid email')) {
+        errorMsg = 'Email không hợp lệ. Vui lòng kiểm tra lại.'
+      } else if (err.message.includes('weak password')) {
+        errorMsg = 'Mật khẩu quá yếu. Vui lòng dùng mật khẩu mạnh hơn.'
+      } else if (err.message.includes('rate limit')) {
+        errorMsg = 'Bạn đang thao tác quá nhanh. Vui lòng thử lại sau 1 phút.'
+      } else if (err.message) {
+        errorMsg = err.message
+      }
+      
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }
