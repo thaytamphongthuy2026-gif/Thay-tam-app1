@@ -1,73 +1,266 @@
-# React + TypeScript + Vite
+# Thầy Tám Phong Thủy 2026
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nền tảng tư vấn phong thủy chuyên nghiệp với công nghệ AI, giúp người dùng xem ngày tốt, xem tử vi, và nhận tư vấn phong thủy trực tuyến 24/7.
 
-Currently, two official plugins are available:
+## 🎯 Tính năng
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ✅ Đã hoàn thành
 
-## React Compiler
+- **Đăng ký/Đăng nhập**: Xác thực người dùng với Supabase Auth
+- **Dashboard**: Hiển thị quota và truy cập nhanh các tính năng
+- **Tư vấn Chat**: Chat trực tiếp với Thầy Tám (AI) về phong thủy
+- **Xem ngày tốt**: Chọn ngày phù hợp cho khai trương, cưới hỏi, động thổ, etc.
+- **Xem tử vi**: Dự đoán vận mệnh năm 2026 dựa trên ngày giờ sinh
+- **Quản lý Quota**: Giới hạn sử dụng theo gói (Free/Pro/Premium)
+- **Responsive Design**: Tối ưu cho mobile và desktop
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔄 Đang phát triển
 
-## Expanding the ESLint configuration
+- **Lịch phong thủy**: Xem lịch phong thủy theo tháng
+- **Thanh toán**: Tích hợp VNPay/MoMo
+- **Quản lý Profile**: Cập nhật thông tin cá nhân
+- **Chat History**: Lưu lịch sử chat
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📝 Kế hoạch tương lai
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Xuất PDF**: Xuất báo cáo tử vi, ngày tốt dạng PDF
+- **Tư vấn 1-1**: Đặt lịch tư vấn với chuyên gia thật
+- **Admin Dashboard**: Quản lý người dùng, đơn hàng
+- **Email Notification**: Thông báo qua email
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🏗️ Kiến trúc
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+Frontend: React 18 + TypeScript + Vite + Tailwind CSS
+Backend: Cloudflare Functions (Serverless)
+Database: Supabase PostgreSQL + Row Level Security
+Auth: Supabase Auth (Email/Password)
+AI: Google Gemini 2.0 Flash API
+Hosting: Cloudflare Pages
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📊 Database Schema
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Table: `users`
+- `id` (UUID): User ID (từ Supabase Auth)
+- `email` (TEXT): Email
+- `name` (TEXT): Họ tên
+- `plan` (TEXT): Gói dịch vụ (free/pro/premium)
+- `quota` (JSONB): Quota còn lại `{xemNgay, tuVi, chat}`
+- `plan_expiry` (TIMESTAMPTZ): Ngày hết hạn gói
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Table: `orders`
+- `id` (UUID): Order ID
+- `user_id` (UUID): User ID
+- `plan` (TEXT): Gói đã mua
+- `amount` (INTEGER): Số tiền
+- `status` (TEXT): Trạng thái (pending/paid/expired)
+- `transaction_id` (TEXT): Mã giao dịch
+
+## 🚀 API Endpoints
+
+### `POST /api/gemini`
+**Mục đích**: Gọi Gemini AI với kiểm tra quota
+
+**Headers**:
 ```
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+```
+
+**Body**:
+```json
+{
+  "prompt": "Hôm nay ngày tốt không?",
+  "quotaType": "chat" | "xemNgay" | "tuVi"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "result": "Dựa vào lịch phong thủy...",
+  "remainingQuota": { "xemNgay": 3, "tuVi": 1, "chat": 9 }
+}
+```
+
+### `GET /api/quota`
+**Mục đích**: Lấy thông tin quota hiện tại
+
+**Headers**:
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "user": { "id": "...", "name": "...", "plan": "free" },
+  "quota": { "xemNgay": 3, "tuVi": 1, "chat": 10 }
+}
+```
+
+## 💳 Gói dịch vụ
+
+| Tính năng | Free | Pro (99k/tháng) | Premium (299k/tháng) |
+|-----------|------|-----------------|----------------------|
+| Xem ngày tốt | 3/ngày | 50/ngày | ∞ |
+| Xem tử vi | 1/ngày | 10/ngày | ∞ |
+| Chat | 10/ngày | 100/ngày | ∞ |
+| Lịch phong thủy | ✓ | ✓ | VIP |
+| Hỗ trợ | - | Ưu tiên | 24/7 |
+| Tư vấn 1-1 | - | - | ✓ |
+| Xuất PDF | - | - | ✓ |
+
+## 🔒 Bảo mật
+
+- JWT verification với `jose` library
+- Row Level Security (RLS) trong Supabase
+- CORS whitelist
+- API keys không expose trong frontend
+- Input validation và sanitization
+
+## 🌐 URLs
+
+- **Production**: https://thaytam-phongthuy.pages.dev (sẽ deploy)
+- **GitHub**: https://github.com/thaytamphongthuy2026-gif/thay-tam-app
+- **Supabase Project**: https://jnfpxvodlmfukpagozcw.supabase.co
+
+## 🛠️ Development
+
+### Prerequisites
+- Node.js 18+
+- npm hoặc yarn
+- Supabase account
+- Cloudflare account
+- Google Gemini API key
+
+### Setup
+
+1. Clone repository:
+```bash
+git clone https://github.com/thaytamphongthuy2026-gif/thay-tam-app.git
+cd thay-tam-app
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Tạo file `.env`:
+```bash
+VITE_SUPABASE_URL=https://jnfpxvodlmfukpagozcw.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key
+```
+
+4. Tạo file `.dev.vars`:
+```bash
+SUPABASE_URL=https://jnfpxvodlmfukpagozcw.supabase.co
+SUPABASE_SERVICE_KEY=your_service_key
+SUPABASE_JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_gemini_key
+```
+
+5. Run development server:
+```bash
+npm run dev
+```
+
+6. Build for production:
+```bash
+npm run build
+```
+
+7. Deploy to Cloudflare Pages:
+```bash
+npm run deploy
+```
+
+## 📦 Project Structure
+
+```
+webapp/
+├── src/
+│   ├── components/       # React components
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   ├── pages/            # Page components
+│   │   ├── Home.tsx
+│   │   ├── Login.tsx
+│   │   ├── Register.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── Chat.tsx
+│   │   ├── XemNgayTot.tsx
+│   │   ├── TuVi.tsx
+│   │   └── Pricing.tsx
+│   ├── lib/              # Utility functions
+│   │   ├── supabase.ts   # Supabase client
+│   │   ├── auth.ts       # Auth functions
+│   │   ├── gemini.ts     # Gemini API calls
+│   │   └── prompts.ts    # AI prompts
+│   ├── App.tsx
+│   └── main.tsx
+├── functions/            # Cloudflare Functions
+│   ├── _lib/
+│   │   ├── auth.ts       # JWT verification
+│   │   └── database.ts   # Database queries
+│   └── api/
+│       ├── gemini.ts     # POST /api/gemini
+│       └── quota.ts      # GET /api/quota
+├── public/               # Static assets
+├── .env                  # Frontend env vars
+├── .dev.vars             # Backend env vars (local)
+├── wrangler.toml         # Cloudflare config
+├── package.json
+└── README.md
+```
+
+## 🧪 Testing
+
+### Demo Accounts (sau khi tạo trong Supabase):
+- **Free User**: test@example.com / password123
+- **Premium User**: chat@thaytam.com / password123
+
+### Test Flow:
+1. Đăng ký tài khoản mới
+2. Đăng nhập
+3. Kiểm tra Dashboard (quota hiển thị đúng)
+4. Chat với AI (quota giảm sau mỗi câu hỏi)
+5. Xem ngày tốt (chọn ngày và mục đích)
+6. Xem tử vi (nhập ngày giờ sinh)
+
+## 🐛 Known Issues
+
+- [ ] Quota không tự reset hàng ngày (cần cron job)
+- [ ] Chat history không được lưu
+- [ ] Chưa có xác thực email
+- [ ] Chưa tích hợp thanh toán thực
+
+## 📝 Changelog
+
+### Version 0.1.0 (2026-01-14)
+- ✅ Initial release
+- ✅ Tất cả tính năng core (Auth, Chat, Xem Ngày, Xem Tử Vi)
+- ✅ Quota management
+- ✅ Responsive UI
+- ✅ Cloudflare Functions backend
+
+## 👥 Contributors
+
+- **AI Developer** - Initial development
+- **Product Owner** - Requirements và testing
+
+## 📄 License
+
+Copyright © 2026 Thầy Tám Phong Thủy. All rights reserved.
+
+## 🆘 Support
+
+Nếu gặp vấn đề, vui lòng:
+1. Check console logs (F12)
+2. Kiểm tra Supabase logs
+3. Xem Cloudflare Functions logs
+4. Liên hệ: contact@thaytam.com
