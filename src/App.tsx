@@ -10,6 +10,7 @@ import Chat from './pages/Chat'
 import XemNgayTot from './pages/XemNgayTot'
 import TuVi from './pages/TuVi'
 import Pricing from './pages/Pricing'
+import LichPhongThuy from './pages/LichPhongThuy'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/chat" element={<Chat />} />
               <Route path="/xem-ngay-tot" element={<XemNgayTot />} />
               <Route path="/tu-vi" element={<TuVi />} />
+              <Route path="/lich-phong-thuy" element={<LichPhongThuy />} />
               <Route path="/pricing" element={<Pricing />} />
             </Routes>
           </main>

@@ -41,6 +41,10 @@ export default function Header() {
                   <MessageCircle className="w-4 h-4" />
                   <span>Tư vấn</span>
                 </Link>
+                <Link to="/lich-phong-thuy" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>Lịch Phong Thủy</span>
+                </Link>
                 <Link to="/pricing" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
                   <CreditCard className="w-4 h-4" />
                   <span>Gói dịch vụ</span>

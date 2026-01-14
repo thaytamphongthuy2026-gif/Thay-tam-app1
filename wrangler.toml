@@ -5,3 +5,9 @@ pages_build_output_dir = "dist"
 
 [vars]
 ENVIRONMENT = "production"
+
+# Cron Triggers for Scheduled Tasks
+# Reset quota daily at 00:00 Vietnam Time (UTC+7)
+# Cron runs at 17:00 UTC = 00:00 UTC+7
+[triggers]
+crons = ["0 17 * * *"]
