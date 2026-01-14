@@ -180,7 +180,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     const geminiStartTime = Date.now()
     
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: {
@@ -282,7 +282,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         result,
         remainingQuota: newQuota,
         metadata: {
-          model: 'gemini-2.0-flash-exp',
+          model: 'gemini-3-flash-preview',
           processingTime: geminiDuration,
           quotaType
         }

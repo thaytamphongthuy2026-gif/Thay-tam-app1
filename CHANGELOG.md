@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file.
 ### 🤖 AI Model Updates
 
 #### Changed
-- Upgraded to **Gemini 2.0 Flash Experimental** (`gemini-2.0-flash-exp`)
+- Upgraded to **Gemini 3.0 Flash Preview** (`gemini-3-flash-preview`)
 - Enhanced generation config:
   - `temperature`: 0.7
   - `maxOutputTokens`: 2048
