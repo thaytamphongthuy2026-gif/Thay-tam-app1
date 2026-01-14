@@ -123,12 +123,6 @@ export default function Login() {
             )}
           </button>
         </form>
-
-        <div className="text-center text-sm text-gray-600">
-          <p>Demo accounts:</p>
-          <p>test@example.com / password123</p>
-          <p>chat@thaytam.com / password123</p>
-        </div>
       </div>
     </div>
   )

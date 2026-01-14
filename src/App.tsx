@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ProfileSetup from './pages/ProfileSetup'
 import Dashboard from './pages/Dashboard'
 import Chat from './pages/Chat'
 import XemNgayTot from './pages/XemNgayTot'
@@ -30,6 +31,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/profile-setup" element={<ProfileSetup />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/xem-ngay-tot" element={<XemNgayTot />} />
