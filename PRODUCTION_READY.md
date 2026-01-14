@@ -67,8 +67,8 @@
 ## 🤖 GEMINI AI INTEGRATION
 
 ### Model
-- **API**: `gemini-3-flash-preview` (Google Gemini 3.0 Flash Preview)
-- **Endpoint**: `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent`
+- **API**: `gemini-2.5-flash` (Google Gemini 2.5 Flash - LATEST!)
+- **Endpoint**: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
 
 ### Configuration
 ```json

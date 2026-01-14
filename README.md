@@ -85,7 +85,7 @@ Frontend: React 18 + TypeScript + Vite + Tailwind CSS v3
 Backend: Cloudflare Functions (Serverless Edge Computing)
 Database: Supabase PostgreSQL + Row Level Security (RLS)
 Auth: Supabase Auth (Email/Password) + JWT ES256
-AI: Google Gemini 3.0 Flash Preview API
+AI: Google Gemini 2.5 Flash API
 Hosting: Cloudflare Pages (Global CDN)
 Security: Rate Limiting + Input Validation + XSS Protection
 ```
