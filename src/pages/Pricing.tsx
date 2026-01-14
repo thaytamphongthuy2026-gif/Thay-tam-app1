@@ -29,7 +29,7 @@ export default function Pricing() {
         'Hỗ trợ ưu tiên',
       ],
       cta: 'Nâng cấp Pro',
-      href: '/payment?plan=pro',
+      href: '/qr-payment?plan=pro',
       popular: false
     },
     {
@@ -46,7 +46,7 @@ export default function Pricing() {
         'Hỗ trợ 24/7',
       ],
       cta: 'Nâng cấp Premium',
-      href: '/payment?plan=premium',
+      href: '/qr-payment?plan=premium',
       popular: true
     }
   ]

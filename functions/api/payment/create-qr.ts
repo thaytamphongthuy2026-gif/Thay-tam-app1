@@ -26,13 +26,12 @@ const PLAN_PRICING = {
   }
 }
 
-// Bank account configuration
-// TODO: Replace with your actual bank account
+// Bank account configuration - Techcombank
 const BANK_ACCOUNT: BankAccount = {
-  bankId: '970422',  // MB Bank
-  bankName: 'MB Bank',
-  accountNumber: '0123456789',
-  accountName: 'NGUYEN VAN A'
+  bankId: '970407',  // Techcombank
+  bankName: 'Techcombank',
+  accountNumber: '70966668070',
+  accountName: 'DAO QUOC CUONG'
 }
 
 export async function onRequestPost(context: { request: Request; env: Env }) {
