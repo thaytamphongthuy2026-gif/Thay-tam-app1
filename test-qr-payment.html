@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test QR Payment</title>
+</head>
+<body>
+    <h1>Test QR Payment Flow</h1>
+    <div id="result"></div>
+    
+    <script>
+        // Test flow
+        async function testFlow() {
+            const result = document.getElementById('result');
+            
+            // Step 1: Check if JWT token exists
+            const token = localStorage.getItem('jwt_token');
+            result.innerHTML += `<p>1. JWT Token: ${token ? 'EXISTS ✅' : 'MISSING ❌'}</p>`;
+            
+            if (!token) {
+                result.innerHTML += `<p style="color: red;">Problem: No JWT token in localStorage. Need to login first.</p>`;
+                return;
+            }
+            
+            // Step 2: Test create QR payment
+            result.innerHTML += `<p>2. Testing create QR payment...</p>`;
+            try {
+                const response = await fetch('/api/payment/create-qr', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ plan: 'pro' })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.innerHTML += `<p style="color: green;">✅ Create QR Payment: SUCCESS</p>`;
+                    result.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    result.innerHTML += `<p style="color: red;">❌ Create QR Payment: FAILED</p>`;
+                    result.innerHTML += `<pre>Status: ${response.status}\nError: ${JSON.stringify(data, null, 2)}</pre>`;
+                }
+            } catch (error) {
+                result.innerHTML += `<p style="color: red;">❌ Network Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Run test when page loads
+        testFlow();
+    </script>
+</body>
+</html>

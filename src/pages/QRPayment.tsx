@@ -71,6 +71,13 @@ export default function QRPayment() {
       const data = await response.json()
 
       if (!response.ok) {
+        // If 401 Unauthorized, redirect to login
+        if (response.status === 401) {
+          localStorage.removeItem('jwt_token')
+          localStorage.removeItem('user_email')
+          navigate('/login?redirect=/qr-payment?plan=' + plan)
+          return
+        }
         throw new Error(data.error || 'Không thể tạo thanh toán')
       }
 
