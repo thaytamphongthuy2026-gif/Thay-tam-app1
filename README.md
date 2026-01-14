@@ -1,6 +1,56 @@
-# Thầy Tám Phong Thủy 2026
+# 🔮 Thầy Tám Phong Thủy 2026 - PRODUCTION VERSION
 
 Nền tảng tư vấn phong thủy chuyên nghiệp với công nghệ AI, giúp người dùng xem ngày tốt, xem tử vi, và nhận tư vấn phong thủy trực tuyến 24/7.
+
+## 🌐 URLs PRODUCTION
+
+- **Production Website**: https://760e22cf.thaytam-phongthuy-v2.pages.dev
+- **Main Branch**: https://main.thaytam-phongthuy-v2.pages.dev
+- **Custom Domain**: https://thaytam-phongthuy-v2.pages.dev
+- **GitHub Repository**: https://github.com/thaytamphongthuy2026-gif/Thay-tam-app1
+
+## 🔒 NÂNG CẤP BẢO MẬT PRODUCTION
+
+### ✅ Security Features Implemented
+
+1. **Enhanced JWT Validation**
+   - Algorithm verification (ES256/HS256)
+   - Expiration check with detailed error messages
+   - Issuer & audience validation
+   - Role-based access control
+   - Future-date token detection
+
+2. **Rate Limiting**
+   - 60 requests per minute per user
+   - In-memory cache for performance
+   - Automatic reset after 60 seconds
+   - 429 status with Retry-After header
+
+3. **Input Sanitization**
+   - Minimum/maximum length validation
+   - XSS attack prevention
+   - Script injection detection
+   - Event handler blocking
+
+4. **Comprehensive Logging**
+   - Timestamped error logs
+   - User action tracking
+   - API response time monitoring
+   - Quota usage analytics
+
+5. **API Security**
+   - Environment variable validation
+   - Sensitive data masking in responses
+   - Cache-Control headers for quota endpoint
+   - CORS configuration
+   - Content safety filters (Gemini API)
+
+### 🛡️ Safety Settings
+
+- **HARM_CATEGORY_HARASSMENT**: Block medium and above
+- **HARM_CATEGORY_HATE_SPEECH**: Block medium and above
+- **HARM_CATEGORY_SEXUALLY_EXPLICIT**: Block medium and above
+- **HARM_CATEGORY_DANGEROUS_CONTENT**: Block medium and above
 
 ## 🎯 Tính năng
 
@@ -31,12 +81,13 @@ Nền tảng tư vấn phong thủy chuyên nghiệp với công nghệ AI, giú
 ## 🏗️ Kiến trúc
 
 ```
-Frontend: React 18 + TypeScript + Vite + Tailwind CSS
-Backend: Cloudflare Functions (Serverless)
-Database: Supabase PostgreSQL + Row Level Security
-Auth: Supabase Auth (Email/Password)
-AI: Google Gemini 2.0 Flash API
-Hosting: Cloudflare Pages
+Frontend: React 18 + TypeScript + Vite + Tailwind CSS v3
+Backend: Cloudflare Functions (Serverless Edge Computing)
+Database: Supabase PostgreSQL + Row Level Security (RLS)
+Auth: Supabase Auth (Email/Password) + JWT ES256
+AI: Google Gemini 2.0 Flash Experimental API
+Hosting: Cloudflare Pages (Global CDN)
+Security: Rate Limiting + Input Validation + XSS Protection
 ```
 
 ## 📊 Database Schema
@@ -60,7 +111,14 @@ Hosting: Cloudflare Pages
 ## 🚀 API Endpoints
 
 ### `POST /api/gemini`
-**Mục đích**: Gọi Gemini AI với kiểm tra quota
+**Mục đích**: Gọi Gemini AI với kiểm tra quota và bảo mật
+
+**Security**:
+- ✅ JWT verification (ES256 algorithm)
+- ✅ Rate limiting (60 req/min per user)
+- ✅ Input sanitization (3-5000 chars, XSS protection)
+- ✅ Quota validation before API call
+- ✅ Content safety filters
 
 **Headers**:
 ```
@@ -68,13 +126,38 @@ Authorization: Bearer <JWT_TOKEN>
 Content-Type: application/json
 ```
 
-**Body**:
+**Request Body**:
 ```json
 {
-  "prompt": "Hôm nay ngày tốt không?",
+  "prompt": "Hôm nay ngày tốt để khai trương không?",
   "quotaType": "chat" | "xemNgay" | "tuVi"
 }
 ```
+
+**Success Response** (200):
+```json
+{
+  "success": true,
+  "result": "Ngày hôm nay rất tốt để khai trương...",
+  "remainingQuota": {
+    "xemNgay": 2,
+    "tuVi": 1,
+    "chat": 9
+  },
+  "metadata": {
+    "model": "gemini-2.0-flash-exp",
+    "processingTime": 1250,
+    "quotaType": "chat"
+  }
+}
+```
+
+**Error Responses**:
+- `401`: Missing/invalid token
+- `403`: Insufficient quota
+- `429`: Rate limit exceeded (60 req/min)
+- `400`: Invalid input (XSS detected, length violation)
+- `500`: Server error
 
 **Response**:
 ```json
