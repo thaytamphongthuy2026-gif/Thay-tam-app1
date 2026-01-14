@@ -22,6 +22,15 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
   }
 
   try {
+    // Debug: Check if JWT secret exists
+    if (!env.SUPABASE_JWT_SECRET) {
+      console.error('SUPABASE_JWT_SECRET is missing!')
+      return new Response(JSON.stringify({ error: 'Server configuration error' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      })
+    }
+
     // Extract and verify JWT token
     const token = extractToken(request)
     if (!token) {
@@ -31,7 +40,9 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       })
     }
 
+    console.log('Verifying JWT token...')
     const payload = await verifyJWT(token, env.SUPABASE_JWT_SECRET)
+    console.log('JWT verified, user ID:', payload.sub)
     const userId = payload.sub
 
     // Get request body
