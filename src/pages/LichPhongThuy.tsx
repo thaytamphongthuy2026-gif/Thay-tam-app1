@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Calendar, ChevronLeft, ChevronRight, Loader2, AlertCircle } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
+import { solarToLunar } from '../lib/lunarCalendar'
 
 interface MonthData {
   month: number
@@ -171,13 +172,16 @@ Trả lời chi tiết bằng tiếng Việt, dễ hiểu.`
                       currentMonth === new Date().getMonth() + 1 && 
                       currentYear === new Date().getFullYear()
 
+      // Calculate lunar date for this day
+      const lunar = solarToLunar(day, currentMonth, currentYear)
+
       days.push(
         <button
           key={day}
           onClick={() => handleDayClick(day)}
           disabled={loading}
           className={`
-            aspect-square p-2 rounded-lg border-2 transition-all
+            aspect-square p-2 rounded-lg border-2 transition-all flex flex-col items-center justify-center
             ${isSelected ? 'border-purple-600 bg-purple-50 scale-105' : 'border-gray-200'}
             ${isGoodDay && !isSelected ? 'bg-green-50 border-green-300' : ''}
             ${isBadDay && !isSelected ? 'bg-red-50 border-red-300' : ''}
@@ -186,9 +190,10 @@ Trả lời chi tiết bằng tiếng Việt, dễ hiểu.`
             ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md cursor-pointer'}
           `}
         >
-          <div className="text-sm">{day}</div>
-          {isGoodDay && <div className="text-xs text-green-600">✓</div>}
-          {isBadDay && <div className="text-xs text-red-600">✗</div>}
+          <div className="text-lg font-semibold">{day}</div>
+          <div className="text-xs text-gray-500">{lunar.day}/{lunar.month}</div>
+          {isGoodDay && <div className="text-xs text-green-600 mt-1">✓ Tốt</div>}
+          {isBadDay && <div className="text-xs text-red-600 mt-1">✗ Xấu</div>}
         </button>
       )
     }
