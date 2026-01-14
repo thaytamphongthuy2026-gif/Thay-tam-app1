@@ -129,12 +129,13 @@ export function solarToLunar(
   
   let a11 = getLunarMonth11(yy, timeZone)
   let b11 = a11
+  let lunarYear = yy
   
   if (a11 >= monthStart) {
-    const lunarYear = yy
+    lunarYear = yy
     a11 = getLunarMonth11(yy - 1, timeZone)
   } else {
-    const lunarYear = yy + 1
+    lunarYear = yy + 1
     b11 = getLunarMonth11(yy + 1, timeZone)
   }
   
@@ -157,9 +158,8 @@ export function solarToLunar(
     lunarMonth = lunarMonth - 12
   }
   if (lunarMonth >= 11 && diff < 4) {
-    const lunarYear = yy - 1
+    lunarYear = yy - 1
   }
-  const lunarYear = yy
   
   return {
     day: lunarDay,
