@@ -7,6 +7,57 @@ interface RequestBody {
   quotaType: 'chat' | 'xemNgay' | 'tuVi'
 }
 
+// SECURITY: Rate limiting per user (simple in-memory cache)
+const rateLimitCache = new Map<string, { count: number; resetAt: number }>()
+
+function checkRateLimit(userId: string, maxRequests: number = 60, windowMs: number = 60000): boolean {
+  const now = Date.now()
+  const userLimit = rateLimitCache.get(userId)
+  
+  if (!userLimit || now > userLimit.resetAt) {
+    rateLimitCache.set(userId, { count: 1, resetAt: now + windowMs })
+    return true
+  }
+  
+  if (userLimit.count >= maxRequests) {
+    return false
+  }
+  
+  userLimit.count++
+  return true
+}
+
+// SECURITY: Input validation
+function validatePrompt(prompt: string): { valid: boolean; error?: string } {
+  if (!prompt || typeof prompt !== 'string') {
+    return { valid: false, error: 'Prompt must be a non-empty string' }
+  }
+  
+  if (prompt.length < 3) {
+    return { valid: false, error: 'Prompt must be at least 3 characters' }
+  }
+  
+  if (prompt.length > 5000) {
+    return { valid: false, error: 'Prompt must be less than 5000 characters' }
+  }
+  
+  // SECURITY: Check for potential injection patterns
+  const dangerousPatterns = [
+    /<script/i,
+    /javascript:/i,
+    /on\w+\s*=/i, // event handlers like onclick=
+    /<iframe/i,
+  ]
+  
+  for (const pattern of dangerousPatterns) {
+    if (pattern.test(prompt)) {
+      return { valid: false, error: 'Prompt contains potentially dangerous content' }
+    }
+  }
+  
+  return { valid: true }
+}
+
 export async function onRequestPost(context: { request: Request; env: Env }) {
   const { request, env } = context
 
@@ -40,20 +91,63 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       })
     }
 
-    console.log('Verifying JWT token...')
+    console.log('🔒 Verifying JWT token...')
     const payload = await verifyJWT(token, env.SUPABASE_JWT_SECRET)
-    console.log('JWT verified, user ID:', payload.sub)
+    console.log('✅ JWT verified, user ID:', payload.sub)
     const userId = payload.sub
+
+    // SECURITY: Rate limiting
+    if (!checkRateLimit(userId, 60, 60000)) {
+      console.warn(`⚠️ Rate limit exceeded for user ${userId}`)
+      return new Response(
+        JSON.stringify({ 
+          error: 'Bạn đang thao tác quá nhanh. Vui lòng đợi 1 phút rồi thử lại.',
+          retryAfter: 60 
+        }), 
+        {
+          status: 429,
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*',
+            'Retry-After': '60'
+          },
+        }
+      )
+    }
 
     // Get request body
     const body = await request.json() as RequestBody
     const { prompt, quotaType } = body
 
     if (!prompt || !quotaType) {
-      return new Response(JSON.stringify({ error: 'Missing prompt or quotaType' }), {
+      return new Response(JSON.stringify({ error: 'Thiếu thông tin prompt hoặc quotaType' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       })
+    }
+
+    // SECURITY: Validate prompt
+    const validation = validatePrompt(prompt)
+    if (!validation.valid) {
+      console.warn(`⚠️ Invalid prompt from user ${userId}:`, validation.error)
+      return new Response(
+        JSON.stringify({ error: validation.error }), 
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        }
+      )
+    }
+
+    // SECURITY: Validate quotaType
+    if (!['chat', 'xemNgay', 'tuVi'].includes(quotaType)) {
+      return new Response(
+        JSON.stringify({ error: 'quotaType không hợp lệ' }), 
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        }
+      )
     }
 
     // Get user data
@@ -81,7 +175,10 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       )
     }
 
-    // Call Gemini API
+    // Call Gemini API with enhanced error handling
+    console.log(`📡 Calling Gemini API for user ${userId}, quotaType: ${quotaType}`)
+    const geminiStartTime = Date.now()
+    
     const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY}`,
       {
@@ -102,16 +199,48 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
           generationConfig: {
             temperature: 0.7,
             maxOutputTokens: 2048,
+            topK: 40,
+            topP: 0.95,
           },
+          safetySettings: [
+            {
+              category: 'HARM_CATEGORY_HARASSMENT',
+              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+            },
+            {
+              category: 'HARM_CATEGORY_HATE_SPEECH',
+              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+            },
+            {
+              category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+            },
+            {
+              category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+            }
+          ]
         }),
       }
     )
 
+    const geminiDuration = Date.now() - geminiStartTime
+    console.log(`⏱️ Gemini API responded in ${geminiDuration}ms`)
+
     if (!geminiResponse.ok) {
       const errorText = await geminiResponse.text()
-      console.error('Gemini API error:', errorText)
+      console.error('❌ Gemini API error:', {
+        status: geminiResponse.status,
+        statusText: geminiResponse.statusText,
+        error: errorText,
+        userId,
+        quotaType
+      })
       return new Response(
-        JSON.stringify({ error: 'Gemini API error', details: errorText }),
+        JSON.stringify({ 
+          error: 'Lỗi khi gọi AI. Vui lòng thử lại sau.',
+          details: process.env.NODE_ENV === 'development' ? errorText : undefined 
+        }),
         {
           status: 500,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
@@ -120,17 +249,43 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     }
 
     const geminiData = await geminiResponse.json()
-    const result = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 'No response'
+    
+    // SECURITY: Validate response structure
+    if (!geminiData.candidates || !geminiData.candidates[0]) {
+      console.error('❌ Invalid Gemini response structure:', geminiData)
+      return new Response(
+        JSON.stringify({ error: 'Phản hồi AI không hợp lệ' }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        }
+      )
+    }
+    
+    const result = geminiData.candidates[0]?.content?.parts?.[0]?.text || 'Không có phản hồi từ AI'
 
     // Decrement quota
     const newQuota = decrementQuota(currentQuota, quotaType)
     await updateUserQuota(userId, newQuota, env)
+    
+    console.log(`✅ Success for user ${userId}:`, {
+      quotaType,
+      oldQuota: currentQuota[quotaType],
+      newQuota: newQuota[quotaType],
+      responseLength: result.length,
+      duration: geminiDuration
+    })
 
     return new Response(
       JSON.stringify({
         success: true,
         result,
         remainingQuota: newQuota,
+        metadata: {
+          model: 'gemini-2.0-flash-exp',
+          processingTime: geminiDuration,
+          quotaType
+        }
       }),
       {
         status: 200,
@@ -138,9 +293,16 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       }
     )
   } catch (error: any) {
-    console.error('Error in gemini function:', error)
+    console.error('❌ Error in gemini function:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    })
     return new Response(
-      JSON.stringify({ error: error.message || 'Internal server error' }),
+      JSON.stringify({ 
+        error: error.message || 'Lỗi hệ thống. Vui lòng thử lại sau.',
+        timestamp: new Date().toISOString()
+      }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
