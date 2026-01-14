@@ -1,26 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getCurrentUser } from '../lib/auth'
 import { MessageCircle, Calendar, Star, TrendingUp, Crown } from 'lucide-react'
+import { useAuth } from '../lib/authContext'
 
 export default function Dashboard() {
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    loadUser()
-  }, [])
-
-  async function loadUser() {
-    try {
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
-    } catch (error) {
-      console.error('Error loading user:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { user, loading } = useAuth()
 
   if (loading) {
     return (

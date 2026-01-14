@@ -1,25 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { getCurrentUser, logout } from '../lib/auth'
+import { useState } from 'react'
+import { useAuth } from '../lib/authContext'
 
 export default function Header() {
   const navigate = useNavigate()
-  const [user, setUser] = useState<any>(null)
+  const { user, signOut } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  useEffect(() => {
-    loadUser()
-  }, [])
-
-  async function loadUser() {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-  }
-
   async function handleLogout() {
-    await logout()
-    setUser(null)
+    await signOut()
     navigate('/login')
   }
 

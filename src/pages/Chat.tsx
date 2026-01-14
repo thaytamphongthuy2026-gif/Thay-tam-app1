@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Send, Loader2, AlertCircle } from 'lucide-react'
-import { callGeminiAPI, getQuota } from '../lib/gemini'
+import { callGeminiAPI } from '../lib/gemini'
 import { PROMPTS } from '../lib/prompts'
+import { useAuth } from '../lib/authContext'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -10,6 +11,7 @@ interface Message {
 }
 
 export default function Chat() {
+  const { user, refreshUser } = useAuth()
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -20,12 +22,7 @@ export default function Chat() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [quota, setQuota] = useState<any>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    loadQuota()
-  }, [])
 
   useEffect(() => {
     scrollToBottom()
@@ -33,15 +30,6 @@ export default function Chat() {
 
   function scrollToBottom() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  async function loadQuota() {
-    try {
-      const data = await getQuota()
-      setQuota(data.quota)
-    } catch (error) {
-      console.error('Error loading quota:', error)
-    }
   }
 
   async function handleSend() {
@@ -70,9 +58,8 @@ export default function Chat() {
         }
         setMessages(prev => [...prev, assistantMessage])
         
-        if (response.remainingQuota) {
-          setQuota(response.remainingQuota)
-        }
+        // Refresh user quota
+        await refreshUser()
       } else {
         setError(response.error || 'Có lỗi xảy ra')
       }
@@ -100,10 +87,10 @@ export default function Chat() {
               <h1 className="text-2xl font-bold text-gray-900">Tư vấn với Thầy Tám</h1>
               <p className="text-gray-600">Đặt câu hỏi về phong thủy, tài lộc, sự nghiệp...</p>
             </div>
-            {quota && (
+            {user && (
               <div className="bg-purple-100 px-4 py-2 rounded-lg">
                 <span className="text-purple-600 font-semibold">
-                  Còn {quota.chat} câu hỏi
+                  Còn {user.quota.chat} câu hỏi
                 </span>
               </div>
             )}
