@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Send, Loader2, AlertCircle } from 'lucide-react'
-import { callGeminiAPI, streamGeminiAPI } from '../lib/gemini'
+import { Send, AlertCircle } from 'lucide-react'
+import { streamGeminiAPI } from '../lib/gemini'
 import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
 import { useAuth } from '../lib/authContext'
@@ -123,7 +123,6 @@ export default function Chat() {
     setError('')
 
     // Add placeholder for streaming response
-    const streamingMessageId = messages.length + 1
     setMessages(prev => [...prev, {
       role: 'assistant',
       content: '',
