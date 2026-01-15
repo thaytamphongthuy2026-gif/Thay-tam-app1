@@ -91,7 +91,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Xin chào! Tôi là Thầy Tám, chuyên gia phong thủy với 30 năm kinh nghiệm. Tôi có thể giúp gì cho bạn hôm nay?',
+      content: 'Xin chào! Tôi là Thầy Tám - Phong Thủy AI. Tôi có thể giúp gì cho bạn hôm nay? 🔮',
       timestamp: new Date()
     }
   ])
@@ -227,6 +227,62 @@ export default function Chat() {
             )
           )}
 
+          {/* Sample Questions - Show when only initial greeting */}
+          {messages.length === 1 && !loading && (
+            <div className="flex justify-center">
+              <div className="max-w-2xl w-full space-y-3">
+                <p className="text-center text-sm text-gray-500 mb-3">
+                  💡 Câu hỏi gợi ý:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {[
+                    'Hướng nào tốt để đặt bàn làm việc?',
+                    'Màu sắc may mắn của tuổi Tý năm 2026?',
+                    'Cách bố trí phòng ngủ theo phong thủy?',
+                    'Nên đặt cây gì trong nhà để hút tài lộc?',
+                    'Xem ngày tốt khai trương tháng 2/2026?',
+                    'Hướng xuất hành tốt cho tuổi Mão?'
+                  ].map((question, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setInput(question)}
+                      className="text-left p-3 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 hover:border-purple-400 transition text-sm text-gray-700"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Follow-up Suggestions - Show after AI response */}
+          {messages.length > 1 && messages[messages.length - 1].role === 'assistant' && !loading && (
+            <div className="flex justify-center mt-4">
+              <div className="max-w-2xl w-full">
+                <p className="text-center text-xs text-gray-500 mb-2">
+                  🔮 Hỏi tiếp:
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {[
+                    'Giải thích thêm về điều này',
+                    'Có cách khắc phục không?',
+                    'Còn điều gì cần lưu ý?',
+                    'Áp dụng như thế nào?'
+                  ].map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setInput(suggestion)}
+                      className="px-4 py-2 bg-gray-100 hover:bg-purple-100 border border-gray-300 hover:border-purple-400 rounded-full text-xs text-gray-700 transition"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
             <div ref={messagesEndRef} />
           </div>
         </div>
@@ -254,27 +310,6 @@ export default function Chat() {
           <p className="text-xs text-gray-500 mt-2">
             Nhấn Enter để gửi, Shift+Enter để xuống dòng
           </p>
-        </div>
-
-        {/* Example Questions */}
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Câu hỏi mẫu:</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[
-              'Hướng nào tốt để đặt bàn làm việc?',
-              'Màu sắc may mắn của tuổi Tý?',
-              'Cách bố trí phòng ngủ theo phong thủy?',
-              'Nên đặt cây gì trong nhà để hút tài lộc?'
-            ].map((question, index) => (
-              <button
-                key={index}
-                onClick={() => setInput(question)}
-                className="text-left p-3 border border-gray-200 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition text-sm"
-              >
-                {question}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </div>
