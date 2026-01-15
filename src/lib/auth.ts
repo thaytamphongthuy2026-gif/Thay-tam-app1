@@ -39,14 +39,11 @@ export async function login(email: string, password: string) {
   return { user: data.user, profile: userData as User }
 }
 
-export async function register(email: string, password: string, name: string) {
+export async function register(email: string, password: string) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: {
-        name: name, // Lưu name vào metadata để trigger dùng
-      },
       emailRedirectTo: undefined, // Không cần redirect
     },
   })
@@ -55,7 +52,7 @@ export async function register(email: string, password: string, name: string) {
   if (!data.user) throw new Error('Đăng ký thất bại')
 
   // Profile sẽ được tự động tạo bởi database trigger
-  // Không cần insert thủ công nữa
+  // User sẽ hoàn thiện profile khi sử dụng features cần data
   
   return data.user
 }

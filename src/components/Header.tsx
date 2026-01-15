@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X, BookOpen } from 'lucide-react'
+import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X, BookOpen, Gift } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../lib/authContext'
 
@@ -45,6 +45,10 @@ export default function Header() {
                 <Link to="/lich-phong-thuy" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
                   <span>Lịch Phong Thủy</span>
+                </Link>
+                <Link to="/xong-dat" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <Gift className="w-4 h-4" />
+                  <span>Xông Đất</span>
                 </Link>
                 <Link to="/pricing" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
                   <CreditCard className="w-4 h-4" />
@@ -131,6 +135,9 @@ export default function Header() {
                 </Link>
                 <Link to="/chat" className="block text-gray-600 hover:text-purple-600">
                   Tư vấn
+                </Link>
+                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600">
+                  Xông Đất
                 </Link>
                 <Link to="/pricing" className="block text-gray-600 hover:text-purple-600">
                   Gói dịch vụ

@@ -146,6 +146,20 @@ Dương lịch: DD/MM/YYYY
     return 'Bình Thường'
   }
 
+  function getRatingIcon(rating: number) {
+    if (rating >= 5) return '✅'
+    if (rating >= 4) return '✅'
+    if (rating >= 3) return '⚠️'
+    return '❌'
+  }
+
+  function getRatingBorderColor(rating: number) {
+    if (rating >= 5) return 'border-yellow-300 bg-yellow-50'
+    if (rating >= 4) return 'border-green-300 bg-green-50'
+    if (rating >= 3) return 'border-blue-300 bg-blue-50'
+    return 'border-gray-300 bg-gray-50'
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -334,14 +348,61 @@ Dương lịch: DD/MM/YYYY
           <>
             {/* Results */}
             <div className="space-y-6">
-              {/* Result Header */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  🎉 Tìm được {results.length} ngày tốt cho bạn!
+              {/* User Input Summary */}
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg p-6">
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <Sparkles className="w-6 h-6" />
+                  Kết Quả Xem Ngày Tốt
                 </h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">{purposes.find(p => p.value === purpose)?.emoji}</span>
+                    <div>
+                      <p className="text-xs opacity-80">Mục đích</p>
+                      <p className="font-semibold">{purposes.find(p => p.value === purpose)?.label.replace(purposes.find(p => p.value === purpose)?.emoji || '', '').trim()}</p>
+                    </div>
+                  </div>
+                  
+                  {userName && (
+                    <div className="flex items-center gap-2">
+                      <Users className="w-5 h-5 opacity-80" />
+                      <div>
+                        <p className="text-xs opacity-80">Tên</p>
+                        <p className="font-semibold">{userName}</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {birthYear && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5 opacity-80" />
+                      <div>
+                        <p className="text-xs opacity-80">Năm sinh</p>
+                        <p className="font-semibold">{birthYear}</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-5 h-5 opacity-80" />
+                    <div>
+                      <p className="text-xs opacity-80">Khoảng thời gian</p>
+                      <p className="font-semibold text-sm">
+                        {new Date(dateFrom).toLocaleDateString('vi-VN')} - {new Date(dateTo).toLocaleDateString('vi-VN')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Result Summary */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  🎉 Tìm được {results.length} ngày tốt cho bạn!
+                </h3>
                 <p className="text-gray-600">
-                  {userName && `Xin chào ${userName}! `}
-                  Dưới đây là những ngày phù hợp nhất cho {purposes.find(p => p.value === purpose)?.label}
+                  Dưới đây là những ngày phù hợp nhất được AI chọn dựa trên 6 quyển sách phong thủy cổ truyền
                 </p>
               </div>
 
@@ -349,85 +410,109 @@ Dương lịch: DD/MM/YYYY
               {results.map((date, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-3xl shadow-xl p-6 md:p-8 hover:shadow-2xl transition-shadow"
+                  className={`rounded-3xl shadow-xl p-6 md:p-8 hover:shadow-2xl transition-all border-4 ${getRatingBorderColor(date.rating)}`}
                 >
-                  {/* Card Header */}
-                  <div className="flex items-start justify-between mb-6">
+                  {/* Card Header with Clear Indicator */}
+                  <div className="flex items-start justify-between mb-6 pb-4 border-b-2 border-gray-100">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-3xl font-bold text-gray-900">
-                          Ngày {index + 1}
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="text-4xl">
+                          {getRatingIcon(date.rating)}
                         </span>
-                        <div className={`px-4 py-1 rounded-full text-white text-sm font-bold bg-gradient-to-r ${getRatingColor(date.rating)}`}>
-                          {getRatingLabel(date.rating)}
+                        <div>
+                          <span className="text-2xl font-bold text-gray-900">
+                            Ngày {index + 1}
+                          </span>
+                          <div className={`inline-block ml-3 px-4 py-1 rounded-full text-white text-sm font-bold bg-gradient-to-r ${getRatingColor(date.rating)}`}>
+                            {getRatingLabel(date.rating)}
+                          </div>
                         </div>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-2xl font-bold text-blue-600">
+                      <div className="space-y-2 ml-12">
+                        <p className="text-3xl font-bold text-blue-600">
                           📅 {date.solar}
                         </p>
                         <p className="text-lg text-gray-600">
                           🌙 Âm lịch: {date.lunar}
                         </p>
+                        {date.dayName && (
+                          <p className="text-md text-purple-600 font-semibold">
+                            🔮 {date.dayName}
+                          </p>
+                        )}
                       </div>
                     </div>
                     
-                    <div className="flex flex-col gap-2">
-                      {'⭐'.repeat(date.rating)}
+                    <div className="flex flex-col gap-1 items-end">
+                      <div className="text-2xl">
+                        {'⭐'.repeat(date.rating)}
+                      </div>
+                      <span className="text-sm font-bold text-gray-600">
+                        {date.rating}/5
+                      </span>
                     </div>
                   </div>
 
-                  {/* Reasons */}
-                  <div className="mb-6">
-                    <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-purple-600" />
-                      Tại sao ngày này tốt?
+                  {/* Reasons with Better Explanation */}
+                  <div className="mb-6 bg-green-50 border-2 border-green-200 rounded-2xl p-5">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-lg">
+                      <Sparkles className="w-6 h-6 text-green-600" />
+                      Tại sao ngày này {date.rating >= 4 ? 'TỐT' : date.rating >= 3 ? 'TƯƠNG ĐỐI' : 'BÌNH THƯỜNG'}?
                     </h4>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {date.reasons.map((reason, i) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <ChevronRight className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                          <p className="text-gray-700">{reason}</p>
+                        <div key={i} className="flex items-start gap-3 bg-white rounded-xl p-3 shadow-sm">
+                          <span className="text-2xl flex-shrink-0">
+                            {i === 0 ? '🔥' : i === 1 ? '💎' : '✨'}
+                          </span>
+                          <p className="text-gray-800 font-medium leading-relaxed">{reason}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Best Hours */}
-                  <div className="mb-6">
-                    <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                      Giờ tốt nhất
+                  <div className="mb-6 bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
+                    <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-lg">
+                      <Clock className="w-6 h-6 text-blue-600" />
+                      Giờ Hoàng Đạo (Giờ tốt nhất)
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       {date.bestHours.map((hour, i) => (
-                        <span
+                        <div
                           key={i}
-                          className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium"
+                          className="bg-white border-2 border-blue-300 text-blue-800 px-4 py-3 rounded-xl font-semibold text-center shadow-sm hover:shadow-md transition"
                         >
-                          ⏰ {hour}
-                        </span>
+                          <div className="text-2xl mb-1">⏰</div>
+                          <div className="text-sm">{hour}</div>
+                        </div>
                       ))}
                     </div>
+                    <p className="text-xs text-gray-600 mt-3 italic">
+                      💡 Nên bắt đầu công việc trong các khung giờ trên để được thuận lợi nhất
+                    </p>
                   </div>
 
                   {/* Avoid */}
                   {date.avoid.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <AlertCircle className="w-5 h-5 text-orange-600" />
-                        Tuổi nên tránh
+                    <div className="mb-6 bg-orange-50 border-2 border-orange-200 rounded-2xl p-5">
+                      <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-lg">
+                        <AlertCircle className="w-6 h-6 text-orange-600" />
+                        Tuổi Phạm (Nên tránh tham gia)
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {date.avoid.map((a, i) => (
                           <span
                             key={i}
-                            className="bg-orange-50 text-orange-700 px-4 py-2 rounded-lg text-sm font-medium"
+                            className="bg-white border-2 border-orange-300 text-orange-800 px-4 py-2 rounded-lg font-semibold shadow-sm"
                           >
                             🚫 {a}
                           </span>
                         ))}
                       </div>
+                      <p className="text-xs text-gray-600 mt-3 italic">
+                        ⚠️ Người thuộc các tuổi trên không nên tham gia sự kiện chính trong ngày này
+                      </p>
                     </div>
                   )}
 

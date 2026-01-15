@@ -5,7 +5,6 @@ import { UserPlus, AlertCircle, CheckCircle } from 'lucide-react'
 
 export default function Register() {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -29,9 +28,9 @@ export default function Register() {
     setLoading(true)
 
     try {
-      await register(email, password, name)
-      // Redirect to profile setup for onboarding
-      navigate('/profile-setup')
+      await register(email, password)
+      // Redirect to home after successful registration
+      navigate('/')
     } catch (err: any) {
       // Parse error message
       let errorMsg = 'Đăng ký thất bại'
@@ -91,21 +90,6 @@ export default function Register() {
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                Họ và tên
-              </label>
-              <input
-                id="name"
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="Nguyễn Văn A"
-              />
-            </div>
-
-            <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email
               </label>
@@ -163,13 +147,13 @@ export default function Register() {
             />
             <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
               Tôi đồng ý với{' '}
-              <a href="#" className="text-purple-600 hover:text-purple-700">
+              <Link to="/terms" className="text-purple-600 hover:text-purple-700">
                 Điều khoản dịch vụ
-              </a>{' '}
+              </Link>{' '}
               và{' '}
-              <a href="#" className="text-purple-600 hover:text-purple-700">
+              <Link to="/privacy" className="text-purple-600 hover:text-purple-700">
                 Chính sách bảo mật
-              </a>
+              </Link>
             </label>
           </div>
 
