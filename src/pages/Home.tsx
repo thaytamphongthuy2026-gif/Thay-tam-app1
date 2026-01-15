@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MessageCircle, Calendar, Star, TrendingUp, Shield, Zap, Sparkles, Dices, Flame, Users } from 'lucide-react'
+import { MessageCircle, Calendar, Star, TrendingUp, Shield, Zap, Sparkles, Dices, Flame, Users, Gift } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function Home() {

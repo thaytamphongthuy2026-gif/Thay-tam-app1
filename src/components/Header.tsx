@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X, BookOpen, Gift } from 'lucide-react'
+import { Home, MessageCircle, Calendar, Star, CreditCard, User, LogOut, Menu, X, Gift } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../lib/authContext'
 
