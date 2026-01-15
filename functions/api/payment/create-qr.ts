@@ -15,14 +15,14 @@ interface CreateQRPaymentRequest {
 // Plan pricing (VND)
 const PLAN_PRICING = {
   pro: {
-    price: 299000,
+    price: 68000,  // Lộc Phát
     duration: 30,
-    name: 'Gói Pro - 1 Tháng'
+    name: 'Gói Lộc Phát - 1 Tháng'
   },
   premium: {
-    price: 999000,
+    price: 168000,  // Đại Cát
     duration: 30,
-    name: 'Gói Premium - 1 Tháng'
+    name: 'Gói Đại Cát - 1 Tháng'
   }
 }
 
@@ -115,8 +115,22 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     )
 
     if (!orderResponse.ok) {
-      console.error('Failed to create order:', await orderResponse.text())
-      return new Response(JSON.stringify({ error: 'Failed to create order' }), {
+      const errorText = await orderResponse.text()
+      console.error('❌ Failed to create order:', {
+        status: orderResponse.status,
+        statusText: orderResponse.statusText,
+        error: errorText,
+        orderId,
+        userId,
+        plan
+      })
+      
+      // Return detailed error for debugging
+      return new Response(JSON.stringify({ 
+        error: 'Failed to create order',
+        details: errorText,
+        status: orderResponse.status
+      }), {
         status: 500,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       })
