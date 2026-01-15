@@ -296,11 +296,11 @@ Dương lịch: DD/MM/YYYY
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={loading || !purpose}
+                  disabled={loading || !purpose || !dateFrom || !dateTo}
                   className={`
                     w-full py-4 rounded-xl text-lg font-bold text-white shadow-lg
                     transition-all duration-300 transform
-                    ${loading || !purpose
+                    ${loading || !purpose || !dateFrom || !dateTo
                       ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 hover:scale-105'
                     }
