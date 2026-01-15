@@ -19,6 +19,8 @@ import PaymentStatus from './pages/PaymentStatus'
 import AdminDashboard from './pages/AdminDashboard'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
+import SoMayMan from './pages/SoMayMan'
+import XinXam from './pages/XinXam'
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/so-may-man" element={<SoMayMan />} />
+              <Route path="/xin-xam" element={<XinXam />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment-result" element={<PaymentResult />} />
               <Route path="/qr-payment" element={<QRPayment />} />
