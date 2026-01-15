@@ -60,7 +60,7 @@ export default function Header() {
                     className="text-gray-600 hover:text-purple-600 flex items-center space-x-1"
                   >
                     <User className="w-4 h-4" />
-                    <span>{user.name}</span>
+                    <span>{user.name || user.email?.split('@')[0] || 'User'}</span>
                   </button>
                   {isDropdownOpen && (
                     <>
