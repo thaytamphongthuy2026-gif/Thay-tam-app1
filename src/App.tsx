@@ -21,6 +21,8 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import SoMayMan from './pages/SoMayMan'
 import XinXam from './pages/XinXam'
+import TestDuyenSo from './pages/TestDuyenSo'
+import LiXiGame from './pages/LiXiGame'
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/so-may-man" element={<SoMayMan />} />
               <Route path="/xin-xam" element={<XinXam />} />
+              <Route path="/test-duyen-so" element={<TestDuyenSo />} />
+              <Route path="/li-xi-game" element={<LiXiGame />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment-result" element={<PaymentResult />} />
               <Route path="/qr-payment" element={<QRPayment />} />
