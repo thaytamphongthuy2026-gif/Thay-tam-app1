@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, ChevronRight, Sparkles } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
+import { shareContent } from '../lib/shareUtils'
 
 interface GoodDate {
   solar: string
@@ -432,11 +433,23 @@ Dương lịch: DD/MM/YYYY
 
                   {/* Action Buttons */}
                   <div className="flex gap-3 pt-4 border-t border-gray-100">
-                    <button className="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2">
+                    <button 
+                      onClick={() => {
+                        // Add to calendar functionality (placeholder)
+                        alert('🗓️ Tính năng thêm vào lịch đang được phát triển!')
+                      }}
+                      className="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+                    >
                       <Download className="w-5 h-5" />
                       Thêm vào lịch
                     </button>
-                    <button className="flex-1 bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2">
+                    <button 
+                      onClick={() => shareContent({
+                        title: `Xem ngày tốt ${purpose} - ${date.solar}`,
+                        text: `Ngày tốt ${purpose}: ${date.solar} (${date.lunar}). Rating: ${date.rating}/5 ⭐`
+                      })}
+                      className="flex-1 bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+                    >
                       <Share2 className="w-5 h-5" />
                       Chia sẻ
                     </button>

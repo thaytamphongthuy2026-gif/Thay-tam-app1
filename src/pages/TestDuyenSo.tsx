@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Heart, Loader2, AlertCircle, TrendingUp, Gift, Users, Share2, Sparkles, Star, ChevronRight } from 'lucide-react'
+import { shareContent } from '../lib/shareUtils'
 
 interface CompatibilityResult {
   totalScore: number
@@ -368,7 +369,13 @@ export default function TestDuyenSo() {
               >
                 Test cặp khác
               </button>
-              <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-6 py-4 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2">
+              <button 
+                onClick={() => result && shareContent({
+                  title: `Test duyên số: ${result.totalScore}% hợp 💕`,
+                  text: `Chúng tôi đạt ${result.totalScore}% độ hợp! Bạn cũng thử xem nhé!`
+                })}
+                className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-6 py-4 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+              >
                 <Share2 className="w-5 h-5" />
                 Chia sẻ kết quả
               </button>

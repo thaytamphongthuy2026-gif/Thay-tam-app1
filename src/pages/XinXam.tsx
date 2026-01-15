@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Flame, Share2, BookOpen, Sparkles, Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { shareContent } from '../lib/shareUtils'
 
 interface XamResult {
   id: number
@@ -240,7 +241,13 @@ export default function XinXam() {
                 >
                   Rút lại xăm khác
                 </button>
-                <button className="px-6 py-3 bg-white border-2 border-pink-500 text-pink-600 rounded-full font-semibold hover:bg-pink-50 transition inline-flex items-center gap-2">
+                <button 
+                  onClick={() => result && shareContent({
+                    title: `Xăm ${result.title}`,
+                    text: `Tôi vừa rút được xăm: ${result.title}. ${result.meaning.substring(0, 100)}...`
+                  })}
+                  className="px-6 py-3 bg-white border-2 border-pink-500 text-pink-600 rounded-full font-semibold hover:bg-pink-50 transition inline-flex items-center gap-2"
+                >
                   <Share2 className="w-5 h-5" />
                   Chia sẻ
                 </button>

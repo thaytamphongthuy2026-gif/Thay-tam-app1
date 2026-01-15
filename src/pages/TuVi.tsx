@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Star, Loader2, AlertCircle, Lock, Share2, TrendingUp, Heart, Briefcase, Activity, Sparkles, Users, Gift, ChevronRight } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
+import { shareContent } from '../lib/shareUtils'
 
 interface MonthPrediction {
   month: number
@@ -203,13 +204,20 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
     return 'text-gray-400'
   }
 
-  function handleUnlock(method: 'share' | 'pay') {
+  async function handleUnlock(method: 'share' | 'pay') {
     if (method === 'share') {
-      // In production: implement actual share to Facebook/Zalo
-      alert('🎉 Cảm ơn bạn đã chia sẻ! Đang mở khóa toàn bộ nội dung...')
-      setUnlocked(true)
-      if (result) {
-        setResult({ ...result, unlocked: true })
+      // Implement actual share
+      const shared = await shareContent({
+        title: 'Xem Tử Vi 2026 - Thầy Tám Phong Thủy',
+        text: `Tôi vừa xem tử vi năm 2026 rất chính xác! Bạn cũng thử xem nhé 🔮`
+      })
+      
+      if (shared) {
+        alert('🎉 Cảm ơn bạn đã chia sẻ! Đang mở khóa toàn bộ nội dung...')
+        setUnlocked(true)
+        if (result) {
+          setResult({ ...result, unlocked: true })
+        }
       }
     } else {
       // Redirect to pricing

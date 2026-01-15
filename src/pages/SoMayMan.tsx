@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Dices, Trophy, Share2, Flame, Sparkles, TrendingUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { shareContent } from '../lib/shareUtils'
 
 export default function SoMayMan() {
   const [spinning, setSpinning] = useState(false)
@@ -156,7 +157,13 @@ export default function SoMayMan() {
               <p className="text-sm text-gray-600 mb-4">
                 Chia sẻ kết quả với bạn bè để nhận thêm lượt quay
               </p>
-              <button className="bg-white px-6 py-3 rounded-full font-semibold text-purple-600 hover:bg-purple-50 transition inline-flex items-center gap-2">
+              <button 
+                onClick={() => shareContent({
+                  title: `Số may mắn hôm nay của tôi: ${luckyNumber}`,
+                  text: `Tôi vừa quay được số ${luckyNumber}! Bạn cũng thử nhé 🎰`
+                })}
+                className="bg-white px-6 py-3 rounded-full font-semibold text-purple-600 hover:bg-purple-50 transition inline-flex items-center gap-2"
+              >
                 <Share2 className="w-5 h-5" />
                 Chia sẻ ngay
               </button>
