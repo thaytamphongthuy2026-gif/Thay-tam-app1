@@ -186,7 +186,7 @@ export default function ProfileSetup() {
           {/* Birth Date with DD/MM/YYYY format */}
           <div className="mb-6">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Ngày sinh * <span className="text-gray-500 font-normal">(DD/MM/YYYY)</span>
+              Ngày sinh * <span className="text-gray-500 font-normal">(Ngày / Tháng / Năm sinh)</span>
             </label>
             <input
               type="text"
@@ -197,7 +197,7 @@ export default function ProfileSetup() {
                 const value = e.target.value.replace(/[^\d/]/g, '')
                 setProfile({ ...profile, birth_date: value })
               }}
-              placeholder="DD/MM/YYYY (ví dụ: 15/01/1990)"
+              placeholder="Ngày / Tháng / Năm sinh (ví dụ: 15/01/1990)"
               pattern="\d{2}/\d{2}/\d{4}"
               maxLength={10}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"

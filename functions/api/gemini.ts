@@ -3,6 +3,7 @@ import { getUser, hasQuota, decrementQuota, updateUserQuota } from '../_lib/data
 import type { Env } from '../_lib/database'
 import { checkRateLimit } from '../_lib/rateLimit'
 import { getCachedResponse, setCachedResponse, generateCacheKey, getCacheConfig, incrementCacheHit, incrementCacheMiss } from '../_lib/cache'
+import { buildGeminiRequestWithRAG, formatChatResponse } from '../_lib/ragHelper'
 
 interface RequestBody {
   prompt: string
@@ -203,9 +204,12 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     
     await incrementCacheMiss(env.RESPONSE_CACHE)
     
-    // Call Gemini API with enhanced error handling
-    console.log(`📡 Calling Gemini API for user ${userId}, quotaType: ${quotaType}`)
+    // Call Gemini API with RAG support
+    console.log(`📡 Calling Gemini API with RAG for user ${userId}, quotaType: ${quotaType}`)
     const geminiStartTime = Date.now()
+    
+    // Build request with RAG files and system instruction
+    const requestBody = buildGeminiRequestWithRAG(prompt, env, quotaType)
     
     const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${env.GEMINI_API_KEY}`,
@@ -214,41 +218,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: prompt,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 2048,
-            topK: 40,
-            topP: 0.95,
-          },
-          safetySettings: [
-            {
-              category: 'HARM_CATEGORY_HARASSMENT',
-              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-            },
-            {
-              category: 'HARM_CATEGORY_HATE_SPEECH',
-              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-            },
-            {
-              category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-            },
-            {
-              category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-              threshold: 'BLOCK_MEDIUM_AND_ABOVE'
-            }
-          ]
-        }),
+        body: JSON.stringify(requestBody),
       }
     )
 
@@ -291,6 +261,9 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     }
     
     const result = geminiData.candidates[0]?.content?.parts?.[0]?.text || 'Không có phản hồi từ AI'
+    
+    // Format response to remove markdown and ensure beautiful display
+    const formattedResult = formatChatResponse(result)
 
     // Decrement quota
     const newQuota = decrementQuota(currentQuota, quotaType)
@@ -300,18 +273,20 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       quotaType,
       oldQuota: currentQuota[quotaType],
       newQuota: newQuota[quotaType],
-      responseLength: result.length,
-      duration: geminiDuration
+      responseLength: formattedResult.length,
+      duration: geminiDuration,
+      ragEnabled: !!env.RAG_FILE_IDS
     })
 
     // PERFORMANCE: Cache the response for future requests
     const responseData = {
-      result,
+      result: formattedResult,
       metadata: {
         model: 'gemini-3-flash-preview',
         processingTime: geminiDuration,
         quotaType,
-        cached: false
+        cached: false,
+        ragEnabled: !!env.RAG_FILE_IDS
       }
     }
     
@@ -320,13 +295,14 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     return new Response(
       JSON.stringify({
         success: true,
-        result,
+        result: formattedResult,
         remainingQuota: newQuota,
         metadata: {
           model: 'gemini-3-flash-preview',
           processingTime: geminiDuration,
           quotaType,
-          cached: false
+          cached: false,
+          ragEnabled: !!env.RAG_FILE_IDS
         }
       }),
       {

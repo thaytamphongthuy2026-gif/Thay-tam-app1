@@ -10,6 +10,81 @@ interface Message {
   timestamp: Date
 }
 
+/**
+ * Format chat response for beautiful display (no markdown)
+ */
+function formatChatContent(text: string): React.ReactElement {
+  const lines = text.split('\n')
+  const elements: React.ReactElement[] = []
+  let currentList: string[] = []
+  
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={elements.length} className="my-3 space-y-2">
+          {currentList.map((item, i) => (
+            <li key={i} className="flex items-start">
+              <span className="text-purple-600 font-bold mr-2">▸</span>
+              <span className="text-gray-700 leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      )
+      currentList = []
+    }
+  }
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim()
+    
+    if (!line) {
+      flushList()
+      continue
+    }
+    
+    // Check for header (starts with emoji)
+    if (/^[🔮🏮🎋💰🏠🌟✨🎯⚠️📝💡]/.test(line)) {
+      flushList()
+      elements.push(
+        <div key={elements.length} className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-600 rounded-lg p-4 my-4">
+          <p className="text-lg font-bold text-purple-900">{line}</p>
+        </div>
+      )
+    }
+    // Check for list items
+    else if (/^[•\-]\s/.test(line)) {
+      currentList.push(line.replace(/^[•\-]\s/, ''))
+    }
+    else if (/^\d+\.\s/.test(line)) {
+      currentList.push(line.replace(/^\d+\.\s/, ''))
+    }
+    // Regular text
+    else {
+      flushList()
+      // Highlight UPPERCASE words
+      const parts = line.split(/([A-ZÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ]{3,})/)
+      elements.push(
+        <p key={elements.length} className="text-gray-800 leading-relaxed my-2">
+          {parts.map((part, idx) => {
+            if (/^[A-ZÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ]{3,}$/.test(part)) {
+              return (
+                <span key={idx} className="font-bold text-purple-700 bg-purple-50 px-1 rounded">
+                  {part}
+                </span>
+              )
+            }
+            return <span key={idx}>{part}</span>
+          })}
+        </p>
+      )
+    }
+  }
+  
+  flushList()
+  
+  return <div className="space-y-1">{elements}</div>
+}
+
 export default function Chat() {
   const { user, refreshUser } = useAuth()
   const [messages, setMessages] = useState<Message[]>([
@@ -108,10 +183,14 @@ export default function Chat() {
                 className={`max-w-[80%] rounded-xl p-4 ${
                   message.role === 'user'
                     ? 'bg-purple-600 text-white'
-                    : 'bg-gray-100 text-gray-900'
+                    : 'bg-gray-50 text-gray-900 border border-gray-200'
                 }`}
               >
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                {message.role === 'user' ? (
+                  <p className="whitespace-pre-wrap">{message.content}</p>
+                ) : (
+                  formatChatContent(message.content)
+                )}
                 <p
                   className={`text-xs mt-2 ${
                     message.role === 'user' ? 'text-purple-200' : 'text-gray-500'
