@@ -3,6 +3,7 @@ import { Star, Loader2, AlertCircle, Lock, Share2, TrendingUp, Heart, Briefcase,
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
 import LoginPrompt from '../components/LoginPrompt'
+import DateInput from '../components/DateInput'
 
 interface MonthPrediction {
   month: number
@@ -30,6 +31,7 @@ export default function TuVi() {
   const [step, setStep] = useState<'form' | 'result'>('form')
   const [birthDate, setBirthDate] = useState('')
   const [birthTime, setBirthTime] = useState('')
+  const [calendarType, setCalendarType] = useState<'solar' | 'lunar'>('solar')
   const [gender, setGender] = useState('')
   const [name, setName] = useState('')
   const [result, setResult] = useState<TuViResult | null>(null)
@@ -48,7 +50,7 @@ export default function TuVi() {
 
     try {
       const prompt = `Bạn là chuyên gia tử vi phong thủy. Xem tử vi năm 2026 (Ất Tỵ) cho:
-- Ngày sinh: ${birthDate}
+- Ngày sinh: ${birthDate} (${calendarType === 'lunar' ? 'Âm lịch' : 'Dương lịch'})
 - Giờ sinh: ${birthTime}
 - Giới tính: ${gender}
 ${name ? `- Tên: ${name}` : ''}
@@ -265,36 +267,19 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
                 />
               </div>
 
-              {/* Birth Date */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 mb-3">
-                  Ngày sinh (Dương lịch) *
-                </label>
-                <input
-                  type="date"
-                  value={birthDate}
-                  onChange={(e) => setBirthDate(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                />
-              </div>
-
-              {/* Birth Time */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 mb-3">
-                  Giờ sinh *
-                </label>
-                <input
-                  type="time"
-                  value={birthTime}
-                  onChange={(e) => setBirthTime(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                />
-                <p className="text-sm text-gray-500 mt-2">
-                  💡 Nếu không nhớ chính xác, chọn khoảng giờ gần nhất
-                </p>
-              </div>
+              {/* Birth Date & Time */}
+              <DateInput
+                label="Ngày sinh"
+                value={birthDate}
+                onChange={setBirthDate}
+                required={true}
+                showTime={true}
+                timeValue={birthTime}
+                onTimeChange={setBirthTime}
+                showCalendarType={true}
+                calendarType={calendarType}
+                onCalendarTypeChange={setCalendarType}
+              />
 
               {/* Gender */}
               <div>
