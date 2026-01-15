@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HelpCircle, ChevronDown, ChevronUp, Search, Star, Calendar, CreditCard, Shield, Zap } from 'lucide-react'
+import { HelpCircle, ChevronDown, ChevronUp, Search, Star, CreditCard, Shield, Zap } from 'lucide-react'
 
 interface FAQItem {
   question: string
