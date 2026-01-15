@@ -7,6 +7,7 @@ export default function Header() {
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   async function handleLogout() {
     await signOut()
@@ -49,23 +50,41 @@ export default function Header() {
                   <CreditCard className="w-4 h-4" />
                   <span>Gói dịch vụ</span>
                 </Link>
-                <div className="relative group">
-                  <button className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                <div className="relative">
+                  <button 
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="text-gray-600 hover:text-purple-600 flex items-center space-x-1"
+                  >
                     <User className="w-4 h-4" />
                     <span>{user.name}</span>
                   </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 invisible group-hover:visible">
-                    <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                      Thông tin cá nhân
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 flex items-center space-x-2"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>Đăng xuất</span>
-                    </button>
-                  </div>
+                  {isDropdownOpen && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-10" 
+                        onClick={() => setIsDropdownOpen(false)}
+                      />
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-20">
+                        <Link 
+                          to="/profile" 
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          Thông tin cá nhân
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setIsDropdownOpen(false)
+                            handleLogout()
+                          }}
+                          className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 flex items-center space-x-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Đăng xuất</span>
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </>
             ) : (

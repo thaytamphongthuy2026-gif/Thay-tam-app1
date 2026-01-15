@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ProfileSetup from './pages/ProfileSetup'
+import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
 import Chat from './pages/Chat'
 import XemNgayTot from './pages/XemNgayTot'
@@ -36,6 +37,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile-setup" element={<ProfileSetup />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/xem-ngay-tot" element={<XemNgayTot />} />

@@ -13,6 +13,10 @@ interface User {
     chat: number
   }
   plan_expiry: string | null
+  birth_date?: string
+  birth_date_type?: 'lunar' | 'solar'
+  gender?: 'male' | 'female' | 'other'
+  profile_completed?: boolean
 }
 
 interface AuthContextType {
