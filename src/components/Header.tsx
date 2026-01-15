@@ -93,9 +93,17 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link to="/blog" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Blog</span>
+                <Link to="/chat" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Tư vấn</span>
+                </Link>
+                <Link to="/lich-phong-thuy" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>Lịch Phong Thủy</span>
+                </Link>
+                <Link to="/xong-dat" className="text-gray-600 hover:text-purple-600 flex items-center space-x-1">
+                  <Gift className="w-4 h-4" />
+                  <span>Xông Đất</span>
                 </Link>
                 <Link to="/pricing" className="text-gray-600 hover:text-purple-600">
                   Bảng giá
@@ -154,6 +162,15 @@ export default function Header() {
               </>
             ) : (
               <>
+                <Link to="/chat" className="block text-gray-600 hover:text-purple-600">
+                  Tư vấn
+                </Link>
+                <Link to="/lich-phong-thuy" className="block text-gray-600 hover:text-purple-600">
+                  Lịch Phong Thủy
+                </Link>
+                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600">
+                  Xông Đất
+                </Link>
                 <Link to="/pricing" className="block text-gray-600 hover:text-purple-600">
                   Bảng giá
                 </Link>

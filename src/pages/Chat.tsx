@@ -154,18 +154,18 @@ export default function Chat() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
+      <div className="max-w-4xl mx-auto w-full flex flex-col" style={{ height: 'calc(100vh - 80px)' }}>
         {/* Header */}
-        <div className="bg-white rounded-t-xl shadow-lg p-6 border-b">
+        <div className="bg-white rounded-t-xl shadow-lg p-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Tư vấn với Thầy Tám</h1>
-              <p className="text-gray-600">Đặt câu hỏi về phong thủy, tài lộc, sự nghiệp...</p>
+              <h1 className="text-xl font-bold text-gray-900">Tư vấn với Thầy Tám</h1>
+              <p className="text-sm text-gray-600">Đặt câu hỏi về phong thủy, tài lộc, sự nghiệp...</p>
             </div>
             {user && (
-              <div className="bg-purple-100 px-4 py-2 rounded-lg">
-                <span className="text-purple-600 font-semibold">
+              <div className="bg-purple-100 px-3 py-1.5 rounded-lg">
+                <span className="text-sm text-purple-600 font-semibold">
                   Còn {user.quota.chat} câu hỏi
                 </span>
               </div>
@@ -173,9 +173,9 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Messages - FIXED HEIGHT WITH INTERNAL SCROLL */}
-        <div className="bg-white shadow-lg" style={{ height: 'calc(100vh - 400px)', minHeight: '400px', maxHeight: '600px' }}>
-          <div className="h-full overflow-y-auto p-6 space-y-4">
+        {/* Messages - SCROLLABLE AREA */}
+        <div className="bg-white shadow-lg flex-1 overflow-y-auto">
+          <div className="p-4 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -287,27 +287,27 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Input */}
-        <div className="bg-white rounded-b-xl shadow-lg p-4">
+        {/* Input - FIXED AT BOTTOM */}
+        <div className="bg-white rounded-b-xl shadow-lg p-4 border-t flex-shrink-0">
           <div className="flex items-end space-x-2">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Nhập câu hỏi của bạn..."
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
-              rows={3}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm"
+              rows={2}
               disabled={loading}
             />
             <button
               onClick={handleSend}
               disabled={loading || !input.trim()}
-              className="bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-purple-600 text-white p-2.5 rounded-lg hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Send className="w-6 h-6" />
+              <Send className="w-5 h-5" />
             </button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 mt-1.5">
             Nhấn Enter để gửi, Shift+Enter để xuống dòng
           </p>
         </div>

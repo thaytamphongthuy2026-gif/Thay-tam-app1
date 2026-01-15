@@ -58,7 +58,7 @@ export default function Home() {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
       'name': 'Thầy Tám Phong Thủy 2026',
-      'description': 'AI phong thủy dựa trên 6 sách cổ thư (~70MB tri thức). Xem ngày tốt, xem tử vi năm 2026 (Ất Tỵ). Trích dẫn từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Tử Vi Đẩu Số.',
+      'description': 'AI phong thủy dựa trên 6 sách cổ thư. Xem ngày tốt, xem tử vi năm 2026 (Ất Tỵ). Trích dẫn từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Tử Vi Đẩu Số.',
       'url': 'https://thaytamphongthuy.com',
       'telephone': '',
       'email': 'thaytamphongthuy2026@gmail.com',
@@ -136,7 +136,22 @@ export default function Home() {
 
             {/* 3 BIG Instant CTAs - NO LOGIN REQUIRED */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mt-10">
-              {/* CTA 1: Xem Tử Vi AI */}
+              {/* CTA 1: Xem Ngày Tốt - PRIMARY */}
+              <Link
+                to="/xem-ngay-tot"
+                className="group relative bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-6 rounded-2xl shadow-2xl hover:shadow-yellow-500/70 transition-all duration-300 transform hover:scale-110 ring-4 ring-yellow-300"
+              >
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform">
+                    <Calendar className="w-8 h-8 text-orange-600" />
+                  </div>
+                  <h3 className="text-xl font-bold">📅 Xem Ngày Tốt</h3>
+                  <p className="text-sm text-white/90">Chọn ngày hoàng đạo 2026</p>
+                  <span className="text-xs bg-white text-orange-600 px-3 py-1 rounded-full font-semibold animate-pulse">PHỔ BIẾN NHẤT ⭐</span>
+                </div>
+              </Link>
+
+              {/* CTA 2: Xem Tử Vi AI */}
               <Link
                 to="/tu-vi"
                 className="group relative bg-white text-purple-700 p-6 rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
@@ -147,37 +162,22 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold">🔮 Xem Tử Vi AI</h3>
                   <p className="text-sm text-gray-600">Dự đoán năm Rắn 2026</p>
-                  <span className="text-xs bg-red-500 text-white px-3 py-1 rounded-full font-semibold">MIỄN PHÍ</span>
+                  <span className="text-xs bg-purple-500 text-white px-3 py-1 rounded-full font-semibold">MIỄN PHÍ</span>
                 </div>
               </Link>
 
-              {/* CTA 2: Số May Mắn */}
+              {/* CTA 3: Xông Đất Tết */}
               <Link
-                to="/so-may-man"
-                className="group relative bg-white text-orange-700 p-6 rounded-2xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
+                to="/xong-dat"
+                className="group relative bg-white text-red-700 p-6 rounded-2xl shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105"
               >
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform">
-                    <Dices className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform">
+                    <Gift className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold">🎰 Số May Mắn</h3>
-                  <p className="text-sm text-gray-600">Quay số may mắn hôm nay</p>
-                  <span className="text-xs bg-green-500 text-white px-3 py-1 rounded-full font-semibold animate-pulse">HOT 🔥</span>
-                </div>
-              </Link>
-
-              {/* CTA 3: Xin Xăm */}
-              <Link
-                to="/xin-xam"
-                className="group relative bg-white text-pink-700 p-6 rounded-2xl shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
-              >
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform">
-                    <Flame className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold">🏮 Xin Xăm Ảo</h3>
-                  <p className="text-sm text-gray-600">Rút xăm online chuẩn xác</p>
-                  <span className="text-xs bg-yellow-500 text-white px-3 py-1 rounded-full font-semibold">MỚI ⚡</span>
+                  <h3 className="text-xl font-bold">🎊 Xông Đất Tết</h3>
+                  <p className="text-sm text-gray-600">Tìm người xông nhà may mắn</p>
+                  <span className="text-xs bg-red-500 text-white px-3 py-1 rounded-full font-semibold">TẾT 2026 🎉</span>
                 </div>
               </Link>
             </div>
@@ -185,11 +185,18 @@ export default function Home() {
             {/* Secondary CTAs - Smaller */}
             <div className="flex flex-wrap gap-3 justify-center items-center mt-8 text-sm">
               <Link
-                to="/xem-ngay-tot"
+                to="/so-may-man"
                 className="bg-white/20 backdrop-blur-sm hover:bg-white/30 px-6 py-3 rounded-full font-medium transition inline-flex items-center gap-2"
               >
-                <Calendar className="w-4 h-4" />
-                Xem Ngày Tốt
+                <Dices className="w-4 h-4" />
+                Số May Mắn
+              </Link>
+              <Link
+                to="/xin-xam"
+                className="bg-white/20 backdrop-blur-sm hover:bg-white/30 px-6 py-3 rounded-full font-medium transition inline-flex items-center gap-2"
+              >
+                <Flame className="w-4 h-4" />
+                Xin Xăm Ảo
               </Link>
               <Link
                 to="/chat"
@@ -298,7 +305,7 @@ export default function Home() {
               </ul>
               <div className="mt-6 pt-6 border-t border-purple-200 text-center">
                 <p className="text-sm text-gray-600">
-                  <strong className="text-purple-600">~70MB</strong> tri thức phong thủy cổ truyền
+                  <strong className="text-purple-600">6 quyển sách</strong> phong thủy cổ truyền
                 </p>
               </div>
             </div>
@@ -492,7 +499,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">AI Dựa Trên Sách Cổ</h3>
               <p className="text-gray-600">
-                6 quyển sách phong thủy cổ truyền (~70MB). Thầy Tám trích dẫn chính xác, không suy diễn.
+                6 quyển sách phong thủy cổ truyền. Thầy Tám trích dẫn chính xác từ kinh điển.
               </p>
             </div>
 
