@@ -349,8 +349,301 @@ const blogPostsData: Record<string, BlogPostData> = {
       ],
       conclusion: 'Bày trí nhà cửa theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo không gian sống hài hòa, tích cực cho cả gia đình. Kết hợp với sự chăm chỉ và nỗ lực của bản thân, bạn sẽ có một năm mới thành công, hạnh phúc và tràn đầy năng lượng tích cực. Chúc bạn và gia đình một năm Ất Tỵ 2026 an khang thịnh vượng!'
     }
+  },
+  'ngay-cuoi-tot-2026': {
+    id: '4',
+    title: 'Xem Ngày Cưới Tốt Năm 2026 Cho Cặp Đôi',
+    excerpt: 'Chọn ngày cưới hỏi, ăn hỏi, đính hôn năm 2026 hợp tuổi vợ chồng. Tránh ngày xấu, chọn tháng tốt kết hôn để hôn nhân hạnh phúc trăm năm.',
+    date: '11/01/2026',
+    readTime: '9 phút',
+    category: 'Xem Ngày Tốt',
+    slug: 'ngay-cuoi-tot-2026',
+    keywords: ['ngày cưới tốt 2026', 'xem ngày cưới', 'ngày hoàng đạo cưới hỏi', 'chọn ngày đám cưới'],
+    relatedPosts: ['ngay-tot-khai-truong-2026', 'tu-vi-12-con-giap-2026'],
+    content: {
+      intro: 'Đám cưới là sự kiện trọng đại nhất trong đời mỗi người. Chọn ngày cưới tốt theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo nền tảng vững chắc cho hạnh phúc gia đình. Dưới đây là những ngày cưới tốt nhất năm Ất Tỵ 2026.',
+      sections: [
+        {
+          heading: '1. Tại Sao Cần Chọn Ngày Cưới Tốt?',
+          content: 'Chọn ngày cưới hợp tuổi vợ chồng sẽ mang lại nhiều may mắn:',
+          list: [
+            'Hôn nhân hạnh phúc, vợ chồng hòa thuận',
+            'Tránh khẩu thiệt, tranh cãi không đáng có',
+            'Con cái ngoan ngoãn, học hành tốt',
+            'Tài lộc dồi dào, sự nghiệp thuận lợi',
+            'Gia đình đầm ấm, sum vầy'
+          ]
+        },
+        {
+          heading: '2. Yếu Tố Quan Trọng Khi Chọn Ngày Cưới',
+          content: 'Khi chọn ngày cưới, cần xem xét:',
+          list: [
+            'Tuổi của cô dâu và chú rể',
+            'Mệnh của vợ chồng (Kim, Mộc, Thủy, Hỏa, Thổ)',
+            'Tháng tốt, tháng xấu trong năm',
+            'Ngày hoàng đạo theo lịch Việt',
+            'Tránh tháng cô hồn, tháng phạm tuổi',
+            'Giờ tốt để đón dâu, lễ thành hôn'
+          ]
+        },
+        {
+          heading: '3. Top 12 Ngày Cưới Tốt Năm 2026',
+          content: 'Dựa trên lịch vạn niên năm Ất Tỵ 2026:',
+          list: [
+            'Ngày 18/01/2026 (CN Âm 19/12/2025): Ngày Hoàng Đạo, hợp mọi tuổi',
+            'Ngày 25/02/2026 (DL Âm 28/01/2026): Ngày Thiên Đức, đại cát',
+            'Ngày 15/03/2026 (CN Âm 16/02/2026): Ngày Tam Hợp, đại lợi',
+            'Ngày 08/04/2026 (DL Âm 11/03/2026): Ngày Nguyệt Đức Hợp',
+            'Ngày 12/05/2026 (DL Âm 16/04/2026): Ngày Hoàng Đạo Khai',
+            'Ngày 20/06/2026 (CN Âm 26/05/2026): Ngày Thiên Ân',
+            'Ngày 18/07/2026 (CN Âm 25/06/2026): Ngày Nguyệt Đức',
+            'Ngày 15/08/2026 (CN Âm 23/07/2026): Ngày Hoàng Đạo',
+            'Ngày 19/09/2026 (CN Âm 29/08/2026): Ngày Thiên Đức Hợp',
+            'Ngày 10/10/2026 (CN Âm 20/09/2026): Ngày Tam Hợp',
+            'Ngày 15/11/2026 (CN Âm 26/10/2026): Ngày Nguyệt Đức',
+            'Ngày 12/12/2026 (CN Âm 24/11/2026): Ngày Hoàng Đạo'
+          ]
+        },
+        {
+          heading: '4. Giờ Tốt Đón Dâu, Lễ Thành Hôn',
+          content: 'Các giờ hoàng đạo thường được chọn:',
+          list: [
+            'Giờ Tý (23h-1h): Hợp cưới tại nhà hàng',
+            'Giờ Mão (5h-7h): Hợp đón dâu sáng sớm',
+            'Giờ Tỵ (9h-11h): Hợp lễ cưới buổi sáng',
+            'Giờ Ngọ (11h-13h): Hợp lễ cưới buổi trưa',
+            'Giờ Dậu (17h-19h): Hợp tiệc cưới buổi tối'
+          ]
+        },
+        {
+          heading: '5. Lưu Ý Khi Chọn Ngày Cưới',
+          content: 'Một số điều cần tránh:',
+          list: [
+            'Tránh tháng 3, 7 Âm lịch (tháng cô hồn)',
+            'Tránh ngày mồng 1, 15 Âm lịch',
+            'Tránh ngày Rằm, ngày Tết',
+            'Tránh ngày phạm tuổi chủ hôn',
+            'Không cưới vào năm vợ hoặc chồng phạm tuổi'
+          ]
+        }
+      ],
+      conclusion: 'Chọn ngày cưới tốt là bước quan trọng đầu tiên trên con đường xây dựng hạnh phúc gia đình. Tuy nhiên, yếu tố quan trọng nhất vẫn là tình yêu chân thành và sự nỗ lực của cả hai. Chúc các cặp đôi trăm năm hạnh phúc!'
+    }
+  },
+  'huong-nha-tot-2026': {
+    id: '5',
+    title: 'Hướng Nhà Tốt Năm 2026: Xây Nhà Hướng Nào May Mắn?',
+    excerpt: 'Phong thủy hướng nhà năm 2026. Hướng Đông, Tây, Nam, Bắc nào tốt cho tuổi chủ nhà? Cách chọn hướng cửa chính, hướng giường ngủ đón tài lộc.',
+    date: '10/01/2026',
+    readTime: '11 phút',
+    category: 'Phong Thủy Nhà Ở',
+    slug: 'huong-nha-tot-2026',
+    keywords: ['hướng nhà tốt 2026', 'phong thủy hướng nhà', 'hướng cửa chính', 'xây nhà hướng nào tốt'],
+    relatedPosts: ['phong-thuy-tet-2026', 'mau-sac-may-man-2026'],
+    content: {
+      intro: 'Hướng nhà là yếu tố phong thủy quan trọng nhất ảnh hưởng đến vận may của gia chủ. Chọn đúng hướng nhà sẽ giúp gia đình an khang, tài lộc, sự nghiệp phát triển. Năm 2026, đây là những hướng nhà tốt nhất theo phong thủy.',
+      sections: [
+        {
+          heading: '1. Hướng Nhà Là Gì?',
+          content: 'Hướng nhà là hướng cửa chính đón khí vào nhà. Xác định hướng nhà:',
+          list: [
+            'Đứng ở giữa nhà, quay mặt ra ngoài',
+            'Hướng bạn quay mặt chính là hướng nhà',
+            'Dùng la bàn để xác định chính xác',
+            'Có 8 hướng chính: Đông, Tây, Nam, Bắc, Đông Bắc, Tây Bắc, Đông Nam, Tây Nam'
+          ]
+        },
+        {
+          heading: '2. Hướng Nhà Tốt Theo Mệnh Ngũ Hành',
+          content: 'Mỗi mệnh có hướng nhà phù hợp riêng:',
+          list: [
+            'Mệnh Kim: Hướng Tây, Tây Bắc, Tây Nam (tương sinh)',
+            'Mệnh Mộc: Hướng Đông, Đông Nam, Đông Bắc (tương sinh)',
+            'Mệnh Thủy: Hướng Bắc, Tây Bắc, Đông Bắc (tương sinh)',
+            'Mệnh Hỏa: Hướng Nam, Đông Nam, Tây Nam (tương sinh)',
+            'Mệnh Thổ: Hướng Tây Nam, Đông Bắc, Nam (tương sinh)'
+          ]
+        },
+        {
+          heading: '3. Hướng Nhà Tốt Năm Ất Tỵ 2026',
+          content: 'Theo Cửu Cung Phi Tinh, năm 2026:',
+          list: [
+            'Hướng Đông Nam: Ngôi sao Chính Tài bay vào, đại cát',
+            'Hướng Tây Bắc: Ngôi sao Văn Xương, tốt cho học tập',
+            'Hướng Bắc: Ngôi sao Chính Quan, tốt cho sự nghiệp',
+            'Hướng Tây: Ngôi sao Lộc Tồn, tốt cho kinh doanh',
+            'Tránh hướng Tây Nam: Sao Nhị Hắc (bệnh tật)'
+          ]
+        },
+        {
+          heading: '4. Cách Chọn Hướng Giường Ngủ',
+          content: 'Hướng giường ngủ cũng rất quan trọng:',
+          list: [
+            'Đầu giường hướng Đông: Tốt cho sức khỏe, tuổi thọ',
+            'Đầu giường hướng Tây: Tốt cho giấc ngủ ngon',
+            'Đầu giường hướng Nam: Tốt cho sự nghiệp',
+            'Đầu giường hướng Bắc: Tốt cho tài lộc',
+            'Tránh đầu giường hướng cửa ra vào'
+          ]
+        },
+        {
+          heading: '5. Cách Hóa Giải Hướng Nhà Xấu',
+          content: 'Nếu nhà đã xây hướng không tốt:',
+          list: [
+            'Đặt bàn thờ Thần Tài ở vị trí Chính Tài',
+            'Treo gương Bát Quái ở cửa chính',
+            'Đặt cây phong thủy hóa giải',
+            'Thay đổi màu sơn nhà cho phù hợp',
+            'Bố trí nội thất theo nguyên tắc phong thủy'
+          ]
+        }
+      ],
+      conclusion: 'Chọn hướng nhà tốt là nền tảng phong thủy quan trọng nhất. Nếu đã xây nhà hướng không phù hợp, đừng lo lắng quá, có nhiều cách hóa giải hiệu quả. Quan trọng nhất là giữ tâm hồn thanh thản, làm việc chăm chỉ và đối xử tốt với mọi người.'
+    }
+  },
+  'tuoi-ty-nam-2026': {
+    id: '6',
+    title: 'Tuổi Tỵ (Rắn) Năm 2026: Phạm Tuổi Có Xui Xẻo Không?',
+    excerpt: 'Tuổi Tỵ năm Ất Tỵ 2026 phạm tuổi, vận may ra sao? Cách hóa giải tuổi phạm: đeo vật phẩm gì, làm gì để may mắn, tránh tai họa.',
+    date: '09/01/2026',
+    readTime: '7 phút',
+    category: 'Tử Vi',
+    slug: 'tuoi-ty-nam-2026',
+    keywords: ['tuổi tỵ 2026', 'tuổi phạm 2026', 'hóa giải tuổi phạm', 'tử vi tuổi rắn 2026'],
+    relatedPosts: ['tu-vi-12-con-giap-2026', 'mau-sac-may-man-2026'],
+    content: {
+      intro: 'Năm Ất Tỵ 2026 là năm tuổi Tỵ (Rắn) phạm tuổi Thái Tuế. Nhiều người lo lắng về vận may và sức khỏe. Vậy tuổi phạm có thực sự xui xẻo? Cách nào để hóa giải?',
+      sections: [
+        {
+          heading: '1. Tuổi Phạm Là Gì?',
+          content: 'Tuổi phạm (hay phạm Thái Tuế) là:',
+          list: [
+            'Tuổi trùng với Can Chi của năm',
+            'Ví dụ: Tuổi Tỵ gặp năm Ất Tỵ',
+            'Theo tín ngưỡng dân gian, năm phạm tuổi có nhiều biến động',
+            'Cần cẩn trọng trong công việc, tài chính, sức khỏe'
+          ]
+        },
+        {
+          heading: '2. Vận May Tuổi Tỵ Năm 2026',
+          content: 'Dự đoán tổng quan:',
+          list: [
+            'Sự nghiệp: Có nhiều thay đổi, nên thận trọng',
+            'Tài lộc: Không nên đầu tư lớn, giữ vốn an toàn',
+            'Tình duyên: Dễ có khẩu thiệt, cần bao dung',
+            'Sức khỏe: Chú ý tiêu hóa, gan mật',
+            'Tổng quan: Năm cẩn trọng, không phải năm xấu'
+          ]
+        },
+        {
+          heading: '3. Cách Hóa Giải Tuổi Phạm',
+          content: 'Các phương pháp hóa giải hiệu quả:',
+          list: [
+            'Đeo vòng tay phong thủy (thạch anh, mã não)',
+            'Đeo dây chuyền 12 con giáp',
+            'Cúng giải hạn đầu năm',
+            'Làm từ thiện, phóng sinh',
+            'Tránh tham gia đám tang, viếng người ốm'
+          ]
+        },
+        {
+          heading: '4. Những Điều Nên Làm Năm 2026',
+          content: 'Để có một năm thuận lợi:',
+          list: [
+            'Giữ tâm trạng tích cực, lạc quan',
+            'Làm việc chăm chỉ, đừng ỷ lại',
+            'Đầu tư vào bản thân, học thêm kỹ năng',
+            'Duy trì sức khỏe bằng thể dục, ăn uống khoa học',
+            'Hòa thuận gia đình, thân thiện với đồng nghiệp'
+          ]
+        },
+        {
+          heading: '5. Những Điều Nên Tránh Năm 2026',
+          content: 'Các việc không nên làm:',
+          list: [
+            'Đầu tư lớn, kinh doanh rủi ro cao',
+            'Mua nhà, mua đất, xây dựng lớn',
+            'Cãi vã, tranh chấp với người khác',
+            'Đi lại xa về hướng xấu',
+            'Tham gia cờ bạc, đầu cơ chứng khoán'
+          ]
+        }
+      ],
+      conclusion: 'Tuổi phạm không đáng sợ nếu bạn biết cách ứng xử đúng đắn. Giữ tâm trạng tích cực, làm việc chăm chỉ, sống tốt với mọi người - đó là cách hóa giải tuổi phạm hiệu quả nhất. Chúc tuổi Tỵ một năm 2026 bình an!'
+    }
+  },
+  'mau-sac-may-man-2026': {
+    id: '7',
+    title: 'Màu Sắc May Mắn Năm 2026 Theo Mệnh Kim Mộc Thủy Hỏa Thổ',
+    excerpt: 'Màu sắc hợp phong thủy năm 2026 cho từng mệnh. Mệnh Kim, Mộc, Thủy, Hỏa, Thổ nên mặc màu gì, sơn nhà màu gì để thu hút tài lộc?',
+    date: '08/01/2026',
+    readTime: '8 phút',
+    category: 'Phong Thủy',
+    slug: 'mau-sac-may-man-2026',
+    keywords: ['màu sắc may mắn 2026', 'màu sắc phong thủy', 'màu hợp mệnh', 'màu sơn nhà 2026'],
+    relatedPosts: ['huong-nha-tot-2026', 'phong-thuy-tet-2026'],
+    content: {
+      intro: 'Màu sắc trong phong thủy có ảnh hưởng lớn đến vận may, tâm trạng và năng lượng của con người. Chọn đúng màu sắc phù hợp với mệnh sẽ giúp bạn thu hút tài lộc, may mắn trong năm 2026.',
+      sections: [
+        {
+          heading: '1. Ngũ Hành Và Màu Sắc',
+          content: 'Mỗi mệnh ngũ hành có màu sắc tương ứng:',
+          list: [
+            'Mệnh Kim: Màu trắng, vàng, bạc, kim loại',
+            'Mệnh Mộc: Màu xanh lá, xanh lơ, xanh ngọc',
+            'Mệnh Thủy: Màu đen, xanh đậm, xanh navy',
+            'Mệnh Hỏa: Màu đỏ, cam, hồng, tím',
+            'Mệnh Thổ: Màu vàng, nâu, be, cam đất'
+          ]
+        },
+        {
+          heading: '2. Màu Sắc May Mắn Năm Ất Tỵ 2026',
+          content: 'Năm 2026 là năm Ất Tỵ (Mộc Thổ), màu may mắn:',
+          list: [
+            'Màu chủ đạo: Xanh lá, vàng, nâu đất',
+            'Màu phụ: Đỏ, cam, hồng (Hỏa sinh Thổ)',
+            'Màu nên tránh: Trắng, xám (Kim khắc Mộc)',
+            'Màu trung tính: Kem, be, nâu nhạt'
+          ]
+        },
+        {
+          heading: '3. Màu Tốt Cho Từng Mệnh Năm 2026',
+          content: 'Màu sắc phù hợp cho từng mệnh:',
+          list: [
+            'Mệnh Kim: Vàng, nâu, đỏ (Hỏa Thổ sinh Kim)',
+            'Mệnh Mộc: Xanh lá, xanh lơ, đen (Thủy sinh Mộc)',
+            'Mệnh Thủy: Trắng, xám, đen (Kim sinh Thủy)',
+            'Mệnh Hỏa: Xanh lá, đỏ, tím (Mộc sinh Hỏa)',
+            'Mệnh Thổ: Đỏ, vàng, nâu (Hỏa sinh Thổ)'
+          ]
+        },
+        {
+          heading: '4. Ứng Dụng Màu Sắc Trong Cuộc Sống',
+          content: 'Cách sử dụng màu sắc hiệu quả:',
+          list: [
+            'Quần áo: Mặc màu hợp mệnh khi đi làm, gặp đối tác',
+            'Sơn nhà: Chọn màu sơn phòng khách, phòng ngủ phù hợp',
+            'Xe hơi: Chọn màu xe hợp mệnh chủ xe',
+            'Phụ kiện: Ví, túi xách, điện thoại màu hợp mệnh',
+            'Nội thất: Sofa, rèm cửa, thảm trải màu hài hòa'
+          ]
+        },
+        {
+          heading: '5. Lưu Ý Khi Chọn Màu Sắc',
+          content: 'Một số điều cần chú ý:',
+          list: [
+            'Không nên dùng quá nhiều màu xung khắc',
+            'Kết hợp màu chủ đạo với màu phụ hài hòa',
+            'Tránh màu quá sặc sỡ, chói mắt',
+            'Ưu tiên màu tự nhiên, dễ chịu',
+            'Điều chỉnh theo sở thích cá nhân'
+          ]
+        }
+      ],
+      conclusion: 'Màu sắc phong thủy là công cụ hỗ trợ đắc lực để cải thiện vận may. Tuy nhiên, đừng quá phụ thuộc vào màu sắc mà quên mất nỗ lực bản thân. Kết hợp khéo léo giữa phong thủy và hành động thực tế sẽ mang lại thành công bền vững!'
+    }
   }
-  // Các bài viết còn lại sẽ có cấu trúc tương tự
+  // Các bài viết đã hoàn thiện
 }
 
 export default function BlogPost() {
