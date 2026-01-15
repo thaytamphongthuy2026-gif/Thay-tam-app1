@@ -67,7 +67,11 @@ export default function AdminDashboard() {
     
     // Simple admin check - check if user email is admin
     // TODO: Replace with proper admin role check
-    const ADMIN_EMAILS = ['admin@thaytam.com', 'cuong@thaytam.com']
+    const ADMIN_EMAILS = [
+      'admin@thaytam.com', 
+      'cuong@thaytam.com',
+      'thaytamphongthuy2026@gmail.com'
+    ]
     
     if (!token || !userEmail || !ADMIN_EMAILS.includes(userEmail)) {
       navigate('/login')

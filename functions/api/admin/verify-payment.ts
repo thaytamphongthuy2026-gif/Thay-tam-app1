@@ -9,6 +9,13 @@ import { verifyJWT, extractToken } from '../../_lib/auth'
 import { getUser } from '../../_lib/database'
 import type { Env } from '../../_lib/database'
 
+// Admin emails - TODO: Move to database or environment variable
+const ADMIN_EMAILS = [
+  'admin@thaytam.com', 
+  'cuong@thaytam.com',
+  'thaytamphongthuy2026@gmail.com'
+]
+
 interface VerifyPaymentRequest {
   orderId: string
   action: 'confirm' | 'reject'
@@ -44,7 +51,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
 
     // Check if user is admin
     const admin = await getUser(adminId, env)
-    if (!admin || admin.role !== 'admin') {
+    if (!admin || !ADMIN_EMAILS.includes(admin.email)) {
       return new Response(JSON.stringify({ error: 'Unauthorized. Admin access required.' }), {
         status: 403,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },

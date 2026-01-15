@@ -8,7 +8,11 @@ import { getUser } from '../../_lib/database'
 import type { Env } from '../../_lib/database'
 
 // Admin emails - TODO: Move to database or environment variable
-const ADMIN_EMAILS = ['admin@thaytam.com', 'cuong@thaytam.com']
+const ADMIN_EMAILS = [
+  'admin@thaytam.com', 
+  'cuong@thaytam.com',
+  'thaytamphongthuy2026@gmail.com'
+]
 
 export async function onRequestGet(context: { request: Request; env: Env }) {
   const { request, env } = context
