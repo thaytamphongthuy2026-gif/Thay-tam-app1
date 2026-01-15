@@ -24,10 +24,17 @@ export default function Profile() {
       return
     }
 
+    // Convert database format (YYYY-MM-DD) to display format (DD/MM/YYYY)
+    let displayBirthDate = user.birth_date || ''
+    if (displayBirthDate && /^\d{4}-\d{2}-\d{2}$/.test(displayBirthDate)) {
+      const [year, month, day] = displayBirthDate.split('-')
+      displayBirthDate = `${day}/${month}/${year}`
+    }
+
     // Pre-fill form with existing data
     setFormData({
       name: user.name || '',
-      birth_date: user.birth_date || '',
+      birth_date: displayBirthDate,
       birth_date_type: user.birth_date_type || 'solar',
       gender: user.gender || 'male',
     })
@@ -49,11 +56,15 @@ export default function Profile() {
         throw new Error('Ngày sinh phải theo định dạng DD/MM/YYYY')
       }
 
+      // Convert DD/MM/YYYY to YYYY-MM-DD for database
+      const [day, month, year] = formData.birth_date.split('/')
+      const dbDateFormat = `${year}-${month}-${day}`
+
       const { error: updateError } = await supabase
         .from('users')
         .update({
           name: formData.name,
-          birth_date: formData.birth_date,
+          birth_date: dbDateFormat, // Use YYYY-MM-DD format
           birth_date_type: formData.birth_date_type,
           gender: formData.gender,
           profile_completed: true,
@@ -187,6 +198,9 @@ export default function Profile() {
                     🌙 Âm Lịch
                   </button>
                 </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  💡 <strong>Quan trọng:</strong> Chọn đúng loại lịch bạn biết. Nếu bạn chỉ biết ngày sinh Dương lịch, hệ thống sẽ tự động chuyển đổi sang Âm lịch khi Thầy Tám xem cho bạn.
+                </p>
               </div>
 
               {/* Birth Date */}
