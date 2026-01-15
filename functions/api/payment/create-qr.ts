@@ -88,6 +88,15 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     const orderId = `ORDER_${userId.substring(0, 8)}_${Date.now()}`
 
     // Create order in database
+    console.log('📝 Creating order:', {
+      orderId,
+      userId,
+      plan,
+      amount: planInfo.price,
+      supabaseUrl: env.SUPABASE_URL?.substring(0, 30) + '...',
+      hasServiceKey: !!env.SUPABASE_SERVICE_KEY
+    })
+
     const orderResponse = await fetch(
       `${env.SUPABASE_URL}/rest/v1/orders`,
       {
@@ -122,19 +131,37 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         error: errorText,
         orderId,
         userId,
-        plan
+        plan,
+        headers: Object.fromEntries(orderResponse.headers.entries())
       })
+      
+      // Check if it's RLS issue
+      if (errorText.includes('RLS') || errorText.includes('policy') || orderResponse.status === 403) {
+        return new Response(JSON.stringify({ 
+          error: 'Database permission error. Please check Supabase RLS policies.',
+          details: 'The service role should bypass RLS. Check if SUPABASE_SERVICE_KEY is correct.',
+          technicalError: errorText,
+          status: orderResponse.status
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        })
+      }
       
       // Return detailed error for debugging
       return new Response(JSON.stringify({ 
         error: 'Failed to create order',
         details: errorText,
-        status: orderResponse.status
+        status: orderResponse.status,
+        hint: 'Check Cloudflare Worker logs for full error details'
       }), {
         status: 500,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       })
     }
+
+    const createdOrder = await orderResponse.json()
+    console.log('✅ Order created successfully:', createdOrder)
 
     // Generate QR code and payment instructions
     const paymentInstructions = generatePaymentInstructions({
