@@ -153,8 +153,8 @@ export default function Chat() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="bg-white rounded-t-xl shadow-lg p-6 border-b">
           <div className="flex items-center justify-between">
@@ -172,8 +172,9 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="bg-white shadow-lg h-[500px] overflow-y-auto p-6 space-y-4">
+        {/* Messages - FIXED HEIGHT WITH INTERNAL SCROLL */}
+        <div className="bg-white shadow-lg" style={{ height: 'calc(100vh - 400px)', minHeight: '400px', maxHeight: '600px' }}>
+          <div className="h-full overflow-y-auto p-6 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -221,7 +222,8 @@ export default function Chat() {
             </div>
           )}
 
-          <div ref={messagesEndRef} />
+            <div ref={messagesEndRef} />
+          </div>
         </div>
 
         {/* Input */}
