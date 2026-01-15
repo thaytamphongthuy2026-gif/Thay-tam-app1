@@ -85,6 +85,19 @@ LƯU Ý:
 `.trim()
 
 /**
+ * RAG File IDs - Hardcoded for production
+ * 6 Phong Thủy books (~70MB total knowledge base)
+ */
+const RAG_FILE_IDS = [
+  'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB)
+  'files/b1ixvmtyrkdv',   // Hiệp Kỷ Biện Phương Thư - Tập 1 (38MB)
+  'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB)
+  'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB)
+  'files/rg2t1hnbk7v6',   // Tăng San Bốc Dịch (29MB)
+  'files/hbgvit2weaka',   // Tử Vi Đẩu Số Tân Biện (394KB)
+]
+
+/**
  * Build Gemini API request with RAG support
  */
 export function buildGeminiRequestWithRAG(
@@ -92,8 +105,9 @@ export function buildGeminiRequestWithRAG(
   env: Env,
   quotaType: 'chat' | 'xemNgay' | 'tuVi'
 ): any {
-  // Parse file IDs from environment
-  const ragFileIds = env.RAG_FILE_IDS ? env.RAG_FILE_IDS.split(',').map(id => id.trim()) : []
+  // Use hardcoded RAG_FILE_IDS (fallback to env if needed)
+  const ragFileIds = RAG_FILE_IDS.length > 0 ? RAG_FILE_IDS : 
+    (env.RAG_FILE_IDS ? env.RAG_FILE_IDS.split(',').map(id => id.trim()) : [])
   
   // Build contents array
   const contents: any[] = [
