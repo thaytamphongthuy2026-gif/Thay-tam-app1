@@ -18,7 +18,7 @@ export default function Home() {
     document.title = 'Thầy Tám Phong Thủy 2026 - Xem Ngày Tốt, Tử Vi, Tư Vấn Phong Thủy Tết Ất Tỵ'
     
     const metaTags = [
-      { name: 'description', content: 'Tư vấn phong thủy Tết 2026 (Ất Tỵ) chuyên nghiệp. Xem ngày tốt khai trương, cưới hỏi, động thổ. Xem tử vi năm 2026. Chuyên gia phong thủy AI 24/7.' },
+      { name: 'description', content: 'Tư vấn phong thủy Tết 2026 (Ất Tỵ) dựa trên 6 sách cổ thư. Xem ngày tốt khai trương, cưới hỏi, động thổ. Xem tử vi năm 2026. AI trích xuất từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư.' },
       { name: 'keywords', content: 'phong thủy 2026, tết 2026, xem ngày tốt 2026, tử vi 2026, phong thủy tết ất tỵ, ngày hoàng đạo 2026, xem ngày khai trương, xem ngày cưới hỏi, thầy phong thủy' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://thaytamphongthuy.com/' },
@@ -58,7 +58,7 @@ export default function Home() {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
       'name': 'Thầy Tám Phong Thủy 2026',
-      'description': 'Tư vấn phong thủy chuyên nghiệp, xem ngày tốt, xem tử vi năm 2026 (Ất Tỵ) với công nghệ AI.',
+      'description': 'AI phong thủy dựa trên 6 sách cổ thư (~70MB tri thức). Xem ngày tốt, xem tử vi năm 2026 (Ất Tỵ). Trích dẫn từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Tử Vi Đẩu Số.',
       'url': 'https://thaytamphongthuy.com',
       'telephone': '',
       'email': 'thaytamphongthuy2026@gmail.com',
@@ -205,6 +205,139 @@ export default function Home() {
                 <Sparkles className="w-4 h-4" />
                 Xem Bảng Giá
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: Thầy Tám's Unique Approach - Book-Based AI */}
+      <section className="py-16 bg-white border-t-4 border-purple-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-6 py-3 rounded-full text-sm font-bold mb-6">
+              <span className="text-2xl">📚</span>
+              <span>ĐIỂM KHÁC BIỆT CỦA THẦY TÁM</span>
+            </div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              AI Phong Thủy Dựa Trên Sách Cổ Thư
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Không dựa vào kinh nghiệm cá nhân. Không suy diễn hay đoán mò. 
+              <strong className="text-purple-600"> CHỈ trích dẫn từ sách phong thủy cổ truyền.</strong>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left: What makes us different */}
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">❌</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">AI Phong Thủy Khác</h3>
+                  <p className="text-gray-600">Dựa vào "kinh nghiệm 30 năm" • Suy diễn từ internet • Không rõ nguồn gốc</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">✅</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-purple-600 mb-1">Thầy Tám</h3>
+                  <p className="text-gray-600">
+                    <strong>6 quyển sách cổ thư</strong> (~70MB tri thức) • 
+                    Trích xuất chính xác • Trích dẫn rõ ràng nguồn gốc
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: The books */}
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl border-2 border-purple-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+                📚 Nguồn Kiến Thức
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start space-x-3">
+                  <span className="text-2xl">📖</span>
+                  <div>
+                    <strong className="text-gray-900">Bát Trạch Minh Kinh</strong>
+                    <p className="text-sm text-gray-600">Phong thủy nhà ở kinh điển</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <span className="text-2xl">📕</span>
+                  <div>
+                    <strong className="text-gray-900">Ngọc Hạp Thông Thư</strong>
+                    <p className="text-sm text-gray-600">Xem ngày tốt, chọn giờ hoàng đạo</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <span className="text-2xl">📗</span>
+                  <div>
+                    <strong className="text-gray-900">Tử Vi Đẩu Số Tân Biện</strong>
+                    <p className="text-sm text-gray-600">Xem tử vi, đoán vận mệnh</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <span className="text-2xl">📘</span>
+                  <div>
+                    <strong className="text-gray-900">Tăng San Bốc Dịch</strong>
+                    <p className="text-sm text-gray-600">Kinh dịch và xem quẻ</p>
+                  </div>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <span className="text-2xl">📙</span>
+                  <div>
+                    <strong className="text-gray-900">Hiệp Kỷ Biện Phương Thư</strong>
+                    <p className="text-sm text-gray-600">Tập 1 & 2 - Kiến thức toàn diện</p>
+                  </div>
+                </li>
+              </ul>
+              <div className="mt-6 pt-6 border-t border-purple-200 text-center">
+                <p className="text-sm text-gray-600">
+                  <strong className="text-purple-600">~70MB</strong> tri thức phong thủy cổ truyền
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* How it works */}
+          <div className="mt-16 bg-gray-50 p-8 rounded-2xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+              🤖 Công Nghệ AI Tiên Tiến
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">📖</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">1. Trích Xuất</h4>
+                <p className="text-sm text-gray-600">Đọc và phân tích 6 quyển sách</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">🔍</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">2. Tìm Kiếm</h4>
+                <p className="text-sm text-gray-600">Tìm thông tin liên quan chính xác</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">🧠</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">3. Suy Luận</h4>
+                <p className="text-sm text-gray-600">Kết hợp logic ngũ hành</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">💬</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-2">4. Tư Vấn</h4>
+                <p className="text-sm text-gray-600">Trả lời cá nhân hóa + trích dẫn nguồn</p>
+              </div>
             </div>
           </div>
         </div>
@@ -357,9 +490,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <Zap className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Tư Vấn Tức Thì 24/7</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">AI Dựa Trên Sách Cổ</h3>
               <p className="text-gray-600">
-                Nhận tư vấn phong thủy Tết ngay lập tức, kể cả đêm khuya. Không chờ đợi.
+                6 quyển sách phong thủy cổ truyền (~70MB). Thầy Tám trích dẫn chính xác, không suy diễn.
               </p>
             </div>
 
@@ -377,9 +510,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <TrendingUp className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Chính Xác Từ Kinh Điển</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Nguồn Gốc Rõ Ràng</h3>
               <p className="text-gray-600">
-                Dựa trên 300 năm kiến thức phong thủy truyền thống + AI hiện đại
+                Bát Trạch Minh Kinh • Ngọc Hạp Thông Thư • Tử Vi Đẩu Số • Tăng San Bốc Dịch + 2 sách khác
               </p>
             </div>
           </div>
