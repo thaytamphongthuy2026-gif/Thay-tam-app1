@@ -68,12 +68,12 @@ export default function TuVi() {
 
     try {
       // Auto-save user info to profile
-      if (user && updateUserInfo) {
+      if (user && updateUserInfo && gender) {
         await updateUserInfo({
           name: name || user.name,
           birth_date: birthDate,
           birth_date_type: calendarType,
-          gender: gender || user.gender,
+          gender: gender as 'male' | 'female' | 'other',
         })
       }
 
