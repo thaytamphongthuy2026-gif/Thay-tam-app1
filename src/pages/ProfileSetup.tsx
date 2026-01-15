@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase'
 interface UserProfile {
   full_name: string
   birth_date: string
+  birth_time?: string
   birth_date_type: 'solar' | 'lunar'
   gender: 'male' | 'female' | 'other'
 }
@@ -17,7 +18,8 @@ export default function ProfileSetup() {
   const [profile, setProfile] = useState<UserProfile>({
     full_name: '',
     birth_date: '',
-    birth_date_type: 'lunar',
+    birth_time: '',
+    birth_date_type: 'solar', // Default to solar
     gender: 'male'
   })
 
@@ -49,6 +51,7 @@ export default function ProfileSetup() {
         .update({
           name: profile.full_name,
           birth_date: profile.birth_date,
+          birth_time: profile.birth_time || null,
           birth_date_type: profile.birth_date_type,
           gender: profile.gender,
           profile_completed: true,
@@ -149,21 +152,6 @@ export default function ProfileSetup() {
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
-                onClick={() => setProfile({ ...profile, birth_date_type: 'lunar' })}
-                className={`p-4 rounded-lg border-2 transition ${
-                  profile.birth_date_type === 'lunar'
-                    ? 'border-purple-600 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-300'
-                }`}
-              >
-                <div className="text-center">
-                  <div className="text-2xl mb-2">🌙</div>
-                  <div className="font-semibold text-gray-900">Âm lịch</div>
-                  <div className="text-sm text-gray-600 mt-1">Theo lịch Việt Nam truyền thống</div>
-                </div>
-              </button>
-              <button
-                type="button"
                 onClick={() => setProfile({ ...profile, birth_date_type: 'solar' })}
                 className={`p-4 rounded-lg border-2 transition ${
                   profile.birth_date_type === 'solar'
@@ -174,28 +162,66 @@ export default function ProfileSetup() {
                 <div className="text-center">
                   <div className="text-2xl mb-2">☀️</div>
                   <div className="font-semibold text-gray-900">Dương lịch</div>
-                  <div className="text-sm text-gray-600 mt-1">Theo lịch quốc tế</div>
+                  <div className="text-sm text-gray-600 mt-1">Lịch quốc tế (khuyến nghị)</div>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setProfile({ ...profile, birth_date_type: 'lunar' })}
+                className={`p-4 rounded-lg border-2 transition ${
+                  profile.birth_date_type === 'lunar'
+                    ? 'border-purple-600 bg-purple-50'
+                    : 'border-gray-200 hover:border-purple-300'
+                }`}
+              >
+                <div className="text-center">
+                  <div className="text-2xl mb-2">🌙</div>
+                  <div className="font-semibold text-gray-900">Âm lịch</div>
+                  <div className="text-sm text-gray-600 mt-1">Lịch Việt Nam truyền thống</div>
                 </div>
               </button>
             </div>
           </div>
 
-          {/* Birth Date */}
+          {/* Birth Date with DD/MM/YYYY format */}
           <div className="mb-6">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Ngày sinh *
+              Ngày sinh * <span className="text-gray-500 font-normal">(DD/MM/YYYY)</span>
             </label>
             <input
-              type="date"
+              type="text"
               required
               value={profile.birth_date}
-              onChange={(e) => setProfile({ ...profile, birth_date: e.target.value })}
+              onChange={(e) => {
+                // Only allow numbers and /
+                const value = e.target.value.replace(/[^\d/]/g, '')
+                setProfile({ ...profile, birth_date: value })
+              }}
+              placeholder="DD/MM/YYYY (ví dụ: 15/01/1990)"
+              pattern="\d{2}/\d{2}/\d{4}"
+              maxLength={10}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             />
             <p className="mt-2 text-sm text-gray-500">
               {profile.birth_date_type === 'lunar' 
-                ? '⚠️ Chú ý: Nếu bạn chọn Âm lịch, vui lòng nhập đúng ngày âm lịch của bạn' 
-                : 'Nhập ngày sinh theo dương lịch (lịch thông thường)'}
+                ? '⚠️ Chú ý: Nếu chọn Âm lịch, nhập ngày âm lịch (ví dụ: mùng 5 tháng Giêng = 05/01)' 
+                : 'Nhập ngày sinh dương lịch (định dạng: Ngày/Tháng/Năm)'}
+            </p>
+          </div>
+
+          {/* Birth Time (Optional) */}
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Giờ sinh <span className="text-gray-500 font-normal">(không bắt buộc)</span>
+            </label>
+            <input
+              type="time"
+              value={profile.birth_time}
+              onChange={(e) => setProfile({ ...profile, birth_time: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <p className="mt-2 text-sm text-gray-500">
+              💡 Giờ sinh giúp xem tử vi chính xác hơn. Nếu không nhớ rõ, có thể bỏ qua.
             </p>
           </div>
 
