@@ -41,6 +41,72 @@ export async function callGeminiAPI(
   return response.json()
 }
 
+// Streaming version for chat
+export async function streamGeminiAPI(
+  prompt: string,
+  quotaType: 'chat' | 'xemNgay' | 'tuVi',
+  onChunk: (text: string) => void
+): Promise<GeminiResponse> {
+  const session = await getSession()
+  
+  if (!session) {
+    throw new Error('Bạn cần đăng nhập để sử dụng tính năng này')
+  }
+
+  const response = await fetch('/api/gemini-stream', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify({ prompt, quotaType }),
+  })
+
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Có lỗi xảy ra')
+  }
+
+  const reader = response.body?.getReader()
+  const decoder = new TextDecoder()
+  let fullText = ''
+
+  if (!reader) {
+    throw new Error('No response body')
+  }
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+
+    const chunk = decoder.decode(value)
+    const lines = chunk.split('\n')
+
+    for (const line of lines) {
+      if (line.startsWith('data: ')) {
+        const data = line.slice(6)
+        if (data === '[DONE]') {
+          break
+        }
+        try {
+          const parsed = JSON.parse(data)
+          if (parsed.chunk) {
+            fullText += parsed.chunk
+            onChunk(parsed.chunk)
+          }
+        } catch (e) {
+          // Skip invalid JSON
+        }
+      }
+    }
+  }
+
+  return {
+    success: true,
+    result: fullText
+  }
+}
+
 export async function getQuota(): Promise<{ user: any; quota: QuotaType }> {
   const session = await getSession()
   

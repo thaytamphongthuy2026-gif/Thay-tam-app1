@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Send, Loader2, AlertCircle } from 'lucide-react'
-import { callGeminiAPI } from '../lib/gemini'
+import { callGeminiAPI, streamGeminiAPI } from '../lib/gemini'
 import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
 import { useAuth } from '../lib/authContext'
@@ -122,24 +122,35 @@ export default function Chat() {
     setLoading(true)
     setError('')
 
+    // Add placeholder for streaming response
+    const streamingMessageId = messages.length + 1
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: '',
+      timestamp: new Date()
+    }])
+
     try {
       const prompt = PROMPTS.chat(input)
-      const response = await callGeminiAPI(prompt, 'chat')
+      
+      // Use streaming API
+      await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
+        // Update the last message with streamed chunk
+        setMessages(prev => {
+          const updated = [...prev]
+          const lastMsg = updated[updated.length - 1]
+          if (lastMsg.role === 'assistant') {
+            lastMsg.content += chunk
+          }
+          return updated
+        })
+      })
 
-      if (response.success && response.result) {
-        const assistantMessage: Message = {
-          role: 'assistant',
-          content: response.result,
-          timestamp: new Date()
-        }
-        setMessages(prev => [...prev, assistantMessage])
-        
-        // Refresh user quota
-        await refreshUser()
-      } else {
-        setError(response.error || 'Có lỗi xảy ra')
-      }
+      // Refresh user quota
+      await refreshUser()
     } catch (err: any) {
+      // Remove placeholder message on error
+      setMessages(prev => prev.slice(0, -1))
       setError(err.message || 'Có lỗi xảy ra khi gửi tin nhắn')
     } finally {
       setLoading(false)
@@ -209,9 +220,13 @@ export default function Chat() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 rounded-xl p-4 flex items-center space-x-2">
-                <Loader2 className="w-5 h-5 text-purple-600 animate-spin" />
-                <span className="text-gray-600">Thầy Tám đang suy nghĩ...</span>
+              <div className="bg-gray-100 rounded-xl p-4 flex items-center space-x-3">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+                <span className="text-gray-600">Thầy Tám đang trả lời...</span>
               </div>
             </div>
           )}
