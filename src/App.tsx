@@ -15,7 +15,7 @@ import Pricing from './pages/Pricing'
 import LichPhongThuy from './pages/LichPhongThuy'
 import Payment from './pages/Payment'
 import PaymentResult from './pages/PaymentResult'
-import QRPayment from './pages/QRPayment'
+import SimplePayment from './pages/SimplePayment'
 import PaymentStatus from './pages/PaymentStatus'
 import AdminDashboard from './pages/AdminDashboard'
 import Blog from './pages/Blog'
@@ -59,7 +59,7 @@ function AppContent() {
           <Route path="/li-xi-game" element={<LiXiGame />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment-result" element={<PaymentResult />} />
-          <Route path="/qr-payment" element={<QRPayment />} />
+          <Route path="/qr-payment" element={<SimplePayment />} />
           <Route path="/payment-status" element={<PaymentStatus />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/terms" element={<Terms />} />
