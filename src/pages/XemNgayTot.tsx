@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, ChevronRight, Sparkles } from 'lucide-react'
+import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, Sparkles } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
 
