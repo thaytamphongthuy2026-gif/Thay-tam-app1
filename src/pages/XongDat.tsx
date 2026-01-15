@@ -18,7 +18,7 @@ interface CompatiblePerson {
 }
 
 export default function XongDat() {
-  const { user } = useAuth()
+  const { user, updateUserInfo } = useAuth()
   const [step, setStep] = useState<'form' | 'result'>('form')
   const [birthYear, setBirthYear] = useState('')
   const [gender, setGender] = useState<'male' | 'female'>('male')
@@ -31,8 +31,9 @@ export default function XongDat() {
     
     // Pre-fill from user profile if available
     if (user?.birth_date) {
-      const year = new Date(user.birth_date).getFullYear()
-      setBirthYear(year.toString())
+      // Extract year from YYYY-MM-DD or DD/MM/YYYY
+      const yearMatch = user.birth_date.match(/\d{4}/)
+      if (yearMatch) setBirthYear(yearMatch[0])
     }
     if (user?.gender) {
       setGender(user.gender as 'male' | 'female')
@@ -47,6 +48,13 @@ export default function XongDat() {
     setLoading(true)
 
     try {
+      // Auto-save gender to profile
+      if (user && updateUserInfo) {
+        await updateUserInfo({
+          gender: gender,
+        })
+      }
+
       const prompt = `Bạn là chuyên gia phong thủy. Gia chủ sinh năm ${birthYear}, giới tính ${gender === 'male' ? 'nam' : 'nữ'}.
 
 Hãy tìm 3 NHÓM TUỔI may mắn nhất để xông đất đầu năm Tết 2026 dựa trên:

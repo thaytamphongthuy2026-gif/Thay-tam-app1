@@ -25,6 +25,7 @@ interface AuthContextType {
   loading: boolean
   signOut: () => Promise<void>
   refreshUser: () => Promise<void>
+  updateUserInfo: (updates: Partial<User>) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -110,6 +111,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  async function updateUserInfo(updates: Partial<User>) {
+    if (!supabaseUser) {
+      throw new Error('No user logged in')
+    }
+
+    try {
+      // Convert DD/MM/YYYY to YYYY-MM-DD if birth_date is provided
+      let dbUpdates = { ...updates }
+      if (updates.birth_date && /^\d{2}\/\d{2}\/\d{4}$/.test(updates.birth_date)) {
+        const [day, month, year] = updates.birth_date.split('/')
+        dbUpdates.birth_date = `${year}-${month}-${day}`
+      }
+
+      const { error } = await supabase
+        .from('users')
+        .update({
+          ...dbUpdates,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', supabaseUser.id)
+
+      if (error) throw error
+
+      // Refresh user data
+      await refreshUser()
+    } catch (error) {
+      console.error('Error updating user info:', error)
+      throw error
+    }
+  }
+
   async function signOut() {
     await supabase.auth.signOut()
     setUser(null)
@@ -117,7 +149,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, supabaseUser, loading, signOut, refreshUser }}>
+    <AuthContext.Provider value={{ user, supabaseUser, loading, signOut, refreshUser, updateUserInfo }}>
       {children}
     </AuthContext.Provider>
   )

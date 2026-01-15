@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Star, Loader2, AlertCircle, Lock, Share2, TrendingUp, Heart, Briefcase, Activity, Sparkles, Users, Gift, ChevronRight } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
+import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
 import DateInput from '../components/DateInput'
 
@@ -28,6 +29,7 @@ interface TuViResult {
 }
 
 export default function TuVi() {
+  const { user, updateUserInfo } = useAuth()
   const [step, setStep] = useState<'form' | 'result'>('form')
   const [birthDate, setBirthDate] = useState('')
   const [birthTime, setBirthTime] = useState('')
@@ -41,7 +43,23 @@ export default function TuVi() {
 
   useEffect(() => {
     document.title = 'Xem Tử Vi 2026 - Dự Đoán Vận Mệnh Năm Ất Tỵ'
-  }, [])
+    
+    // Pre-fill from user profile
+    if (user) {
+      if (user.name) setName(user.name)
+      if (user.gender) setGender(user.gender)
+      if (user.birth_date_type) setCalendarType(user.birth_date_type)
+      if (user.birth_date) {
+        // Convert YYYY-MM-DD to DD/MM/YYYY for display
+        if (/^\d{4}-\d{2}-\d{2}$/.test(user.birth_date)) {
+          const [year, month, day] = user.birth_date.split('-')
+          setBirthDate(`${day}/${month}/${year}`)
+        } else {
+          setBirthDate(user.birth_date)
+        }
+      }
+    }
+  }, [user])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -49,6 +67,16 @@ export default function TuVi() {
     setLoading(true)
 
     try {
+      // Auto-save user info to profile
+      if (user && updateUserInfo) {
+        await updateUserInfo({
+          name: name || user.name,
+          birth_date: birthDate,
+          birth_date_type: calendarType,
+          gender: gender || user.gender,
+        })
+      }
+
       const prompt = `Bạn là chuyên gia tử vi phong thủy. Xem tử vi năm 2026 (Ất Tỵ) cho:
 - Ngày sinh: ${birthDate} (${calendarType === 'lunar' ? 'Âm lịch' : 'Dương lịch'})
 - Giờ sinh: ${birthTime}

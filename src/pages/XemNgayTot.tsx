@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, Sparkles } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
+import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
 
 interface GoodDate {
@@ -15,6 +16,7 @@ interface GoodDate {
 }
 
 export default function XemNgayTot() {
+  const { user, updateUserInfo } = useAuth()
   const [step, setStep] = useState<'form' | 'result'>('form')
   const [purpose, setPurpose] = useState('')
   const [birthYear, setBirthYear] = useState('')
@@ -28,6 +30,15 @@ export default function XemNgayTot() {
   useEffect(() => {
     document.title = 'Xem Ngày Tốt 2026 - Chọn Ngày Hoàng Đạo Khai Trương, Cưới Hỏi'
     
+    // Pre-fill from user profile
+    if (user) {
+      if (user.name) setUserName(user.name)
+      if (user.birth_date) {
+        // Extract year from YYYY-MM-DD or DD/MM/YYYY
+        const yearMatch = user.birth_date.match(/\d{4}/)
+        if (yearMatch) setBirthYear(yearMatch[0])
+      }
+    }
     // Set default date range (next 30 days)
     const today = new Date()
     const nextMonth = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
@@ -53,6 +64,14 @@ export default function XemNgayTot() {
     setLoading(true)
 
     try {
+      // Auto-save user info to profile (name and birth year only for this form)
+      if (user && updateUserInfo && (userName || birthYear)) {
+        await updateUserInfo({
+          name: userName || user.name,
+          // Keep existing birth_date if user only updated name
+        })
+      }
+
       const purposeLabel = purposes.find(p => p.value === purpose)?.label || purpose
       
       const prompt = `Bạn là chuyên gia phong thủy. Hãy tìm 5 ngày TỐT NHẤT từ ${dateFrom} đến ${dateTo} cho mục đích: ${purposeLabel}.
