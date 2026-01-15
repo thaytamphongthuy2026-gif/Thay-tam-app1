@@ -52,6 +52,22 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Số May Mắn -->
+  <url>
+    <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/so-may-man</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Xin Xăm -->
+  <url>
+    <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/xin-xam</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Blog -->
   <url>
     <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/blog</loc>
