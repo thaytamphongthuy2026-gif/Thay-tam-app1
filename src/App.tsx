@@ -26,6 +26,8 @@ import TestDuyenSo from './pages/TestDuyenSo'
 import LiXiGame from './pages/LiXiGame'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import FAQ from './pages/FAQ'
 import XongDat from './pages/XongDat'
 
 function App() {
@@ -60,6 +62,8 @@ function App() {
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/faq" element={<FAQ />} />
               <Route path="/xong-dat" element={<XongDat />} />
             </Routes>
           </main>

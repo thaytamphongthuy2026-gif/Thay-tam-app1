@@ -45,15 +45,18 @@ export default function Footer() {
               <Link to="/pricing" className="block text-gray-400 hover:text-white text-sm">
                 Bảng giá
               </Link>
-              <a href="#" className="block text-gray-400 hover:text-white text-sm">
-                Hướng dẫn sử dụng
-              </a>
-              <a href="#" className="block text-gray-400 hover:text-white text-sm">
+              <Link to="/blog" className="block text-gray-400 hover:text-white text-sm">
+                Blog
+              </Link>
+              <Link to="/faq" className="block text-gray-400 hover:text-white text-sm">
                 Câu hỏi thường gặp
-              </a>
-              <a href="#" className="block text-gray-400 hover:text-white text-sm">
+              </Link>
+              <Link to="/privacy-policy" className="block text-gray-400 hover:text-white text-sm">
                 Chính sách bảo mật
-              </a>
+              </Link>
+              <Link to="/terms" className="block text-gray-400 hover:text-white text-sm">
+                Điều khoản sử dụng
+              </Link>
             </div>
           </div>
 
