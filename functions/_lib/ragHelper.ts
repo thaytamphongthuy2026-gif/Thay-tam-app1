@@ -93,17 +93,15 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 `.trim()
 
 /**
- * RAG File IDs - Reduced for performance (timeout prevention)
- * Using 3 most essential books (~5MB total) for faster response
+ * RAG File IDs - TEMPORARILY DISABLED for faster response
+ * Chat was too slow due to RAG processing time
+ * TODO: Re-enable after optimizing RAG query strategy
  */
-const RAG_FILE_IDS = [
-  'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB) - Essential for house feng shui
-  'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB) - Essential for date selection
-  'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB) - Compact reference
-  // Removed large files to prevent 524 timeout:
-  // 'files/b1ixvmtyrkdv',   // Hiệp Kỷ Biện Phương Thư - Tập 1 (38MB) - Too large
-  // 'files/rg2t1hnbk7v6',   // Tăng San Bốc Dịch (29MB) - Too large
-  // 'files/hbgvit2weaka',   // Tử Vi Đẩu Số Tân Biện (394KB) - Can add if needed
+const RAG_FILE_IDS: string[] = [
+  // DISABLED: All RAG files temporarily disabled to speed up chat
+  // 'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB) - Essential for house feng shui
+  // 'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB) - Essential for date selection
+  // 'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB) - Compact reference
 ]
 
 /**
