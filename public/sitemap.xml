@@ -68,6 +68,22 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Test Duyên Số -->
+  <url>
+    <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/test-duyen-so</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lì Xì Game -->
+  <url>
+    <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/li-xi-game</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Blog -->
   <url>
     <loc>https://97747078.thaytam-phongthuy-v2.pages.dev/blog</loc>
