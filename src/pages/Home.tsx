@@ -131,7 +131,7 @@ export default function Home() {
             </h1>
             
             <p className="text-lg md:text-2xl text-purple-100 max-w-4xl mx-auto font-medium">
-              Không cần đăng ký - Trải nghiệm ngay! ✨
+              Trải nghiệm Phong Thủy AI - Dựa Trên Sách Cổ Truyền ✨
             </p>
 
             {/* 3 BIG Instant CTAs - NO LOGIN REQUIRED */}
@@ -219,11 +219,11 @@ export default function Home() {
               <span>ĐIỂM KHÁC BIỆT CỦA THẦY TÁM</span>
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              AI Phong Thủy Dựa Trên Sách Cổ Thư
+              Tri Thức Phong Thủy Từ Sách Cổ
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Không dựa vào kinh nghiệm cá nhân. Không suy diễn hay đoán mò. 
-              <strong className="text-purple-600"> CHỈ trích dẫn từ sách phong thủy cổ truyền.</strong>
+              Thầy Tám không dựa vào "kinh nghiệm cá nhân" hay "30 năm tu luyện".
+              <strong className="text-purple-600"> Mọi lời tư vấn đều trích dẫn từ sách phong thủy cổ truyền có nguồn gốc rõ ràng.</strong>
             </p>
           </div>
 
@@ -235,8 +235,8 @@ export default function Home() {
                   <span className="text-2xl">❌</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">AI Phong Thủy Khác</h3>
-                  <p className="text-gray-600">Dựa vào "kinh nghiệm 30 năm" • Suy diễn từ internet • Không rõ nguồn gốc</p>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">Phong Thủy Truyền Thống</h3>
+                  <p className="text-gray-600">Dựa vào "kinh nghiệm" • Không thể kiểm chứng • Mỗi thầy nói khác nhau</p>
                 </div>
               </div>
 
@@ -245,10 +245,10 @@ export default function Home() {
                   <span className="text-2xl">✅</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-purple-600 mb-1">Thầy Tám</h3>
+                  <h3 className="text-lg font-bold text-purple-600 mb-1">Phong Thủy AI - Thầy Tám</h3>
                   <p className="text-gray-600">
-                    <strong>6 quyển sách cổ thư</strong> (~70MB tri thức) • 
-                    Trích xuất chính xác • Trích dẫn rõ ràng nguồn gốc
+                    <strong>Trích dẫn từ sách cổ</strong> • 
+                    Có sách mách có chứng • Nguồn gốc minh bạch, ai cũng kiểm chứng được
                   </p>
                 </div>
               </div>
@@ -257,42 +257,42 @@ export default function Home() {
             {/* Right: The books */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl border-2 border-purple-200">
               <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                📚 Nguồn Kiến Thức
+                📚 Kho Tàng Tri Thức
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start space-x-3">
                   <span className="text-2xl">📖</span>
                   <div>
                     <strong className="text-gray-900">Bát Trạch Minh Kinh</strong>
-                    <p className="text-sm text-gray-600">Phong thủy nhà ở kinh điển</p>
+                    <p className="text-sm text-gray-600">Chuẩn mực hướng nhà, bếp, cổng theo phong thủy</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="text-2xl">📕</span>
                   <div>
                     <strong className="text-gray-900">Ngọc Hạp Thông Thư</strong>
-                    <p className="text-sm text-gray-600">Xem ngày tốt, chọn giờ hoàng đạo</p>
+                    <p className="text-sm text-gray-600">Chọn ngày giờ hoàng đạo cho mọi việc</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="text-2xl">📗</span>
                   <div>
                     <strong className="text-gray-900">Tử Vi Đẩu Số Tân Biện</strong>
-                    <p className="text-sm text-gray-600">Xem tử vi, đoán vận mệnh</p>
+                    <p className="text-sm text-gray-600">Luận giải vận mệnh, dự báo tương lai</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="text-2xl">📘</span>
                   <div>
                     <strong className="text-gray-900">Tăng San Bốc Dịch</strong>
-                    <p className="text-sm text-gray-600">Kinh dịch và xem quẻ</p>
+                    <p className="text-sm text-gray-600">Kinh Dịch và nghệ thuật xem quẻ</p>
                   </div>
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="text-2xl">📙</span>
                   <div>
-                    <strong className="text-gray-900">Hiệp Kỷ Biện Phương Thư</strong>
-                    <p className="text-sm text-gray-600">Tập 1 & 2 - Kiến thức toàn diện</p>
+                    <strong className="text-gray-900">Hiệp Kỷ Biện Phương Thư (2 tập)</strong>
+                    <p className="text-sm text-gray-600">Bách khoa toàn thư phong thủy Hoàng gia</p>
                   </div>
                 </li>
               </ul>

@@ -15,7 +15,7 @@ export default function Footer() {
               <span className="text-xl font-bold">Thầy Tám</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Tư vấn phong thủy chuyên nghiệp với hơn 30 năm kinh nghiệm
+              Phong thủy AI dựa trên 6 quyển sách phong thủy cổ truyền
             </p>
           </div>
 
@@ -68,8 +68,7 @@ export default function Footer() {
                 </a>
               </div>
               <p className="text-xs text-gray-500 mt-4">
-                Hỗ trợ trực tuyến 24/7 qua website.<br />
-                Gửi email để được tư vấn chuyên sâu.
+                Tư vấn qua website hoặc gửi email để được hỗ trợ.
               </p>
             </div>
           </div>
