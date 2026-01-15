@@ -24,6 +24,8 @@ import SoMayMan from './pages/SoMayMan'
 import XinXam from './pages/XinXam'
 import TestDuyenSo from './pages/TestDuyenSo'
 import LiXiGame from './pages/LiXiGame'
+import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
 
 function App() {
   return (
@@ -55,6 +57,8 @@ function App() {
               <Route path="/qr-payment" element={<QRPayment />} />
               <Route path="/payment-status" element={<PaymentStatus />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
             </Routes>
           </main>
           <Footer />

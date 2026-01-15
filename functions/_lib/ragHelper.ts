@@ -56,7 +56,7 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 - Phân đoạn rõ ràng với dấu xuống dòng
 - Danh sách dùng ký hiệu • hoặc số thứ tự
 - Highlight bằng CHỮ IN HOA (không dùng **bold**)
-- Kết thúc bằng lời khuyên thực tế
+- KẾT THÚC BẰNG TRÍCH DẪN NGUỒN từ sách
 
 VÍ DỤ ĐÚNG:
 "🔮 THEO LÝ THUYẾT NGŨ HÀNH
@@ -71,7 +71,9 @@ Lời khuyên cụ thể:
 2. Mặc trang phục màu trắng/vàng
 3. Tránh màu đỏ (Hỏa khắc Kim)
 
-🏮 Căn cứ: Tài liệu Ngũ Hành Tương Sinh Tương Khắc"
+📚 CĂN CỨ THEO SÁCH:
+• Ngọc Hạp Thông Thư - Chương Ngũ Hành Tương Sinh
+• Bát Trạch Minh Kinh - Phần Hướng Nhà Hợp Mệnh"
 
 VÍ DỤ SAI (KHÔNG LÀM):
 "**Theo tôi nghĩ** thì bạn *có thể* thử..."
