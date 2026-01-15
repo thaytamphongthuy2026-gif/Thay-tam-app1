@@ -38,13 +38,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check active session
     checkUser()
 
-    // Listen for auth changes with abort controller
-    const abortController = new AbortController()
-    
+    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      // Skip if aborted
-      if (abortController.signal.aborted) return
-      
       console.log('Auth state changed:', event, session?.user?.email)
       
       if (session?.user) {
@@ -69,7 +64,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return () => {
-      abortController.abort()
       subscription.unsubscribe()
     }
   }, [])
