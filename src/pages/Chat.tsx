@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Send, Loader2, AlertCircle } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
+import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
 import { useAuth } from '../lib/authContext'
 
@@ -216,10 +217,14 @@ export default function Chat() {
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-lg flex items-center space-x-2">
-              <AlertCircle className="w-5 h-5" />
-              <span>{error}</span>
-            </div>
+            error.includes('đăng nhập') ? (
+              <LoginPrompt message={error} />
+            ) : (
+              <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-lg flex items-center space-x-2">
+                <AlertCircle className="w-5 h-5" />
+                <span>{error}</span>
+              </div>
+            )
           )}
 
             <div ref={messagesEndRef} />

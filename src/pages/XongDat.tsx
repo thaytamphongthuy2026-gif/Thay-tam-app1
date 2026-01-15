@@ -4,6 +4,7 @@ import { Home, Loader2, AlertCircle, Share2, Users, Sparkles, Calendar, Download
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
 import { Link } from 'react-router-dom'
+import LoginPrompt from '../components/LoginPrompt'
 
 interface CompatiblePerson {
   ageRange: string
@@ -183,7 +184,11 @@ ${person.gifts.map(g => `• ${g}`).join('\n')}
           </p>
         </div>
 
-        {!canUseFeature ? (
+        {!user ? (
+          // Not logged in - show login prompt
+          <LoginPrompt message="Bạn cần đăng nhập để sử dụng tính năng Mời Xông Đất" />
+        ) : !canUseFeature ? (
+          // Logged in but no premium plan
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center">
             <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Gift className="w-10 h-10 text-red-600" />

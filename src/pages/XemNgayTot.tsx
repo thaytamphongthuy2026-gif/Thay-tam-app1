@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, Sparkles } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
+import LoginPrompt from '../components/LoginPrompt'
 
 interface GoodDate {
   solar: string
@@ -301,13 +302,19 @@ Dương lịch: DD/MM/YYYY
               </form>
 
               {error && (
-                <div className="mt-6 bg-red-50 border-2 border-red-200 text-red-700 p-4 rounded-xl flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Có lỗi xảy ra</p>
-                    <p className="text-sm mt-1">{error}</p>
+                error.includes('đăng nhập') ? (
+                  <div className="mt-6">
+                    <LoginPrompt message={error} />
                   </div>
-                </div>
+                ) : (
+                  <div className="mt-6 bg-red-50 border-2 border-red-200 text-red-700 p-4 rounded-xl flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold">Có lỗi xảy ra</p>
+                      <p className="text-sm mt-1">{error}</p>
+                    </div>
+                  </div>
+                )
               )}
             </div>
 
