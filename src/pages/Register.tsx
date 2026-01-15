@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { register } from '../lib/auth'
 import { UserPlus, AlertCircle, CheckCircle } from 'lucide-react'
 
 export default function Register() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -29,8 +31,8 @@ export default function Register() {
 
     try {
       await register(email, password)
-      // Redirect to home after successful registration
-      navigate('/')
+      // Redirect to original page after successful registration
+      navigate(redirectTo)
     } catch (err: any) {
       // Parse error message
       let errorMsg = 'Đăng ký thất bại'

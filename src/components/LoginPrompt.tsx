@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { LogIn, AlertCircle } from 'lucide-react'
 
 interface LoginPromptProps {
@@ -10,6 +10,11 @@ export default function LoginPrompt({
   message = 'Bạn cần đăng nhập để sử dụng tính năng này',
   className = ''
 }: LoginPromptProps) {
+  const location = useLocation()
+  
+  // Save current path for redirect after login
+  const redirectPath = location.pathname + location.search
+  
   return (
     <div className={`bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 ${className}`}>
       <div className="flex items-start gap-4">
@@ -25,14 +30,14 @@ export default function LoginPrompt({
           </p>
           <div className="flex gap-3">
             <Link
-              to="/login"
+              to={`/login?redirect=${encodeURIComponent(redirectPath)}`}
               className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition"
             >
               <LogIn className="w-5 h-5" />
               Đăng nhập ngay
             </Link>
             <Link
-              to="/register"
+              to={`/register?redirect=${encodeURIComponent(redirectPath)}`}
               className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-purple-600 border-2 border-purple-600 px-6 py-3 rounded-lg font-semibold transition"
             >
               Đăng ký tài khoản

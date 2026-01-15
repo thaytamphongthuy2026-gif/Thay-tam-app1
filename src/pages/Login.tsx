@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { login } from '../lib/auth'
 import { supabase } from '../lib/supabase'
 import { LogIn, AlertCircle } from 'lucide-react'
 
 export default function Login() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/dashboard'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -26,8 +28,8 @@ export default function Login() {
       while (attempts < maxAttempts) {
         const { data: { session } } = await supabase.auth.getSession()
         if (session) {
-          // Auth state updated, safe to navigate
-          navigate('/dashboard')
+          // Auth state updated, safe to navigate to original page
+          navigate(redirectTo)
           return
         }
         await new Promise(resolve => setTimeout(resolve, 100))
@@ -35,7 +37,7 @@ export default function Login() {
       }
       
       // Timeout - navigate anyway
-      navigate('/dashboard')
+      navigate(redirectTo)
     } catch (err: any) {
       // Parse error messages
       let errorMsg = 'Đăng nhập thất bại'

@@ -316,11 +316,11 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={loading || !birthDate || !birthTime || !gender}
+                disabled={loading || !birthDate || !gender}
                 className={`
                   w-full py-4 rounded-xl text-lg font-bold text-white shadow-lg
                   transition-all duration-300 transform
-                  ${loading || !birthDate || !birthTime || !gender
+                  ${loading || !birthDate || !gender
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 hover:scale-105'
                   }

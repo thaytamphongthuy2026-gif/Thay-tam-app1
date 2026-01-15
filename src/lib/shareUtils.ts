@@ -26,12 +26,26 @@ export async function shareContent(data: ShareData): Promise<boolean> {
     }
     
     // Fallback: Copy to clipboard
-    await navigator.clipboard.writeText(fullUrl)
-    alert('✅ Đã copy link chia sẻ!')
+    await navigator.clipboard.writeText(`${data.title}\n\n${data.text}\n\n${fullUrl}`)
+    alert('✅ Đã sao chép nội dung! Bạn có thể chia sẻ ngay.')
     return true
-  } catch (error) {
-    console.error('Share failed:', error)
-    return false
+  } catch (error: any) {
+    // User cancelled share (not an error, just return false)
+    if (error.name === 'AbortError') {
+      console.log('Share cancelled by user')
+      return false
+    }
+    
+    // Real error - try clipboard fallback
+    try {
+      await navigator.clipboard.writeText(`${data.title}\n\n${data.text}\n\n${fullUrl}`)
+      alert('✅ Đã sao chép nội dung! Bạn có thể chia sẻ ngay.')
+      return true
+    } catch (clipboardError) {
+      console.error('Share failed:', error)
+      alert('❌ Không thể chia sẻ. Vui lòng thử lại.')
+      return false
+    }
   }
 }
 
