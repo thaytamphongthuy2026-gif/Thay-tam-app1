@@ -95,7 +95,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Xin chào! Tôi là Thầy Tám - Phong Thủy AI. Tôi có thể giúp gì cho bạn hôm nay? 🔮',
+      content: 'Tôi là Thầy Tám - Phong Thủy AI. Hỏi gì cũng được nhé! 🔮',
       timestamp: new Date()
     }
   ])
@@ -138,7 +138,7 @@ export default function Chat() {
 
     // Add placeholder for streaming response
     const connectingMessage = ragMode === 'book' 
-      ? '📚 Thầy Tám đang lật sách...'
+      ? '📚 Thầy Tám đang lật sách:\n• Bát Trạch Minh Kinh\n• Ngọc Hạp Thông Thư\n• Hiệp Kỷ Biện Phương Thư'
       : '' // Quick mode: only animation
       
     setMessages(prev => [...prev, {
@@ -243,18 +243,23 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto w-full flex flex-col h-screen">
-        {/* Header */}
-        <div className="bg-white rounded-t-xl shadow-lg p-4 border-b flex-shrink-0">
-          <div className="flex items-center justify-between mb-3">
-            <div>
+      <div className="max-w-4xl mx-auto w-full flex flex-col h-screen px-0 md:px-4">
+        {/* Header - Simplified for mobile */}
+        <div className="bg-white rounded-t-xl shadow-lg p-3 md:p-4 border-b flex-shrink-0">
+          <div className="flex items-center justify-between mb-2">
+            {/* Hide title on mobile, show quota only */}
+            <div className="hidden md:block">
               <h1 className="text-xl font-bold text-gray-900">Tư vấn với Thầy Tám</h1>
               <p className="text-sm text-gray-600">Đặt câu hỏi về phong thủy, tài lộc, sự nghiệp...</p>
             </div>
+            <div className="md:hidden flex items-center gap-2">
+              <Zap className="w-4 h-4 text-purple-600" />
+              <span className="text-sm font-semibold text-gray-900">Thầy Tám</span>
+            </div>
             {user && (
-              <div className="bg-purple-100 px-3 py-1.5 rounded-lg">
-                <span className="text-sm text-purple-600 font-semibold">
-                  Còn {user.quota.chat} câu hỏi
+              <div className="bg-purple-100 px-2 md:px-3 py-1 md:py-1.5 rounded-lg">
+                <span className="text-xs md:text-sm text-purple-600 font-semibold">
+                  {user.quota.chat} 💬
                 </span>
               </div>
             )}
@@ -286,8 +291,9 @@ export default function Chat() {
             </button>
           </div>
           
+          {/* Hide note on mobile to save space */}
           {ragMode === 'book' && (
-            <p className="text-xs text-gray-500 mt-2 bg-yellow-50 border border-yellow-200 rounded p-2">
+            <p className="text-xs text-gray-500 mt-2 bg-yellow-50 border border-yellow-200 rounded p-2 hidden md:block">
               💡 Chế độ <strong>Tra sách</strong>: Thầy Tám sẽ dựa vào 6 quyển sách cổ để trả lời (chậm hơn nhưng có trích dẫn)
             </p>
           )}
@@ -295,14 +301,13 @@ export default function Chat() {
 
         {/* Messages - SCROLLABLE AREA */}
         <div className="bg-white shadow-lg flex-1 overflow-y-auto">
-          <div className="p-4 space-y-4">
-          {messages.map((message, index) => (
+          <div className="p-2 md:p-4 space-y-3 md:space-y-4">{messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-xl p-4 ${
+                className={`max-w-[90%] md:max-w-[80%] rounded-xl p-3 md:p-4 ${
                   message.role === 'user'
                     ? 'bg-purple-600 text-white'
                     : 'bg-gray-50 text-gray-900 border border-gray-200'
@@ -330,8 +335,9 @@ export default function Chat() {
                     formatChatContent(message.content)
                   )
                 )}
+                {/* Remove timestamp on mobile */}
                 <p
-                  className={`text-xs mt-2 ${
+                  className={`text-xs mt-2 hidden md:block ${
                     message.role === 'user' ? 'text-purple-200' : 'text-gray-500'
                   }`}
                 >
@@ -393,7 +399,7 @@ export default function Chat() {
         </div>
 
         {/* Input - FIXED AT BOTTOM */}
-        <div className="bg-white rounded-b-xl shadow-lg p-4 border-t flex-shrink-0">
+        <div className="bg-white rounded-b-xl shadow-lg p-2 md:p-4 border-t flex-shrink-0">
           <div className="flex items-end space-x-2">
             <textarea
               ref={inputRef}
@@ -413,7 +419,8 @@ export default function Chat() {
               <Send className="w-5 h-5" />
             </button>
           </div>
-          <p className="text-xs text-gray-500 mt-1.5">
+          {/* Hide keyboard hint on mobile to save space */}
+          <p className="text-xs text-gray-500 mt-1.5 hidden md:block">
             Nhấn Enter để gửi, Shift+Enter để xuống dòng
           </p>
         </div>
