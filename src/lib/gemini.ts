@@ -54,57 +54,94 @@ export async function streamGeminiAPI(
     throw new Error('Bạn cần đăng nhập để sử dụng tính năng này')
   }
 
-  const response = await fetch('/api/gemini-stream', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${session.access_token}`,
-    },
-    body: JSON.stringify({ prompt, quotaType, useRag }),  // Send useRag flag
-  })
+  // Add timeout protection (30 seconds)
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 30000)
 
-  if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.error || 'Có lỗi xảy ra')
-  }
+  try {
+    const response = await fetch('/api/gemini-stream', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ prompt, quotaType, useRag }),
+      signal: controller.signal
+    })
 
-  const reader = response.body?.getReader()
-  const decoder = new TextDecoder()
-  let fullText = ''
+    clearTimeout(timeoutId)
 
-  if (!reader) {
-    throw new Error('No response body')
-  }
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Lỗi kết nối' }))
+      throw new Error(error.error || 'Có lỗi xảy ra')
+    }
 
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
+    const reader = response.body?.getReader()
+    const decoder = new TextDecoder()
+    let fullText = ''
 
-    const chunk = decoder.decode(value)
-    const lines = chunk.split('\n')
+    if (!reader) {
+      throw new Error('No response body')
+    }
 
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const data = line.slice(6)
-        if (data === '[DONE]') {
-          break
-        }
-        try {
-          const parsed = JSON.parse(data)
-          if (parsed.chunk) {
-            fullText += parsed.chunk
-            onChunk(parsed.chunk)
+    // Streaming timeout protection (60 seconds for streaming)
+    const streamTimeout = setTimeout(() => {
+      reader.cancel()
+      throw new Error('Timeout: Không nhận được phản hồi từ AI sau 60 giây')
+    }, 60000)
+
+    let hasReceivedData = false
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+
+      hasReceivedData = true
+      const chunk = decoder.decode(value)
+      const lines = chunk.split('\n')
+
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6)
+          if (data === '[DONE]') {
+            break
           }
-        } catch (e) {
-          // Skip invalid JSON
+          try {
+            const parsed = JSON.parse(data)
+            if (parsed.chunk) {
+              fullText += parsed.chunk
+              onChunk(parsed.chunk)
+            } else if (parsed.error) {
+              // Handle error in stream
+              clearTimeout(streamTimeout)
+              throw new Error(parsed.error)
+            }
+          } catch (e: any) {
+            // Skip invalid JSON but log errors
+            if (e.message && !e.message.includes('JSON')) {
+              throw e
+            }
+          }
         }
       }
     }
-  }
 
-  return {
-    success: true,
-    result: fullText
+    clearTimeout(streamTimeout)
+
+    if (!hasReceivedData) {
+      throw new Error('Không nhận được phản hồi từ AI. Vui lòng thử lại.')
+    }
+
+    return {
+      success: true,
+      result: fullText
+    }
+  } catch (error: any) {
+    clearTimeout(timeoutId)
+    if (error.name === 'AbortError') {
+      throw new Error('Timeout: Yêu cầu quá lâu. Vui lòng thử lại.')
+    }
+    throw error
   }
 }
 
