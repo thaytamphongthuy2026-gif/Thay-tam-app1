@@ -34,7 +34,8 @@ export default function SimplePayment() {
   }
 
   const planInfo = PLAN_INFO[plan]
-  const transferContent = `THAYTAM ${plan.toUpperCase()}`
+  // Use plan name (Gói Lộc Phát / Gói Đại Cát) instead of PRO/PREMIUM
+  const transferContent = `THAYTAM ${planInfo.name.replace('Gói ', '')}`
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text)
