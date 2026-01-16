@@ -185,6 +185,13 @@ export default function Home() {
             {/* Secondary CTAs - Smaller */}
             <div className="flex flex-wrap gap-3 justify-center items-center mt-8 text-sm">
               <Link
+                to="/li-xi-game"
+                className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-6 py-3 rounded-full font-semibold transition inline-flex items-center gap-2 shadow-lg"
+              >
+                <Gift className="w-4 h-4" />
+                Lì Xì Thông Minh 🧧
+              </Link>
+              <Link
                 to="/so-may-man"
                 className="bg-white/20 backdrop-blur-sm hover:bg-white/30 px-6 py-3 rounded-full font-medium transition inline-flex items-center gap-2"
               >

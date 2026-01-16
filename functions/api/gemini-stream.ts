@@ -7,6 +7,7 @@ import { buildGeminiRequestWithRAG } from '../_lib/ragHelper'
 interface RequestBody {
   prompt: string
   quotaType: 'chat' | 'xemNgay' | 'tuVi'
+  useRag?: boolean  // NEW: Optional RAG flag
 }
 
 export async function onRequestPost(context: { request: Request; env: Env }) {
@@ -56,7 +57,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
 
     // Get request body
     const body = await request.json() as RequestBody
-    const { prompt, quotaType } = body
+    const { prompt, quotaType, useRag = false } = body  // Default to false for quick mode
 
     if (!prompt || !quotaType) {
       return new Response(JSON.stringify({ error: 'Thiếu thông tin prompt hoặc quotaType' }), {
@@ -91,7 +92,16 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     }
 
     // Call Gemini API with streaming
-    const requestBody = buildGeminiRequestWithRAG(prompt, env, quotaType)
+    // Only use RAG if explicitly requested (book mode)
+    const requestBody = useRag 
+      ? buildGeminiRequestWithRAG(prompt, env, quotaType)
+      : {
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 2048,
+          }
+        }
     
     const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:streamGenerateContent?key=${env.GEMINI_API_KEY}`,

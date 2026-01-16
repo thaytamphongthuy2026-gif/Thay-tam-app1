@@ -45,7 +45,8 @@ export async function callGeminiAPI(
 export async function streamGeminiAPI(
   prompt: string,
   quotaType: 'chat' | 'xemNgay' | 'tuVi',
-  onChunk: (text: string) => void
+  onChunk: (text: string) => void,
+  useRag: boolean = false  // NEW: pass RAG flag
 ): Promise<GeminiResponse> {
   const session = await getSession()
   
@@ -59,7 +60,7 @@ export async function streamGeminiAPI(
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${session.access_token}`,
     },
-    body: JSON.stringify({ prompt, quotaType }),
+    body: JSON.stringify({ prompt, quotaType, useRag }),  // Send useRag flag
   })
 
   if (!response.ok) {

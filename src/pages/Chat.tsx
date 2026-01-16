@@ -145,7 +145,7 @@ export default function Chat() {
       // Clear the "connecting" message and start streaming
       let isFirstChunk = true
       
-      // Use streaming API
+      // Use streaming API with RAG flag
       await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
         // Update the last message with streamed chunk
         setMessages(prev => {
@@ -162,7 +162,7 @@ export default function Chat() {
           }
           return updated
         })
-      })
+      }, ragMode === 'book')  // Pass useRag flag based on mode
 
       // Refresh user quota in background
       refreshUser().catch(console.error)
