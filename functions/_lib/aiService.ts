@@ -27,7 +27,7 @@ export interface AIStreamOptions {
  * Rate: 14,400 requests/day FREE
  */
 export async function callGroq(options: AIStreamOptions, env: Env): Promise<Response> {
-  const { messages, temperature = 0.7, maxTokens = 2048 } = options
+  const { messages, temperature = 0.7, maxTokens = 4096 } = options
 
   console.log('🚀 Calling GROQ API (llama-3.3-70b-versatile)...')
 
@@ -63,7 +63,7 @@ export async function callGroq(options: AIStreamOptions, env: Env): Promise<Resp
  * Rate: FREE unlimited (Google AI Studio)
  */
 export async function callGemini(options: AIStreamOptions, env: Env): Promise<Response> {
-  const { messages, temperature = 0.7, maxTokens = 2048 } = options
+  const { messages, temperature = 0.7, maxTokens = 4096 } = options
 
   console.log('🔮 Calling Gemini 2.0 Flash Experimental...')
 
@@ -122,7 +122,7 @@ export async function callGemini(options: AIStreamOptions, env: Env): Promise<Re
  * Rate: Unlimited FREE
  */
 export async function callDeepSeek(options: AIStreamOptions, env: Env): Promise<Response> {
-  const { messages, temperature = 0.7, maxTokens = 2048 } = options
+  const { messages, temperature = 0.7, maxTokens = 4096 } = options
 
   console.log('🧠 Calling DeepSeek via OpenRouter...')
 

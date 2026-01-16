@@ -136,8 +136,10 @@ export default function Chat() {
     setInput('')
     setError('')
 
-    // Add placeholder for streaming response - ONLY animation, no text
-    const connectingMessage = '' // Empty - will show only animation
+    // Add placeholder for streaming response
+    const connectingMessage = ragMode === 'book' 
+      ? '📚 Thầy Tám đang lật sách...'
+      : '' // Quick mode: only animation
       
     setMessages(prev => [...prev, {
       role: 'assistant',
@@ -303,14 +305,15 @@ export default function Chat() {
               >
                 {message.role === 'user' ? (
                   <p className="whitespace-pre-wrap">{message.content}</p>
-                ) : message.content === '' ? (
-                  // Show ONLY animation (no text) when loading
+                ) : message.content === '' || message.content.startsWith('📚') ? (
+                  // Show animation with optional text
                   <div className="flex items-center space-x-2">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
+                    {message.content && <p className="text-gray-700">{message.content}</p>}
                   </div>
                 ) : (
                   // Use Markdown for 'book' mode, formatChatContent for 'quick' mode
@@ -378,35 +381,7 @@ export default function Chat() {
             </div>
           )}
 
-          {/* Follow-up Suggestions - Show after AI response (not loading placeholder) */}
-          {messages.length > 1 && 
-           messages[messages.length - 1].role === 'assistant' && 
-           !loading && 
-           messages[messages.length - 1].content.length > 0 && (
-            <div className="flex justify-center mt-4">
-              <div className="max-w-2xl w-full">
-                <p className="text-center text-xs text-gray-500 mb-2">
-                  🔮 Hỏi tiếp:
-                </p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {[
-                    'Giải thích thêm về điều này',
-                    'Có cách khắc phục không?',
-                    'Còn điều gì cần lưu ý?',
-                    'Áp dụng như thế nào?'
-                  ].map((suggestion, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setInput(suggestion)}
-                      className="px-4 py-2 bg-gray-100 hover:bg-purple-100 border border-gray-300 hover:border-purple-400 rounded-full text-xs text-gray-700 transition"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+          {/* Removed: Follow-up Suggestions */}
 
             <div ref={messagesEndRef} />
           </div>

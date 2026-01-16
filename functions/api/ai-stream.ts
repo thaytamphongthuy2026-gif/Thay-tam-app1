@@ -96,17 +96,47 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     // Build messages for AI
     const systemPrompt = buildSystemPrompt(quotaType)
     
-    // TODO: Implement RAG for useRag=true
-    // For now, just use the prompt directly
-    const messages: AIMessage[] = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: prompt }
-    ]
+    // Use RAG when useRag=true (book mode)
+    let aiResponse: Response
+    
+    if (useRag) {
+      console.log('📚 Using RAG with 3 books...')
+      // Build Gemini request with RAG support
+      const ragRequest = buildGeminiRequestWithRAG(prompt, env, quotaType)
+      
+      // Call Gemini directly with RAG
+      const geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?key=${env.GEMINI_API_KEY}&alt=sse`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ragRequest),
+        }
+      )
+      
+      if (!geminiResponse.ok) {
+        const error = await geminiResponse.text()
+        console.error('❌ Gemini RAG Error:', geminiResponse.status, error)
+        throw new Error(`Gemini RAG failed: ${geminiResponse.status}`)
+      }
+      
+      aiResponse = geminiResponse
+      console.log('✅ Gemini RAG streaming started')
+    } else {
+      console.log('⚡ Using standard AI (no RAG)...')
+      // Standard flow without RAG
+      const messages: AIMessage[] = [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: prompt }
+      ]
+      
+      // Call AI with auto-fallback (Gemini → GROQ → DeepSeek)
+      aiResponse = await callAI({ messages }, env)
+    }
 
     console.log(`📝 AI Request: quotaType=${quotaType}, useRag=${useRag}, promptLength=${prompt.length}`)
-
-    // Call AI with auto-fallback (GROQ → DeepSeek)
-    const aiResponse = await callAI({ messages }, env)
 
     // Decrement quota immediately
     const newQuota = decrementQuota(currentQuota, quotaType)

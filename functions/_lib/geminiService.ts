@@ -12,7 +12,7 @@ import type { AIMessage, AIStreamOptions } from './aiService'
  * Features: Excellent Vietnamese, Superior system prompt following, FREE
  */
 export async function callGemini(options: AIStreamOptions, env: Env): Promise<Response> {
-  const { messages, temperature = 0.7, maxTokens = 2048 } = options
+  const { messages, temperature = 0.7, maxTokens = 4096 } = options  // Increased from 2048 to 4096
 
   console.log('🔮 Calling Gemini 2.5 Flash API...')
 
