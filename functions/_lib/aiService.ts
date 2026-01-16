@@ -56,6 +56,65 @@ export async function callGroq(options: AIStreamOptions, env: Env): Promise<Resp
 }
 
 /**
+ * Call Gemini 2.0 Flash (Primary - Best for Vietnamese)
+ * Model: gemini-2.0-flash-exp
+ * Speed: Fast streaming
+ * Rate: FREE unlimited (Google AI Studio)
+ */
+export async function callGemini(options: AIStreamOptions, env: Env): Promise<Response> {
+  const { messages, temperature = 0.7, maxTokens = 2048 } = options
+
+  console.log('🔮 Calling Gemini 2.0 Flash Experimental...')
+
+  // Convert messages to Gemini format
+  const contents = messages
+    .filter(m => m.role !== 'system') // Gemini uses systemInstruction separately
+    .map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }))
+
+  const systemInstruction = messages.find(m => m.role === 'system')?.content || ''
+
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:streamGenerateContent?key=${env.GEMINI_API_KEY}&alt=sse`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents,
+        systemInstruction: {
+          parts: [{ text: systemInstruction }]
+        },
+        generationConfig: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          topK: 40,
+          topP: 0.95,
+        },
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+        ]
+      }),
+    }
+  )
+
+  if (!response.ok) {
+    const error = await response.text()
+    console.error('❌ Gemini API Error:', response.status, error)
+    throw new Error(`Gemini API failed: ${response.status}`)
+  }
+
+  console.log('✅ Gemini API streaming started')
+  return response
+}
+
+/**
  * Call DeepSeek via OpenRouter (Backup - Smartest)
  * Model: deepseek-chat
  * Speed: 200-300 tokens/second
@@ -95,21 +154,28 @@ export async function callDeepSeek(options: AIStreamOptions, env: Env): Promise<
 
 /**
  * Main AI Service with Auto-Fallback
- * Try GROQ first (fastest) → fallback to DeepSeek (smartest)
+ * Try Gemini first (best Vietnamese) → fallback to GROQ → DeepSeek
  */
 export async function callAI(options: AIStreamOptions, env: Env): Promise<Response> {
   try {
-    // Primary: Try GROQ (90% success, fastest)
-    return await callGroq(options, env)
-  } catch (groqError) {
-    console.warn('⚠️ GROQ failed, falling back to DeepSeek:', groqError)
+    // Primary: Try Gemini 2.0 Flash (best for Vietnamese, excellent system prompt following)
+    return await callGemini(options, env)
+  } catch (geminiError) {
+    console.warn('⚠️ Gemini failed, falling back to GROQ:', geminiError)
     
     try {
-      // Backup: Try DeepSeek (99% success)
-      return await callDeepSeek(options, env)
-    } catch (deepseekError) {
-      console.error('❌ All AI providers failed')
-      throw new Error('Không thể kết nối với AI. Vui lòng thử lại sau.')
+      // Backup 1: Try GROQ (fast)
+      return await callGroq(options, env)
+    } catch (groqError) {
+      console.warn('⚠️ GROQ failed, falling back to DeepSeek:', groqError)
+      
+      try {
+        // Backup 2: Try DeepSeek (reliable)
+        return await callDeepSeek(options, env)
+      } catch (deepseekError) {
+        console.error('❌ All AI providers failed')
+        throw new Error('Không thể kết nối với AI. Vui lòng thử lại sau.')
+      }
     }
   }
 }
@@ -304,8 +370,8 @@ function fixPersonaAddressing(text: string): string {
 }
 
 /**
- * Transform Groq/OpenRouter streaming response to our format
- * Both use OpenAI-compatible format
+ * Transform AI streaming response to our format
+ * Supports both OpenAI format (GROQ, OpenRouter) and Gemini format
  */
 export async function transformStreamingResponse(
   aiResponse: Response,
@@ -341,8 +407,13 @@ export async function transformStreamingResponse(
             const jsonStr = line.slice(6) // Remove "data: " prefix
             const data = JSON.parse(jsonStr)
             
-            // Extract content from OpenAI format
-            const content = data.choices?.[0]?.delta?.content
+            // Try OpenAI format first (GROQ, OpenRouter)
+            let content = data.choices?.[0]?.delta?.content
+            
+            // Try Gemini format if OpenAI format not found
+            if (!content && data.candidates?.[0]?.content?.parts?.[0]?.text) {
+              content = data.candidates[0].content.parts[0].text
+            }
             
             if (content) {
               // Fix persona addressing before sending
