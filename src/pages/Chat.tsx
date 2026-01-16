@@ -49,7 +49,7 @@ function formatChatContent(text: string): React.ReactElement {
       flushList()
       elements.push(
         <div key={elements.length} className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-600 rounded-lg p-4 my-4">
-          <p className="text-lg font-bold text-purple-900">{line}</p>
+          <p className="text-base font-bold text-purple-900">{line}</p>
         </div>
       )
     }
@@ -66,7 +66,7 @@ function formatChatContent(text: string): React.ReactElement {
       // Highlight UPPERCASE words
       const parts = line.split(/([A-ZÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ]{3,})/)
       elements.push(
-        <p key={elements.length} className="text-gray-800 leading-relaxed my-2">
+        <p key={elements.length} className="text-sm text-gray-800 leading-relaxed my-2">
           {parts.map((part, idx) => {
             if (/^[A-ZÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ]{3,}$/.test(part)) {
               return (

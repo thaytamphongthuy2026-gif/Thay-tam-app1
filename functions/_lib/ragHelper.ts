@@ -93,15 +93,13 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 `.trim()
 
 /**
- * RAG File IDs - TEMPORARILY DISABLED for faster response
- * Chat was too slow due to RAG processing time
- * TODO: Re-enable after optimizing RAG query strategy
+ * RAG File IDs - ENABLED with Gemini fallback for book mode
+ * These are the 3 core feng shui books uploaded to Gemini Files API
  */
 const RAG_FILE_IDS: string[] = [
-  // DISABLED: All RAG files temporarily disabled to speed up chat
-  // 'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB) - Essential for house feng shui
-  // 'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB) - Essential for date selection
-  // 'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB) - Compact reference
+  'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB) - Essential for house feng shui
+  'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB) - Essential for date selection
+  'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB) - Compact reference
 ]
 
 /**
