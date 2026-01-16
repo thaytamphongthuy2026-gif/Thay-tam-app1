@@ -104,7 +104,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         }
     
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?key=${env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:streamGenerateContent?key=${env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: {
