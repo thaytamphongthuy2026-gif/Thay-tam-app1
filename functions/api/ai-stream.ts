@@ -96,11 +96,12 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     // Build messages for AI
     const systemPrompt = buildSystemPrompt(quotaType)
     
-    // Use RAG when useRag=true (book mode)
+    // Use RAG when useRag=true (book mode) - Slower but more accurate
+    // Use GROQ when useRag=false (quick mode) - Fast responses
     let aiResponse: Response
     
     if (useRag) {
-      console.log('📚 Using RAG with 3 books...')
+      console.log('📚 Using RAG with 3 books (Gemini)...')
       // Build Gemini request with RAG support
       const ragRequest = buildGeminiRequestWithRAG(prompt, env, quotaType)
       
@@ -125,15 +126,16 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       aiResponse = geminiResponse
       console.log('✅ Gemini RAG streaming started')
     } else {
-      console.log('⚡ Using standard AI (no RAG)...')
-      // Standard flow without RAG
+      console.log('⚡ Using GROQ (fast mode, no RAG)...')
+      // Quick mode: Use GROQ for fastest response
       const messages: AIMessage[] = [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt }
       ]
       
-      // Call AI with auto-fallback (Gemini → GROQ → DeepSeek)
-      aiResponse = await callAI({ messages }, env)
+      // Call GROQ directly for speed (500+ tok/s)
+      // Reduced maxTokens for faster completion
+      aiResponse = await callAI({ messages, maxTokens: 2048 }, env)
     }
 
     console.log(`📝 AI Request: quotaType=${quotaType}, useRag=${useRag}, promptLength=${prompt.length}`)
