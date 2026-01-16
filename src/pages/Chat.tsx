@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Send, AlertCircle } from 'lucide-react'
+import { Send, AlertCircle, BookOpen, Zap } from 'lucide-react'
 import { streamGeminiAPI } from '../lib/gemini'
 import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
@@ -9,6 +9,7 @@ interface Message {
   role: 'user' | 'assistant'
   content: string
   timestamp: Date
+  mode?: 'quick' | 'book' // Track which mode was used
 }
 
 /**
@@ -88,6 +89,7 @@ function formatChatContent(text: string): React.ReactElement {
 
 export default function Chat() {
   const { user, refreshUser } = useAuth()
+  const [ragMode, setRagMode] = useState<'quick' | 'book'>('quick') // New: RAG mode toggle
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -125,11 +127,16 @@ export default function Chat() {
     setInput('')
     setError('')
 
-    // Add placeholder for streaming response with "Đang kết nối..." text
+    // Add placeholder for streaming response with mode-specific message
+    const connectingMessage = ragMode === 'book' 
+      ? '📚 Thầy Tám đang lật sách...'
+      : '⏳ Đang kết nối với Thầy Tám...'
+      
     setMessages(prev => [...prev, {
       role: 'assistant',
-      content: '⏳ Đang kết nối với Thầy Tám...',
-      timestamp: new Date()
+      content: connectingMessage,
+      timestamp: new Date(),
+      mode: ragMode
     }])
 
     try {
@@ -180,7 +187,7 @@ export default function Chat() {
       <div className="max-w-4xl mx-auto w-full flex flex-col" style={{ height: 'calc(100vh - 80px)' }}>
         {/* Header */}
         <div className="bg-white rounded-t-xl shadow-lg p-4 border-b flex-shrink-0">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-3">
             <div>
               <h1 className="text-xl font-bold text-gray-900">Tư vấn với Thầy Tám</h1>
               <p className="text-sm text-gray-600">Đặt câu hỏi về phong thủy, tài lộc, sự nghiệp...</p>
@@ -193,6 +200,38 @@ export default function Chat() {
               </div>
             )}
           </div>
+          
+          {/* RAG Mode Toggle */}
+          <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-lg">
+            <button
+              onClick={() => setRagMode('quick')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md transition ${
+                ragMode === 'quick'
+                  ? 'bg-white text-purple-600 font-semibold shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Zap className="w-4 h-4" />
+              <span className="text-sm">Nhanh</span>
+            </button>
+            <button
+              onClick={() => setRagMode('book')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md transition ${
+                ragMode === 'book'
+                  ? 'bg-white text-purple-600 font-semibold shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span className="text-sm">Tra sách</span>
+            </button>
+          </div>
+          
+          {ragMode === 'book' && (
+            <p className="text-xs text-gray-500 mt-2 bg-yellow-50 border border-yellow-200 rounded p-2">
+              💡 Chế độ <strong>Tra sách</strong>: Thầy Tám sẽ dựa vào 6 quyển sách cổ để trả lời (chậm hơn nhưng có trích dẫn)
+            </p>
+          )}
         </div>
 
         {/* Messages - SCROLLABLE AREA */}
@@ -212,8 +251,8 @@ export default function Chat() {
               >
                 {message.role === 'user' ? (
                   <p className="whitespace-pre-wrap">{message.content}</p>
-                ) : message.content.startsWith('⏳') ? (
-                  // Show connecting message with animation
+                ) : message.content.startsWith('⏳') || message.content.startsWith('📚') ? (
+                  // Show connecting/loading message with animation
                   <div className="flex items-center space-x-2">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
@@ -239,18 +278,7 @@ export default function Chat() {
             </div>
           ))}
 
-          {loading && (
-            <div className="flex justify-start">
-              <div className="bg-gray-100 rounded-xl p-4 flex items-center space-x-3">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                </div>
-                <span className="text-gray-600">Thầy Tám đang trả lời...</span>
-              </div>
-            </div>
-          )}
+          {/* Removed duplicate loading indicator - already shown in message bubble */}
 
           {error && (
             error.includes('đăng nhập') ? (
@@ -292,8 +320,13 @@ export default function Chat() {
             </div>
           )}
 
-          {/* Follow-up Suggestions - Show after AI response */}
-          {messages.length > 1 && messages[messages.length - 1].role === 'assistant' && !loading && (
+          {/* Follow-up Suggestions - Show after AI response (not loading placeholder) */}
+          {messages.length > 1 && 
+           messages[messages.length - 1].role === 'assistant' && 
+           !loading && 
+           !messages[messages.length - 1].content.startsWith('⏳') && 
+           !messages[messages.length - 1].content.startsWith('📚') &&
+           messages[messages.length - 1].content.length > 0 && (
             <div className="flex justify-center mt-4">
               <div className="max-w-2xl w-full">
                 <p className="text-center text-xs text-gray-500 mb-2">

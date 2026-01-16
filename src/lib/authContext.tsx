@@ -34,6 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [supabaseUser, setSupabaseUser] = useState<SupabaseUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const loadingRef = useState<AbortController | null>(null)[0]
 
   useEffect(() => {
     // Check active session
@@ -52,7 +53,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem('user_email', session.user.email || '')
         }
         
-        await loadUserProfile(session.user.id)
+        // Load user profile without blocking
+        loadUserProfile(session.user.id).catch(err => {
+          // Silently handle errors (already logged in loadUserProfile)
+          if (err.name !== 'AbortError') {
+            console.error('Failed to load user profile:', err)
+          }
+        })
       } else {
         setSupabaseUser(null)
         setUser(null)
@@ -66,6 +73,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       subscription.unsubscribe()
+      // Abort any pending profile loads
+      if (loadingRef) {
+        loadingRef.abort()
+      }
     }
   }, [])
 
@@ -94,14 +105,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error && error.code !== 'PGRST116') {
         // PGRST116 is "not found" - ignore it
-        throw error
+        console.error('Error loading user profile:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        })
+        return // Don't throw, just return
       }
       
       if (data) {
         setUser(data as User)
       }
-    } catch (error) {
-      console.error('Error loading user profile:', error)
+    } catch (error: any) {
+      // Silently handle AbortError (request was cancelled)
+      if (error.name === 'AbortError') {
+        return
+      }
+      console.error('Error loading user profile:', {
+        message: error.message,
+        details: error.toString(),
+        hint: error.hint || '',
+        code: error.code || ''
+      })
     }
   }
 

@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Star, Mail } from 'lucide-react'
 
 export default function Footer() {
+  const navigate = useNavigate()
+
+  const handleLinkClick = (path: string) => {
+    navigate(path)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <footer className="bg-gray-900 text-white mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -23,18 +30,18 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Dịch vụ</h3>
             <div className="space-y-2">
-              <Link to="/chat" className="block text-gray-400 hover:text-white text-sm">
+              <button onClick={() => handleLinkClick('/chat')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Tư vấn trực tuyến
-              </Link>
-              <Link to="/xem-ngay-tot" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/xem-ngay-tot')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Xem ngày tốt
-              </Link>
-              <Link to="/tu-vi" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/tu-vi')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Xem tử vi
-              </Link>
-              <Link to="/lich-phong-thuy" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/lich-phong-thuy')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Lịch phong thủy
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -42,21 +49,21 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Hỗ trợ</h3>
             <div className="space-y-2">
-              <Link to="/pricing" className="block text-gray-400 hover:text-white text-sm">
+              <button onClick={() => handleLinkClick('/pricing')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Bảng giá
-              </Link>
-              <Link to="/blog" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/blog')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Blog
-              </Link>
-              <Link to="/faq" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/faq')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Câu hỏi thường gặp
-              </Link>
-              <Link to="/privacy-policy" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/privacy-policy')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Chính sách bảo mật
-              </Link>
-              <Link to="/terms" className="block text-gray-400 hover:text-white text-sm">
+              </button>
+              <button onClick={() => handleLinkClick('/terms')} className="block text-left text-gray-400 hover:text-white text-sm">
                 Điều khoản sử dụng
-              </Link>
+              </button>
             </div>
           </div>
 
