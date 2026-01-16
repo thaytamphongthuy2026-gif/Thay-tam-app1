@@ -28,7 +28,7 @@ export interface AIStreamOptions {
 export async function callGroq(options: AIStreamOptions, env: Env): Promise<Response> {
   const { messages, temperature = 0.7, maxTokens = 2048 } = options
 
-  console.log('🚀 Calling GROQ API (llama-3.1-70b-versatile)...')
+  console.log('🚀 Calling GROQ API (llama-3.3-70b-versatile)...')
 
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
@@ -37,7 +37,7 @@ export async function callGroq(options: AIStreamOptions, env: Env): Promise<Resp
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'llama-3.1-70b-versatile', // Best for Vietnamese
+      model: 'llama-3.3-70b-versatile', // Best for Vietnamese (newer!)
       messages,
       temperature,
       max_tokens: maxTokens,
