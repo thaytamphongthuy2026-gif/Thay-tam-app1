@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Heart, Loader2, AlertCircle, TrendingUp, Gift, Users, Share2, Sparkles, Star, ChevronRight } from 'lucide-react'
 import { shareContent } from '../lib/shareUtils'
+import { calculateCompatibility } from '../lib/fengShuiCalculator'
 
 interface CompatibilityResult {
   totalScore: number
@@ -38,43 +39,13 @@ export default function TestDuyenSo() {
     setLoading(true)
 
     try {
-      // Simple compatibility calculation (in production: call API)
-      const score1 = Math.floor(Math.random() * 30) + 10 // 10-40
-      const score2 = Math.floor(Math.random() * 30) + 10 // 10-40
-      const score3 = Math.floor(Math.random() * 30) + 10 // 10-40
-      const total = score1 + score2 + score3
-
-      const mockResult: CompatibilityResult = {
-        totalScore: total,
-        ngu_hanh: score1,
-        ngu_giap: score2,
-        can_chi: score3,
-        breakdown: {
-          ngu_hanh_detail: total >= 75 ? 'Ngũ hành tương sinh, rất hợp nhau' : total >= 50 ? 'Ngũ hành hòa hợp' : 'Ngũ hành tương khắc, cần hòa giải',
-          ngu_giap_detail: total >= 75 ? 'Can Chi của hai người rất hợp, hôn nhân viên mãn' : total >= 50 ? 'Can Chi tương đối hợp' : 'Can Chi có chút xung khắc',
-          can_chi_detail: total >= 75 ? 'Tuổi tác rất hợp, dễ hiểu nhau' : total >= 50 ? 'Tuổi tác khá hợp' : 'Tuổi tác có khoảng cách nhất định'
-        },
-        advice: [
-          total >= 75 ? 'Đây là duyên trời định! Hai bạn rất hợp nhau.' : 'Cần thêm thời gian để hiểu nhau hơn.',
-          'Hãy thường xuyên giao tiếp và chia sẻ.',
-          'Tôn trọng sở thích và không gian riêng của nhau.',
-          total >= 50 ? 'Cùng nhau vượt qua khó khăn.' : 'Hãy kiên nhẫn và thấu hiểu.'
-        ],
-        bestMonths: ['Tháng 1', 'Tháng 5', 'Tháng 9'],
-        giftSuggestions: [
-          total >= 75 ? '💍 Nhẫn cặp' : '🌹 Hoa hồng',
-          '📱 Đồng hồ cặp',
-          '✈️ Chuyến du lịch 2 người',
-          '🍽️ Bữa tối lãng mạn'
-        ],
-        celebMatch: total >= 75 ? 'Brad Pitt & Angelina Jolie' : total >= 50 ? 'David & Victoria Beckham' : 'Ryan Gosling & Eva Mendes'
-      }
-
+      // Use real Feng Shui calculator based on Can Chi and Ngũ Hành
       setTimeout(() => {
-        setResult(mockResult)
+        const calculatedResult = calculateCompatibility(birthDate1, birthDate2)
+        setResult(calculatedResult)
         setStep('result')
         setLoading(false)
-      }, 2000)
+      }, 1500) // Simulate calculation time
     } catch (err: any) {
       setError(err.message || 'Có lỗi xảy ra')
       setLoading(false)

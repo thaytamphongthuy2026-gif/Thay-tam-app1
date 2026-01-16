@@ -208,43 +208,47 @@ Trả lời chi tiết bằng tiếng Việt, dễ hiểu.`
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Calendar className="w-10 h-10 text-purple-600" />
             <h1 className="text-4xl font-bold text-gray-800">
-              Lịch Phong Thủy
+              Lịch Phong Thủy 2026
             </h1>
           </div>
           <p className="text-gray-600">
-            Xem ngày tốt xấu theo tháng để sắp xếp công việc hợp lý
+            Xem ngày tốt xấu theo tháng để sắp xếp công việc hợp lý • Click vào ngày để xem chi tiết
           </p>
         </div>
 
-        {/* Month Navigator */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <div className="flex items-center justify-between mb-6">
-            <button
-              onClick={previousMonth}
-              disabled={loading}
-              className="p-2 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            
-            <h2 className="text-2xl font-bold text-gray-800">
-              {monthNames[currentMonth - 1]} {currentYear}
-            </h2>
-            
-            <button
-              onClick={nextMonth}
-              disabled={loading}
-              className="p-2 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div>
+        {/* 2-COLUMN LAYOUT: Desktop only */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* LEFT COLUMN: Calendar (3/5 width on desktop) */}
+          <div className="lg:col-span-3">
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-4">
+              {/* Month Navigator */}
+              <div className="flex items-center justify-between mb-6">
+                <button
+                  onClick={previousMonth}
+                  disabled={loading}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {monthNames[currentMonth - 1]} {currentYear}
+                </h2>
+                
+                <button
+                  onClick={nextMonth}
+                  disabled={loading}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition disabled:opacity-50"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
 
           {/* Month Info */}
           {monthData && !loading && (
@@ -320,31 +324,58 @@ Trả lời chi tiết bằng tiếng Việt, dễ hiểu.`
               </div>
             </>
           )}
-        </div>
+            </div>
+          </div>
 
-        {/* Day Details */}
-        {selectedDay && (
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              Chi tiết ngày {selectedDay}/{currentMonth}/{currentYear}
-            </h3>
-
-            {loadingDay && (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-8 h-8 text-purple-600 animate-spin mr-3" />
-                <span className="text-gray-600">Đang tải thông tin...</span>
+          {/* RIGHT COLUMN: Day Details (2/5 width on desktop) */}
+          <div className="lg:col-span-2">
+            {!selectedDay && !loading && (
+              <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl shadow-lg p-8 text-center h-full flex flex-col items-center justify-center">
+                <Calendar className="w-16 h-16 text-purple-600 mb-4 opacity-50" />
+                <p className="text-lg text-gray-700 font-medium mb-2">
+                  👆 Click vào một ngày
+                </p>
+                <p className="text-sm text-gray-600">
+                  Để xem chi tiết phong thủy của ngày đó
+                </p>
               </div>
             )}
 
-            {!loadingDay && dayDetails && (
-              <div className="prose max-w-none">
-                <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
-                  {dayDetails}
-                </div>
+            {selectedDay && (
+              <div className="bg-white rounded-xl shadow-lg p-6 lg:sticky lg:top-4">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-purple-200 pb-3">
+                  📅 Ngày {selectedDay}/{currentMonth}/{currentYear}
+                </h3>
+
+                {loadingDay && (
+                  <div className="flex flex-col items-center justify-center py-12">
+                    <Loader2 className="w-12 h-12 text-purple-600 animate-spin mb-4" />
+                    <span className="text-gray-600">Đang tải thông tin...</span>
+                  </div>
+                )}
+
+                {!loadingDay && dayDetails && (
+                  <div className="prose max-w-none">
+                    <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+                      {dayDetails}
+                    </div>
+                    
+                    {/* Quick Actions */}
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                      <p className="text-sm text-gray-600 mb-3">💬 Có thắc mắc về ngày này?</p>
+                      <a
+                        href="/chat"
+                        className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition"
+                      >
+                        Chat với Thầy Tám
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
