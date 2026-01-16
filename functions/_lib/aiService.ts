@@ -158,11 +158,14 @@ export async function callDeepSeek(options: AIStreamOptions, env: Env): Promise<
  * Try Gemini first (best Vietnamese) → fallback to GROQ → DeepSeek
  */
 export async function callAI(options: AIStreamOptions, env: Env): Promise<Response> {
+  // Import Gemini service
+  const { callGemini: callGemini25 } = await import('./geminiService')
+  
   try {
-    // Primary: Try Gemini 2.0 Flash (best for Vietnamese, excellent system prompt following)
-    return await callGemini(options, env)
+    // Primary: Try Gemini 2.5 Flash (BEST for Vietnamese + system prompt following)
+    return await callGemini25(options, env)
   } catch (geminiError) {
-    console.warn('⚠️ Gemini failed, falling back to GROQ:', geminiError)
+    console.warn('⚠️ Gemini 2.5 failed, falling back to GROQ:', geminiError)
     
     try {
       // Backup 1: Try GROQ (fast)

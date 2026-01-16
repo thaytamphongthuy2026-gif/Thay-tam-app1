@@ -4,6 +4,7 @@ import type { Env } from '../_lib/database'
 import { checkRateLimit } from '../_lib/rateLimit'
 import { buildGeminiRequestWithRAG } from '../_lib/ragHelper'
 import { callAI, buildSystemPrompt, transformStreamingResponse, type AIMessage } from '../_lib/aiService'
+import { transformGeminiStreamingResponse } from '../_lib/geminiService'
 
 interface RequestBody {
   prompt: string
@@ -117,7 +118,8 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     const { readable, writable } = new TransformStream()
 
     // Transform and forward the stream
-    transformStreamingResponse(aiResponse, writable)
+    // Use Gemini transformer (supports both Gemini SSE and OpenAI formats)
+    transformGeminiStreamingResponse(aiResponse, writable)
 
     return new Response(readable, {
       headers: {
