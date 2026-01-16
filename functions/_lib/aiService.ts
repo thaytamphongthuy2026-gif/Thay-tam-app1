@@ -1,11 +1,12 @@
 /**
  * AI Service Abstraction Layer
  * Supports multiple AI providers with auto-fallback
- * Primary: GROQ (fastest, FREE)
- * Backup: DeepSeek via OpenRouter (smartest, FREE unlimited)
+ * Primary: Gemini 2.5 Flash (BEST Vietnamese + System Prompt Following)
+ * Backup: GROQ (Fast, FREE)
  */
 
 import type { Env } from './database'
+import { callGemini, transformGeminiStreamingResponse } from './geminiService'
 
 export interface AIMessage {
   role: 'system' | 'user' | 'assistant'
