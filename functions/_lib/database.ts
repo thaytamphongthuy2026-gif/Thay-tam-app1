@@ -2,7 +2,13 @@ export interface Env {
   SUPABASE_URL: string
   SUPABASE_SERVICE_KEY: string
   SUPABASE_JWT_SECRET: string
-  GEMINI_API_KEY: string
+  SUPABASE_ANON_KEY: string
+  // AI Provider Keys
+  GROQ_API_KEY: string
+  OPENROUTER_API_KEY: string
+  GEMINI_API_KEY: string // Legacy, kept for fallback
+  ENVIRONMENT: string
+  // KV Namespaces
   RATE_LIMIT: KVNamespace
   RESPONSE_CACHE: KVNamespace
 }
