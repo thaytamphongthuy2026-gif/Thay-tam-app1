@@ -46,7 +46,6 @@ export async function callGeminiAPI(
 
       return response.json()
     } catch (error) {
-      console.warn(`${endpoint} failed, trying next...`, error)
       if (endpoint === endpoints[endpoints.length - 1]) {
         throw error // Last endpoint, throw error
       }
@@ -74,8 +73,6 @@ export async function streamGeminiAPI(
   
   for (const endpoint of endpoints) {
     try {
-      console.log(`🚀 Trying ${endpoint}...`)
-      
       // Add timeout protection (30 seconds)
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 30000)
@@ -151,14 +148,11 @@ export async function streamGeminiAPI(
         throw new Error('Không nhận được phản hồi từ AI. Vui lòng thử lại.')
       }
 
-      console.log(`✅ ${endpoint} succeeded!`)
       return {
         success: true,
         result: fullText
       }
     } catch (error: any) {
-      console.warn(`❌ ${endpoint} failed:`, error.message)
-      
       if (endpoint === endpoints[endpoints.length - 1]) {
         // Last endpoint failed, throw error
         if (error.name === 'AbortError') {
