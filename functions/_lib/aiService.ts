@@ -235,6 +235,40 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 }
 
 /**
+ * Fix persona addressing issues in real-time
+ */
+function fixPersonaAddressing(text: string): string {
+  // Fix common wrong patterns
+  let fixed = text
+  
+  // Fix "Cháu xin" at start of sentence
+  fixed = fixed.replace(/^Cháu xin/g, 'Thầy xin')
+  fixed = fixed.replace(/\n\s*Cháu xin/g, '\nThầy xin')
+  
+  // Fix "Cháu hy vọng"
+  fixed = fixed.replace(/Cháu hy vọng/g, 'Thầy hy vọng')
+  
+  // Fix "Cháu khuyên"
+  fixed = fixed.replace(/Cháu khuyên/g, 'Thầy khuyên')
+  
+  // Fix "Cháu tin"
+  fixed = fixed.replace(/Cháu tin/g, 'Thầy tin')
+  
+  // Fix "Cháu nghĩ"
+  fixed = fixed.replace(/Cháu nghĩ/g, 'Thầy nghĩ')
+  
+  // Fix "Cháu sẽ"
+  fixed = fixed.replace(/Cháu sẽ/g, 'Thầy sẽ')
+  
+  // Fix other first-person wrong references
+  fixed = fixed.replace(/\btôi khuyên\b/gi, 'Thầy khuyên')
+  fixed = fixed.replace(/\btôi nghĩ\b/gi, 'Thầy nghĩ')
+  fixed = fixed.replace(/\bem nghĩ\b/gi, 'Thầy nghĩ')
+  
+  return fixed
+}
+
+/**
  * Transform Groq/OpenRouter streaming response to our format
  * Both use OpenAI-compatible format
  */
@@ -276,9 +310,12 @@ export async function transformStreamingResponse(
             const content = data.choices?.[0]?.delta?.content
             
             if (content) {
+              // Fix persona addressing before sending
+              const fixedContent = fixPersonaAddressing(content)
+              
               // Send in our format
               await writer.write(
-                encoder.encode(`data: ${JSON.stringify({ chunk: content })}\n\n`)
+                encoder.encode(`data: ${JSON.stringify({ chunk: fixedContent })}\n\n`)
               )
             }
           } catch (e) {
@@ -298,8 +335,9 @@ export async function transformStreamingResponse(
         const content = data.choices?.[0]?.delta?.content
         
         if (content) {
+          const fixedContent = fixPersonaAddressing(content)
           await writer.write(
-            encoder.encode(`data: ${JSON.stringify({ chunk: content })}\n\n`)
+            encoder.encode(`data: ${JSON.stringify({ chunk: fixedContent })}\n\n`)
           )
         }
       } catch (e) {
