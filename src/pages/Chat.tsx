@@ -4,6 +4,7 @@ import { streamGeminiAPI, callGeminiAPI } from '../lib/gemini'
 import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
 import { useAuth } from '../lib/authContext'
+import ReactMarkdown from 'react-markdown'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -90,6 +91,7 @@ function formatChatContent(text: string): React.ReactElement {
 export default function Chat() {
   const { user, refreshUser } = useAuth()
   const [ragMode, setRagMode] = useState<'quick' | 'book'>('quick') // New: RAG mode toggle
+  const inputRef = useRef<HTMLTextAreaElement>(null) // Input ref for auto-focus
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -105,6 +107,13 @@ export default function Chat() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Auto-focus input when not loading
+  useEffect(() => {
+    if (!loading && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [loading])
 
   function scrollToBottom() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -127,10 +136,8 @@ export default function Chat() {
     setInput('')
     setError('')
 
-    // Add placeholder for streaming response with mode-specific message
-    const connectingMessage = ragMode === 'book' 
-      ? '📚 Thầy Tám đang lật sách...'
-      : '⏳ Đang kết nối với Thầy Tám...'
+    // Add placeholder for streaming response - ONLY animation, no text
+    const connectingMessage = '' // Empty - will show only animation
       
     setMessages(prev => [...prev, {
       role: 'assistant',
@@ -140,7 +147,14 @@ export default function Chat() {
     }])
 
     try {
-      const prompt = PROMPTS.chat(currentInput)
+      // Build context-aware prompt with user birth info
+      let contextPrompt = currentInput
+      if (user?.birth_date && user?.gender) {
+        const birthInfo = `[Thông tin người hỏi: Sinh ngày ${user.birth_date} (${user.birth_date_type === 'lunar' ? 'Âm lịch' : 'Dương lịch'}), Giới tính: ${user.gender === 'male' ? 'Nam' : user.gender === 'female' ? 'Nữ' : 'Khác'}]\n\n`
+        contextPrompt = birthInfo + currentInput
+      }
+      
+      const prompt = PROMPTS.chat(contextPrompt)
       
       // Clear the "connecting" message and start streaming
       let isFirstChunk = true
@@ -221,8 +235,8 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
-      <div className="max-w-4xl mx-auto w-full flex flex-col" style={{ height: 'calc(100vh - 80px)' }}>
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto w-full flex flex-col h-screen">
         {/* Header */}
         <div className="bg-white rounded-t-xl shadow-lg p-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between mb-3">
@@ -289,18 +303,24 @@ export default function Chat() {
               >
                 {message.role === 'user' ? (
                   <p className="whitespace-pre-wrap">{message.content}</p>
-                ) : message.content.startsWith('⏳') || message.content.startsWith('📚') ? (
-                  // Show connecting/loading message with animation
+                ) : message.content === '' ? (
+                  // Show ONLY animation (no text) when loading
                   <div className="flex items-center space-x-2">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                       <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
-                    <p className="text-gray-700">{message.content}</p>
                   </div>
                 ) : (
-                  formatChatContent(message.content)
+                  // Use Markdown for 'book' mode, formatChatContent for 'quick' mode
+                  message.mode === 'book' ? (
+                    <div className="prose prose-sm max-w-none">
+                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    formatChatContent(message.content)
+                  )
                 )}
                 <p
                   className={`text-xs mt-2 ${
@@ -362,8 +382,6 @@ export default function Chat() {
           {messages.length > 1 && 
            messages[messages.length - 1].role === 'assistant' && 
            !loading && 
-           !messages[messages.length - 1].content.startsWith('⏳') && 
-           !messages[messages.length - 1].content.startsWith('📚') &&
            messages[messages.length - 1].content.length > 0 && (
             <div className="flex justify-center mt-4">
               <div className="max-w-2xl w-full">
@@ -398,6 +416,7 @@ export default function Chat() {
         <div className="bg-white rounded-b-xl shadow-lg p-4 border-t flex-shrink-0">
           <div className="flex items-end space-x-2">
             <textarea
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}

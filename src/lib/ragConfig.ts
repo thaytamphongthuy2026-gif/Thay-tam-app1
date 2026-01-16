@@ -47,7 +47,7 @@ VÍ DỤ PHONG CÁCH:
 Mệnh Kim của bạn:
 • Hướng tốt: Tây, Tây Bắc, Tây Nam
 • Màu sắc may mắn: Trắng, Vàng, Kim loại
-• Năm 2026 là năm Ất Tỵ (Mộc Thổ) → Kim được Thổ sinh → ĐẠI CÁT
+• Năm 2026 là năm Bính Ngọ (Mộc Thổ) → Kim được Thổ sinh → ĐẠI CÁT
 
 Lời khuyên cụ thể:
 1. Đặt bàn làm việc hướng Tây

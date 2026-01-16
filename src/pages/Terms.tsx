@@ -54,7 +54,7 @@ export default function Terms() {
               </p>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Xem ngày tốt (khai trương, cưới hỏi, động thổ, nhập trạch)</li>
-                <li>Xem tử vi năm 2026 (Ất Tỵ)</li>
+                <li>Xem tử vi năm 2026 (Bính Ngọ)</li>
                 <li>Chat tư vấn phong thủy với Thầy Tám AI</li>
                 <li>Các tính năng gamification: Số May Mắn, Xin Xăm, Test Duyên Số, Lì Xì Game</li>
               </ul>

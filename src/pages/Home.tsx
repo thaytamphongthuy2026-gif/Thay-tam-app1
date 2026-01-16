@@ -15,19 +15,19 @@ export default function Home() {
 
   // Set SEO meta tags
   useEffect(() => {
-    document.title = 'Thầy Tám Phong Thủy 2026 - Xem Ngày Tốt, Tử Vi, Tư Vấn Phong Thủy Tết Ất Tỵ'
+    document.title = 'Thầy Tám Phong Thủy 2026 - Xem Ngày Tốt, Tử Vi, Tư Vấn Phong Thủy Tết Bính Ngọ'
     
     const metaTags = [
-      { name: 'description', content: 'Tư vấn phong thủy Tết 2026 (Ất Tỵ) dựa trên 6 sách cổ thư. Xem ngày tốt khai trương, cưới hỏi, động thổ. Xem tử vi năm 2026. AI trích xuất từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư.' },
+      { name: 'description', content: 'Tư vấn phong thủy Tết 2026 (Bính Ngọ) dựa trên 6 sách cổ thư. Xem ngày tốt khai trương, cưới hỏi, động thổ. Xem tử vi năm 2026. AI trích xuất từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư.' },
       { name: 'keywords', content: 'phong thủy 2026, tết 2026, xem ngày tốt 2026, tử vi 2026, phong thủy tết ất tỵ, ngày hoàng đạo 2026, xem ngày khai trương, xem ngày cưới hỏi, thầy phong thủy' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://thaytamphongthuy.com/' },
-      { property: 'og:title', content: 'Thầy Tám Phong Thủy 2026 - Tư Vấn Phong Thủy Tết Ất Tỵ' },
-      { property: 'og:description', content: 'Xem ngày tốt, tử vi năm 2026, tư vấn phong thủy Tết Ất Tỵ chuyên nghiệp với AI. Miễn phí 3 lượt xem ngày tốt.' },
+      { property: 'og:title', content: 'Thầy Tám Phong Thủy 2026 - Tư Vấn Phong Thủy Tết Bính Ngọ' },
+      { property: 'og:description', content: 'Xem ngày tốt, tử vi năm 2026, tư vấn phong thủy Tết Bính Ngọ chuyên nghiệp với AI. Miễn phí 3 lượt xem ngày tốt.' },
       { property: 'og:image', content: 'https://thaytamphongthuy.com/og-image.jpg' },
       { property: 'twitter:card', content: 'summary_large_image' },
       { property: 'twitter:url', content: 'https://thaytamphongthuy.com/' },
-      { property: 'twitter:title', content: 'Thầy Tám Phong Thủy 2026 - Xem Ngày Tốt Tết Ất Tỵ' },
+      { property: 'twitter:title', content: 'Thầy Tám Phong Thủy 2026 - Xem Ngày Tốt Tết Bính Ngọ' },
       { property: 'twitter:description', content: 'Tư vấn phong thủy Tết 2026, xem ngày tốt, xem tử vi với AI. Dùng thử miễn phí.' },
       { property: 'twitter:image', content: 'https://thaytamphongthuy.com/og-image.jpg' }
     ]
@@ -58,7 +58,7 @@ export default function Home() {
       '@context': 'https://schema.org',
       '@type': 'ProfessionalService',
       'name': 'Thầy Tám Phong Thủy 2026',
-      'description': 'AI phong thủy dựa trên 6 sách cổ thư. Xem ngày tốt, xem tử vi năm 2026 (Ất Tỵ). Trích dẫn từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Tử Vi Đẩu Số.',
+      'description': 'AI phong thủy dựa trên 6 sách cổ thư. Xem ngày tốt, xem tử vi năm 2026 (Bính Ngọ). Trích dẫn từ Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Tử Vi Đẩu Số.',
       'url': 'https://thaytamphongthuy.com',
       'telephone': '',
       'email': 'thaytamphongthuy2026@gmail.com',
@@ -161,7 +161,7 @@ export default function Home() {
                     <Star className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold">🔮 Xem Tử Vi AI</h3>
-                  <p className="text-sm text-gray-600">Dự đoán năm Rắn 2026</p>
+                  <p className="text-sm text-gray-600">Dự đoán năm Ngựa 2026</p>
                   <span className="text-xs bg-purple-500 text-white px-3 py-1 rounded-full font-semibold">MIỄN PHÍ</span>
                 </div>
               </Link>
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
             
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent mb-6">
-              🐍 Năm Rắn 2026 - Năm Của Trí Tuệ & Tài Lộc
+              🐍 Năm Ngựa 2026 - Năm Của Trí Tuệ & Tài Lộc
             </h2>
             
             <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto font-medium">
@@ -266,7 +266,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">🔮 Xem Tử Vi 2026</h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Vận may, tài lộc, tình duyên năm Rắn
+                  Vận may, tài lộc, tình duyên năm Ngựa
                 </p>
                 <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-semibold">
                   MIỄN PHÍ 3 LƯỢT
@@ -547,7 +547,7 @@ export default function Home() {
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">Xem Tử Vi 2026</h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    Dự đoán vận mệnh năm Rắn • Tài lộc, tình duyên, sự nghiệp
+                    Dự đoán vận mệnh năm Ngựa • Tài lộc, tình duyên, sự nghiệp
                   </p>
                   <span className="inline-block text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-semibold">30% Xem Miễn Phí</span>
                 </div>
@@ -660,7 +660,7 @@ export default function Home() {
               Tại Sao 10,000+ Người Chọn Thầy Tám Cho Tết 2026?
             </h2>
             <p className="text-xl text-gray-600">
-              Đồng hành cùng bạn chuẩn bị trọn vẹn cho năm Ất Tỵ
+              Đồng hành cùng bạn chuẩn bị trọn vẹn cho năm Bính Ngọ
             </p>
           </div>
 
@@ -702,7 +702,7 @@ export default function Home() {
       <section className="bg-purple-600 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">
-            Đón Tết Ất Tỵ 2026 Với Vận May Trọn Vẹn
+            Đón Tết Bính Ngọ 2026 Với Vận May Trọn Vẹn
           </h2>
           <p className="text-xl text-purple-100 mb-8">
             🎁 <strong>Miễn phí</strong>: 3 lượt xem ngày tốt + 1 lượt xem tử vi năm 2026 + 10 câu hỏi phong thủy Tết
@@ -721,15 +721,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Phong Thủy Tết 2026 - Năm Ất Tỵ: Điều Cần Biết
+              Phong Thủy Tết 2026 - Năm Bính Ngọ: Điều Cần Biết
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-4">🐍 Năm Rắn 2026 Là Năm Gì?</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">🐍 Năm Ngựa 2026 Là Năm Gì?</h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Năm 2026 là <strong>năm Bính Ngọ (Ất Tỵ)</strong> theo âm lịch, mệnh <strong>Hỏa</strong>. 
-                  Năm Rắn mang lại cơ hội lớn về tài lộc, nhưng cần thận trọng trong các quyết định quan trọng.
+                  Năm 2026 là <strong>năm Bính Ngọ (Bính Ngọ)</strong> theo âm lịch, mệnh <strong>Hỏa</strong>. 
+                  Năm Ngựa mang lại cơ hội lớn về tài lộc, nhưng cần thận trọng trong các quyết định quan trọng.
                   Xem ngày tốt trước khi khai trương, cưới hỏi, động thổ là vô cùng quan trọng.
                 </p>
               </div>
@@ -767,7 +767,7 @@ export default function Home() {
             <div className="mb-8">
               <h3 className="text-2xl font-semibold text-gray-800 mb-4">🌟 12 Con Giáp Năm 2026 - Vận May Ra Sao?</h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Năm Ất Tỵ 2026 có những con giáp gặp nhiều may mắn, nhưng cũng có tuổi cần đề phòng.
+                Năm Bính Ngọ 2026 có những con giáp gặp nhiều may mắn, nhưng cũng có tuổi cần đề phòng.
                 <strong> Xem tử vi năm 2026 theo ngày giờ sinh</strong> để biết chính xác vận mệnh của bạn:
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -839,7 +839,7 @@ export default function Home() {
                 🎊 Chuẩn Bị Tết 2026 Với Thầy Tám
               </h3>
               <p className="text-center text-gray-700 mb-6">
-                Đăng ký ngay để nhận tư vấn phong thủy miễn phí cho năm Ất Tỵ 2026
+                Đăng ký ngay để nhận tư vấn phong thủy miễn phí cho năm Bính Ngọ 2026
               </p>
               <div className="flex justify-center">
                 <Link

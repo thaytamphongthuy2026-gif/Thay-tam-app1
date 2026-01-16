@@ -27,7 +27,7 @@ const blogPostsData: Record<string, BlogPostData> = {
   'ngay-tot-khai-truong-2026': {
     id: '1',
     title: 'Top 10 Ngày Tốt Khai Trương Năm 2026 Theo Phong Thủy',
-    excerpt: 'Xem ngày hoàng đạo khai trương kinh doanh năm Ất Tỵ 2026. Chọn ngày tốt giờ đẹp để thu hút tài lộc, khách hàng ùn ùn, kinh doanh phát đạt.',
+    excerpt: 'Xem ngày hoàng đạo khai trương kinh doanh năm Bính Ngọ 2026. Chọn ngày tốt giờ đẹp để thu hút tài lộc, khách hàng ùn ùn, kinh doanh phát đạt.',
     date: '14/01/2026',
     readTime: '8 phút',
     category: 'Xem Ngày Tốt',
@@ -35,7 +35,7 @@ const blogPostsData: Record<string, BlogPostData> = {
     keywords: ['ngày tốt khai trương 2026', 'ngày hoàng đạo', 'xem ngày khai trương', 'phong thủy kinh doanh'],
     relatedPosts: ['ngay-cuoi-tot-2026', 'huong-nha-tot-2026'],
     content: {
-      intro: 'Khai trương cửa hàng, văn phòng là sự kiện quan trọng đánh dấu bước khởi đầu của công việc kinh doanh. Chọn ngày giờ tốt theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo động lực tích cực cho chủ doanh nghiệp và nhân viên. Dưới đây là 10 ngày tốt nhất để khai trương trong năm Ất Tỵ 2026.',
+      intro: 'Khai trương cửa hàng, văn phòng là sự kiện quan trọng đánh dấu bước khởi đầu của công việc kinh doanh. Chọn ngày giờ tốt theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo động lực tích cực cho chủ doanh nghiệp và nhân viên. Dưới đây là 10 ngày tốt nhất để khai trương trong năm Bính Ngọ 2026.',
       sections: [
         {
           heading: '1. Tại Sao Cần Chọn Ngày Tốt Khai Trương?',
@@ -60,7 +60,7 @@ const blogPostsData: Record<string, BlogPostData> = {
         },
         {
           heading: '3. Top 10 Ngày Tốt Khai Trương Năm 2026',
-          content: 'Dựa trên lịch phong thủy năm Ất Tỵ 2026, đây là 10 ngày tốt nhất cho khai trương:',
+          content: 'Dựa trên lịch phong thủy năm Bính Ngọ 2026, đây là 10 ngày tốt nhất cho khai trương:',
           list: [
             'Ngày 15/01/2026 (Dương) - 16/12/2025 (Âm): Ngày Hoàng Đạo, hợp mệnh Kim, Thủy',
             'Ngày 20/02/2026 (Dương) - 23/01/2026 (Âm): Ngày Thiên Đức, hợp khai trương nhà hàng',
@@ -104,15 +104,15 @@ const blogPostsData: Record<string, BlogPostData> = {
   'tu-vi-12-con-giap-2026': {
     id: '2',
     title: 'Tử Vi 12 Con Giáp Năm 2026: Ai Gặp Nhiều May Mắn Nhất?',
-    excerpt: 'Xem tử vi 12 con giáp năm Rắn 2026. Dự đoán vận may tài lộc, sự nghiệp, tình duyên, sức khỏe cho từng tuổi. Năm 2026 tuổi nào hợp xui?',
+    excerpt: 'Xem tử vi 12 con giáp năm Ngựa 2026. Dự đoán vận may tài lộc, sự nghiệp, tình duyên, sức khỏe cho từng tuổi. Năm 2026 tuổi nào hợp xui?',
     date: '13/01/2026',
     readTime: '12 phút',
     category: 'Tử Vi',
     slug: 'tu-vi-12-con-giap-2026',
-    keywords: ['tử vi 2026', '12 con giáp', 'năm Ất Tỵ', 'vận may 2026'],
+    keywords: ['tử vi 2026', '12 con giáp', 'năm Bính Ngọ', 'vận may 2026'],
     relatedPosts: ['tuoi-ty-nam-2026', 'mau-sac-may-man-2026'],
     content: {
-      intro: 'Năm 2026 là năm Ất Tỵ (năm Rắn), một năm đầy biến động và cơ hội. Mỗi con giáp sẽ có những vận may khác nhau về tài lộc, sự nghiệp, tình duyên và sức khỏe. Dưới đây là dự đoán chi tiết cho từng tuổi.',
+      intro: 'Năm 2026 là năm Bính Ngọ (năm Ngựa), một năm đầy biến động và cơ hội. Mỗi con giáp sẽ có những vận may khác nhau về tài lộc, sự nghiệp, tình duyên và sức khỏe. Dưới đây là dự đoán chi tiết cho từng tuổi.',
       sections: [
         {
           heading: '1. Tuổi Tý (Chuột) - 1948, 1960, 1972, 1984, 1996, 2008, 2020',
@@ -126,7 +126,7 @@ const blogPostsData: Record<string, BlogPostData> = {
         },
         {
           heading: '2. Tuổi Sửu (Trâu) - 1949, 1961, 1973, 1985, 1997, 2009, 2021',
-          content: 'Năm Ất Tỵ không quá thuận lợi cho tuổi Sửu. Công việc gặp nhiều trở ngại, cần kiên nhẫn vượt qua. Tài chính ổn định nhưng không có bước đột phá. Tình duyên bình thường, cần quan tâm gia đình hơn.',
+          content: 'Năm Bính Ngọ không quá thuận lợi cho tuổi Sửu. Công việc gặp nhiều trở ngại, cần kiên nhẫn vượt qua. Tài chính ổn định nhưng không có bước đột phá. Tình duyên bình thường, cần quan tâm gia đình hơn.',
           list: [
             'Sự nghiệp: ⭐⭐ - Nhiều khó khăn, cần kiên trì',
             'Tài lộc: ⭐⭐⭐ - Ổn định, tránh đầu tư mạo hiểm',
@@ -146,7 +146,7 @@ const blogPostsData: Record<string, BlogPostData> = {
         },
         {
           heading: '4. Tuổi Mão (Mèo) - 1951, 1963, 1975, 1987, 1999, 2011',
-          content: 'Tuổi Mão gặp nhiều may mắn trong năm Ất Tỵ. Công việc suôn sẻ, được cấp trên đánh giá cao. Tài chính ổn định, có khoản thu bất ngờ. Tình duyên tốt, gia đình ấm áp.',
+          content: 'Tuổi Mão gặp nhiều may mắn trong năm Bính Ngọ. Công việc suôn sẻ, được cấp trên đánh giá cao. Tài chính ổn định, có khoản thu bất ngờ. Tình duyên tốt, gia đình ấm áp.',
           list: [
             'Sự nghiệp: ⭐⭐⭐⭐ - Thuận lợi, được đánh giá cao',
             'Tài lộc: ⭐⭐⭐⭐ - Thu nhập tăng, có khoản lãi bất ngờ',
@@ -166,7 +166,7 @@ const blogPostsData: Record<string, BlogPostData> = {
         },
         {
           heading: '6. Tuổi Tỵ (Rắn) - 1953, 1965, 1977, 1989, 2001, 2013',
-          content: 'Năm Ất Tỵ là năm phạm tuổi của tuổi Tỵ. Cần hết sức cẩn thận trong mọi việc. Công việc có thể gặp nhiều thử thách, tài chính cần tiết kiệm. Tuy nhiên, nếu vượt qua được sẽ rèn luyện bản thân tốt hơn.',
+          content: 'Năm Bính Ngọ là năm phạm tuổi của tuổi Tỵ. Cần hết sức cẩn thận trong mọi việc. Công việc có thể gặp nhiều thử thách, tài chính cần tiết kiệm. Tuy nhiên, nếu vượt qua được sẽ rèn luyện bản thân tốt hơn.',
           list: [
             'Sự nghiệp: ⭐⭐ - Phạm tuổi, nhiều thử thách',
             'Tài lộc: ⭐⭐ - Tránh đầu tư mạo hiểm, tiết kiệm',
@@ -242,15 +242,15 @@ const blogPostsData: Record<string, BlogPostData> = {
   'phong-thuy-tet-2026': {
     id: '3',
     title: 'Phong Thủy Tết 2026: Cách Bày Trí Nhà Cửa Đón Lộc Về',
-    excerpt: 'Hướng dẫn bày trí phòng khách, bàn thờ Tết 2026 theo phong thủy. Màu sắc, vật phẩm may mắn cho năm Ất Tỵ. Đặt cây cảnh, tranh ảnh nơi nào?',
+    excerpt: 'Hướng dẫn bày trí phòng khách, bàn thờ Tết 2026 theo phong thủy. Màu sắc, vật phẩm may mắn cho năm Bính Ngọ. Đặt cây cảnh, tranh ảnh nơi nào?',
     date: '12/01/2026',
     readTime: '10 phút',
     category: 'Phong Thủy Nhà Ở',
     slug: 'phong-thuy-tet-2026',
-    keywords: ['phong thủy tết 2026', 'bày trí nhà cửa', 'trang trí tết', 'phong thủy năm Ất Tỵ'],
+    keywords: ['phong thủy tết 2026', 'bày trí nhà cửa', 'trang trí tết', 'phong thủy năm Bính Ngọ'],
     relatedPosts: ['huong-nha-tot-2026', 'mau-sac-may-man-2026'],
     content: {
-      intro: 'Tết Nguyên Đán là dịp quan trọng nhất trong năm. Việc bày trí nhà cửa theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo không gian sống hài hòa, thu hút tài lộc và may mắn cho cả năm. Dưới đây là hướng dẫn chi tiết cách bày trí nhà cửa đón Tết Ất Tỵ 2026.',
+      intro: 'Tết Nguyên Đán là dịp quan trọng nhất trong năm. Việc bày trí nhà cửa theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo không gian sống hài hòa, thu hút tài lộc và may mắn cho cả năm. Dưới đây là hướng dẫn chi tiết cách bày trí nhà cửa đón Tết Bính Ngọ 2026.',
       sections: [
         {
           heading: '1. Nguyên Tắc Cơ Bản Phong Thủy Tết',
@@ -324,14 +324,14 @@ const blogPostsData: Record<string, BlogPostData> = {
           ]
         },
         {
-          heading: '7. Màu Sắc May Mắn Năm Ất Tỵ 2026',
-          content: 'Năm Rắn 2026 hợp với các màu sắc sau:',
+          heading: '7. Màu Sắc May Mắn Năm Bính Ngọ 2026',
+          content: 'Năm Ngựa 2026 hợp với các màu sắc sau:',
           list: [
             'Đỏ: Màu truyền thống của Tết, mang lại may mắn',
             'Vàng, Cam: Thu hút tài lộc, giàu sang',
             'Xanh lá: Hợp mệnh Mộc, sức khỏe tốt',
             'Trắng, Bạc: Hợp mệnh Kim, sự nghiệp thăng tiến',
-            'Tránh: Đen, xanh đen (không hợp năm Rắn)'
+            'Tránh: Đen, xanh đen (không hợp năm Ngựa)'
           ]
         },
         {
@@ -347,7 +347,7 @@ const blogPostsData: Record<string, BlogPostData> = {
           ]
         }
       ],
-      conclusion: 'Bày trí nhà cửa theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo không gian sống hài hòa, tích cực cho cả gia đình. Kết hợp với sự chăm chỉ và nỗ lực của bản thân, bạn sẽ có một năm mới thành công, hạnh phúc và tràn đầy năng lượng tích cực. Chúc bạn và gia đình một năm Ất Tỵ 2026 an khang thịnh vượng!'
+      conclusion: 'Bày trí nhà cửa theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo không gian sống hài hòa, tích cực cho cả gia đình. Kết hợp với sự chăm chỉ và nỗ lực của bản thân, bạn sẽ có một năm mới thành công, hạnh phúc và tràn đầy năng lượng tích cực. Chúc bạn và gia đình một năm Bính Ngọ 2026 an khang thịnh vượng!'
     }
   },
   'ngay-cuoi-tot-2026': {
@@ -361,7 +361,7 @@ const blogPostsData: Record<string, BlogPostData> = {
     keywords: ['ngày cưới tốt 2026', 'xem ngày cưới', 'ngày hoàng đạo cưới hỏi', 'chọn ngày đám cưới'],
     relatedPosts: ['ngay-tot-khai-truong-2026', 'tu-vi-12-con-giap-2026'],
     content: {
-      intro: 'Đám cưới là sự kiện trọng đại nhất trong đời mỗi người. Chọn ngày cưới tốt theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo nền tảng vững chắc cho hạnh phúc gia đình. Dưới đây là những ngày cưới tốt nhất năm Ất Tỵ 2026.',
+      intro: 'Đám cưới là sự kiện trọng đại nhất trong đời mỗi người. Chọn ngày cưới tốt theo phong thủy không chỉ mang ý nghĩa tâm linh mà còn tạo nền tảng vững chắc cho hạnh phúc gia đình. Dưới đây là những ngày cưới tốt nhất năm Bính Ngọ 2026.',
       sections: [
         {
           heading: '1. Tại Sao Cần Chọn Ngày Cưới Tốt?',
@@ -388,7 +388,7 @@ const blogPostsData: Record<string, BlogPostData> = {
         },
         {
           heading: '3. Top 12 Ngày Cưới Tốt Năm 2026',
-          content: 'Dựa trên lịch vạn niên năm Ất Tỵ 2026:',
+          content: 'Dựa trên lịch vạn niên năm Bính Ngọ 2026:',
           list: [
             'Ngày 18/01/2026 (CN Âm 19/12/2025): Ngày Hoàng Đạo, hợp mọi tuổi',
             'Ngày 25/02/2026 (DL Âm 28/01/2026): Ngày Thiên Đức, đại cát',
@@ -465,7 +465,7 @@ const blogPostsData: Record<string, BlogPostData> = {
           ]
         },
         {
-          heading: '3. Hướng Nhà Tốt Năm Ất Tỵ 2026',
+          heading: '3. Hướng Nhà Tốt Năm Bính Ngọ 2026',
           content: 'Theo Cửu Cung Phi Tinh, năm 2026:',
           list: [
             'Hướng Đông Nam: Ngôi sao Chính Tài bay vào, đại cát',
@@ -504,7 +504,7 @@ const blogPostsData: Record<string, BlogPostData> = {
   'tuoi-ty-nam-2026': {
     id: '6',
     title: 'Tuổi Tỵ (Rắn) Năm 2026: Phạm Tuổi Có Xui Xẻo Không?',
-    excerpt: 'Tuổi Tỵ năm Ất Tỵ 2026 phạm tuổi, vận may ra sao? Cách hóa giải tuổi phạm: đeo vật phẩm gì, làm gì để may mắn, tránh tai họa.',
+    excerpt: 'Tuổi Tỵ năm Bính Ngọ 2026 phạm tuổi, vận may ra sao? Cách hóa giải tuổi phạm: đeo vật phẩm gì, làm gì để may mắn, tránh tai họa.',
     date: '09/01/2026',
     readTime: '7 phút',
     category: 'Tử Vi',
@@ -512,14 +512,14 @@ const blogPostsData: Record<string, BlogPostData> = {
     keywords: ['tuổi tỵ 2026', 'tuổi phạm 2026', 'hóa giải tuổi phạm', 'tử vi tuổi rắn 2026'],
     relatedPosts: ['tu-vi-12-con-giap-2026', 'mau-sac-may-man-2026'],
     content: {
-      intro: 'Năm Ất Tỵ 2026 là năm tuổi Tỵ (Rắn) phạm tuổi Thái Tuế. Nhiều người lo lắng về vận may và sức khỏe. Vậy tuổi phạm có thực sự xui xẻo? Cách nào để hóa giải?',
+      intro: 'Năm Bính Ngọ 2026 là năm tuổi Tỵ (Rắn) phạm tuổi Thái Tuế. Nhiều người lo lắng về vận may và sức khỏe. Vậy tuổi phạm có thực sự xui xẻo? Cách nào để hóa giải?',
       sections: [
         {
           heading: '1. Tuổi Phạm Là Gì?',
           content: 'Tuổi phạm (hay phạm Thái Tuế) là:',
           list: [
             'Tuổi trùng với Can Chi của năm',
-            'Ví dụ: Tuổi Tỵ gặp năm Ất Tỵ',
+            'Ví dụ: Tuổi Tỵ gặp năm Bính Ngọ',
             'Theo tín ngưỡng dân gian, năm phạm tuổi có nhiều biến động',
             'Cần cẩn trọng trong công việc, tài chính, sức khỏe'
           ]
@@ -597,8 +597,8 @@ const blogPostsData: Record<string, BlogPostData> = {
           ]
         },
         {
-          heading: '2. Màu Sắc May Mắn Năm Ất Tỵ 2026',
-          content: 'Năm 2026 là năm Ất Tỵ (Mộc Thổ), màu may mắn:',
+          heading: '2. Màu Sắc May Mắn Năm Bính Ngọ 2026',
+          content: 'Năm 2026 là năm Bính Ngọ (Mộc Thổ), màu may mắn:',
           list: [
             'Màu chủ đạo: Xanh lá, vàng, nâu đất',
             'Màu phụ: Đỏ, cam, hồng (Hỏa sinh Thổ)',

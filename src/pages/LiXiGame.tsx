@@ -438,7 +438,7 @@ export default function LiXiGame() {
               },
               {
                 title: 'Số May Mắn',
-                description: 'Xem số phát tài năm Rắn',
+                description: 'Xem số phát tài năm Ngựa',
                 icon: '🎲',
                 link: '/so-may-man'
               },
@@ -450,7 +450,7 @@ export default function LiXiGame() {
               },
               {
                 title: 'Xem Tử Vi 2026',
-                description: 'Vận mệnh năm Ất Tỵ',
+                description: 'Vận mệnh năm Bính Ngọ',
                 icon: '🔮',
                 link: '/tu-vi'
               }

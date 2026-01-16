@@ -133,28 +133,31 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4">
-            <Link to="/" className="block text-gray-600 hover:text-purple-600">
+            <Link to="/" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
               Trang chủ
             </Link>
             {user ? (
               <>
-                <Link to="/dashboard" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/dashboard" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Dashboard
                 </Link>
-                <Link to="/chat" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/chat" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Tư vấn
                 </Link>
-                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Xông Đất
                 </Link>
-                <Link to="/pricing" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/pricing" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Gói dịch vụ
                 </Link>
-                <Link to="/profile" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/profile" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Thông tin cá nhân
                 </Link>
                 <button
-                  onClick={handleLogout}
+                  onClick={() => {
+                    setIsMenuOpen(false)
+                    handleLogout()
+                  }}
                   className="block w-full text-left text-red-600"
                 >
                   Đăng xuất
@@ -162,22 +165,22 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link to="/chat" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/chat" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Tư vấn
                 </Link>
-                <Link to="/lich-phong-thuy" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/lich-phong-thuy" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Lịch Phong Thủy
                 </Link>
-                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/xong-dat" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Xông Đất
                 </Link>
-                <Link to="/pricing" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/pricing" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Bảng giá
                 </Link>
-                <Link to="/login" className="block text-gray-600 hover:text-purple-600">
+                <Link to="/login" className="block text-gray-600 hover:text-purple-600" onClick={() => setIsMenuOpen(false)}>
                   Đăng nhập
                 </Link>
-                <Link to="/register" className="block text-purple-600 font-semibold">
+                <Link to="/register" className="block text-purple-600 font-semibold" onClick={() => setIsMenuOpen(false)}>
                   Đăng ký
                 </Link>
               </>

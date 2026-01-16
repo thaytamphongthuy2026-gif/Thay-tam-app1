@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../lib/authContext'
 import { supabase } from '../lib/supabase'
-import { User, Calendar, Mail, Crown, Loader2 } from 'lucide-react'
+import { User, Calendar, Mail, Crown, Loader2, Star } from 'lucide-react'
+import { getCanChiMenh } from '../lib/canchiUtils'
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -146,6 +147,34 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Can Chi và Mệnh - Display if birth_date exists */}
+                {user.birth_date && (() => {
+                  const year = parseInt(user.birth_date.split('-')[0])
+                  const { canChi, menh, nguHanh } = getCanChiMenh(year)
+                  return (
+                    <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Star className="w-5 h-5 text-purple-600" />
+                        <label className="text-sm font-semibold text-purple-900">Can Chi & Mệnh</label>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-600">Năm sinh:</span>
+                          <span className="text-sm font-bold text-purple-700">{canChi}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-600">Mệnh:</span>
+                          <span className="text-sm font-bold text-pink-700">{menh}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-gray-600">Ngũ hành:</span>
+                          <span className="text-sm font-bold text-orange-700">{nguHanh}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })()}
               </div>
             </div>
 

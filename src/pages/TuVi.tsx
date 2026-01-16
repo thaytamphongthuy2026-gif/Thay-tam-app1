@@ -43,7 +43,7 @@ export default function TuVi() {
   const [unlocked, setUnlocked] = useState(false)
 
   useEffect(() => {
-    document.title = 'Xem Tử Vi 2026 - Dự Đoán Vận Mệnh Năm Ất Tỵ'
+    document.title = 'Xem Tử Vi 2026 - Dự Đoán Vận Mệnh Năm Bính Ngọ'
     
     // Pre-fill from user profile
     if (user) {
@@ -78,7 +78,7 @@ export default function TuVi() {
         })
       }
 
-      const prompt = `Bạn là chuyên gia tử vi phong thủy. Xem tử vi năm 2026 (Ất Tỵ) cho:
+      const prompt = `Bạn là chuyên gia tử vi phong thủy. Xem tử vi năm 2026 (Bính Ngọ) cho:
 - Ngày sinh: ${birthDate} (${calendarType === 'lunar' ? 'Âm lịch' : 'Dương lịch'})
 - Giờ sinh: ${birthTime}
 - Giới tính: ${gender}
@@ -203,7 +203,7 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
     } catch (err) {
       console.error('Parse error:', err)
       return {
-        overview: 'Năm 2026 là năm Ất Tỵ, mang nhiều may mắn và cơ hội mới...',
+        overview: 'Năm 2026 là năm Bính Ngọ, mang nhiều may mắn và cơ hội mới...',
         yearRating: 4,
         strongPoints: ['Tài lộc dồi dào', 'Sự nghiệp thăng tiến', 'Sức khỏe tốt'],
         challenges: ['Cần chú ý tình cảm', 'Đề phòng tiểu nhân'],
@@ -275,7 +275,7 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
           </h1>
           
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Dự đoán vận mệnh năm Ất Tỵ • Tài lộc, sự nghiệp, tình duyên, sức khỏe
+            Dự đoán vận mệnh năm Bính Ngọ • Tài lộc, sự nghiệp, tình duyên, sức khỏe
           </p>
         </div>
 

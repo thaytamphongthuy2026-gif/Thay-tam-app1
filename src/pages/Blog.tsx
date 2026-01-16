@@ -16,7 +16,7 @@ const blogPosts: BlogPost[] = [
   {
     id: '1',
     title: 'Top 10 Ngày Tốt Khai Trương Năm 2026 Theo Phong Thủy',
-    excerpt: 'Xem ngày hoàng đạo khai trương kinh doanh năm Ất Tỵ 2026. Chọn ngày tốt giờ đẹp để thu hút tài lộc, khách hàng ùn ùn, kinh doanh phát đạt.',
+    excerpt: 'Xem ngày hoàng đạo khai trương kinh doanh năm Bính Ngọ 2026. Chọn ngày tốt giờ đẹp để thu hút tài lộc, khách hàng ùn ùn, kinh doanh phát đạt.',
     date: '14/01/2026',
     readTime: '8 phút',
     category: 'Xem Ngày Tốt',
@@ -25,7 +25,7 @@ const blogPosts: BlogPost[] = [
   {
     id: '2',
     title: 'Tử Vi 12 Con Giáp Năm 2026: Ai Gặp Nhiều May Mắn Nhất?',
-    excerpt: 'Xem tử vi 12 con giáp năm Rắn 2026. Dự đoán vận may tài lộc, sự nghiệp, tình duyên, sức khỏe cho từng tuổi. Năm 2026 tuổi nào hợp xui?',
+    excerpt: 'Xem tử vi 12 con giáp năm Ngựa 2026. Dự đoán vận may tài lộc, sự nghiệp, tình duyên, sức khỏe cho từng tuổi. Năm 2026 tuổi nào hợp xui?',
     date: '13/01/2026',
     readTime: '12 phút',
     category: 'Tử Vi',
@@ -34,7 +34,7 @@ const blogPosts: BlogPost[] = [
   {
     id: '3',
     title: 'Phong Thủy Tết 2026: Cách Bày Trí Nhà Cửa Đón Lộc Về',
-    excerpt: 'Hướng dẫn bày trí phòng khách, bàn thờ Tết 2026 theo phong thủy. Màu sắc, vật phẩm may mắn cho năm Ất Tỵ. Đặt cây cảnh, tranh ảnh nơi nào?',
+    excerpt: 'Hướng dẫn bày trí phòng khách, bàn thờ Tết 2026 theo phong thủy. Màu sắc, vật phẩm may mắn cho năm Bính Ngọ. Đặt cây cảnh, tranh ảnh nơi nào?',
     date: '12/01/2026',
     readTime: '10 phút',
     category: 'Phong Thủy Nhà Ở',
@@ -60,12 +60,12 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: '6',
-    title: 'Tuổi Tỵ (Rắn) Năm 2026: Phạm Tuổi Có Xui Xẻo Không?',
-    excerpt: 'Tuổi Tỵ năm Ất Tỵ 2026 phạm tuổi, vận may ra sao? Cách hóa giải tuổi phạm: đeo vật phẩm gì, làm gì để may mắn, tránh tai họa.',
+    title: 'Tuổi Ngọ (Ngựa) Năm 2026: Phạm Tuổi Có Xui Xẻo Không?',
+    excerpt: 'Tuổi Ngọ năm Bính Ngọ 2026 phạm tuổi, vận may ra sao? Cách hóa giải tuổi phạm: đeo vật phẩm gì, làm gì để may mắn, tránh tai họa.',
     date: '09/01/2026',
     readTime: '7 phút',
     category: 'Tử Vi',
-    slug: 'tuoi-ty-nam-2026'
+    slug: 'tuoi-ngo-nam-2026'
   },
   {
     id: '7',
@@ -83,7 +83,7 @@ export default function Blog() {
     document.title = 'Blog Phong Thủy 2026 - Kiến Thức Xem Ngày Tử Vi | Thầy Tám'
     
     const metaTags = [
-      { name: 'description', content: 'Chia sẻ kiến thức phong thủy, xem ngày tốt, tử vi 2026. Bài viết chuyên sâu về phong thủy Tết Ất Tỵ, ngày hoàng đạo, bày trí nhà cửa, màu sắc may mắn.' },
+      { name: 'description', content: 'Chia sẻ kiến thức phong thủy, xem ngày tốt, tử vi 2026. Bài viết chuyên sâu về phong thủy Tết Bính Ngọ, ngày hoàng đạo, bày trí nhà cửa, màu sắc may mắn.' },
       { name: 'keywords', content: 'blog phong thủy 2026, kiến thức phong thủy, xem ngày tốt, tử vi 2026, phong thủy tết, ngày hoàng đạo, bày trí nhà cửa' }
     ]
 
@@ -107,7 +107,7 @@ export default function Blog() {
             📚 Blog Phong Thủy 2026
           </h1>
           <p className="text-xl text-purple-100 max-w-3xl">
-            Kiến thức phong thủy, xem ngày tốt, tử vi năm Ất Tỵ 2026. 
+            Kiến thức phong thủy, xem ngày tốt, tử vi năm Bính Ngọ 2026. 
             Chia sẻ từ chuyên gia giúp bạn đón Tết trọn vẹn.
           </p>
         </div>

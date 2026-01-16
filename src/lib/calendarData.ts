@@ -16,7 +16,7 @@ export const CALENDAR_2026: Record<string, StaticMonthData> = {
     badDays: [5, 13, 17, 25],
     luckyColors: ['Đỏ', 'Vàng', 'Cam'],
     luckyDirection: 'Đông Nam',
-    advice: 'Tháng Tết Ất Tỵ - Nên: Chuẩn bị Tết, dọn dẹp nhà cửa, cúng ông Công ông Táo, xông đất. Tránh: Khởi công công trình lớn, mua xe, đi xa.'
+    advice: 'Tháng Tết Bính Ngọ - Nên: Chuẩn bị Tết, dọn dẹp nhà cửa, cúng ông Công ông Táo, xông đất. Tránh: Khởi công công trình lớn, mua xe, đi xa.'
   },
   '2026-2': {
     goodDays: [2, 5, 8, 11, 14, 17, 20, 23, 26],
