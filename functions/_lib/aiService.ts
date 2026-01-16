@@ -236,34 +236,36 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 
 /**
  * Fix persona addressing issues in real-time
+ * Handle cases with emojis and various patterns
  */
 function fixPersonaAddressing(text: string): string {
-  // Fix common wrong patterns
   let fixed = text
   
-  // Fix "Cháu xin" at start of sentence
-  fixed = fixed.replace(/^Cháu xin/g, 'Thầy xin')
-  fixed = fixed.replace(/\n\s*Cháu xin/g, '\nThầy xin')
+  // Fix "Cháu xin" with any prefix (including emojis)
+  fixed = fixed.replace(/([🔮🏮🎋💰🏠🌟✨🎯⚠️📝💡]\s*)?Cháu xin trả lời/g, '$1Thầy xin trả lời')
+  fixed = fixed.replace(/Cháu xin/g, 'Thầy xin')
   
-  // Fix "Cháu hy vọng"
-  fixed = fixed.replace(/Cháu hy vọng/g, 'Thầy hy vọng')
+  // Fix "Cháu" at start of sentences
+  fixed = fixed.replace(/^Cháu\s+/gm, 'Thầy ')
+  fixed = fixed.replace(/\.\s+Cháu\s+/g, '. Thầy ')
+  fixed = fixed.replace(/\n\s*Cháu\s+/g, '\nThầy ')
   
-  // Fix "Cháu khuyên"
-  fixed = fixed.replace(/Cháu khuyên/g, 'Thầy khuyên')
+  // Fix specific verbs with "Cháu"
+  fixed = fixed.replace(/\bCháu hy vọng\b/g, 'Thầy hy vọng')
+  fixed = fixed.replace(/\bCháu khuyên\b/g, 'Thầy khuyên')
+  fixed = fixed.replace(/\bCháu tin\b/g, 'Thầy tin')
+  fixed = fixed.replace(/\bCháu nghĩ\b/g, 'Thầy nghĩ')
+  fixed = fixed.replace(/\bCháu sẽ\b/g, 'Thầy sẽ')
+  fixed = fixed.replace(/\bCháu thấy\b/g, 'Thầy thấy')
+  fixed = fixed.replace(/\bCháu muốn\b/g, 'Thầy muốn')
+  fixed = fixed.replace(/\bCháu có thể\b/g, 'Thầy có thể')
   
-  // Fix "Cháu tin"
-  fixed = fixed.replace(/Cháu tin/g, 'Thầy tin')
-  
-  // Fix "Cháu nghĩ"
-  fixed = fixed.replace(/Cháu nghĩ/g, 'Thầy nghĩ')
-  
-  // Fix "Cháu sẽ"
-  fixed = fixed.replace(/Cháu sẽ/g, 'Thầy sẽ')
-  
-  // Fix other first-person wrong references
+  // Fix other wrong pronouns
   fixed = fixed.replace(/\btôi khuyên\b/gi, 'Thầy khuyên')
   fixed = fixed.replace(/\btôi nghĩ\b/gi, 'Thầy nghĩ')
+  fixed = fixed.replace(/\btôi tin\b/gi, 'Thầy tin')
   fixed = fixed.replace(/\bem nghĩ\b/gi, 'Thầy nghĩ')
+  fixed = fixed.replace(/\bmình nghĩ\b/gi, 'Thầy nghĩ')
   
   return fixed
 }
