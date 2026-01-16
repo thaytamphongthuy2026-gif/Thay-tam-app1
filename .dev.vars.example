@@ -1,0 +1,19 @@
+# Environment Variables for Local Development
+# Copy this file to .dev.vars and fill in your actual values
+
+# Gemini API Key (REQUIRED)
+# Get from: https://aistudio.google.com/app/apikey
+GEMINI_API_KEY=AIzaSy_YOUR_API_KEY_HERE
+
+# Supabase Configuration (REQUIRED)
+SUPABASE_URL=https://kwnuqxogswvmofpmwyxy.supabase.co
+SUPABASE_ANON_KEY=your_supabase_anon_key_here
+SUPABASE_JWT_SECRET=your_jwt_secret_here
+
+# Optional: RAG File IDs (comma-separated)
+# Upload PDFs to Google AI Studio and get file IDs
+# Example: files/abc123,files/def456
+RAG_FILE_IDS=
+
+# Optional: Environment flag
+ENVIRONMENT=development
