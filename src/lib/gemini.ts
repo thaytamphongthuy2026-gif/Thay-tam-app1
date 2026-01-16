@@ -68,8 +68,8 @@ export async function streamGeminiAPI(
     throw new Error('Bạn cần đăng nhập để sử dụng tính năng này')
   }
 
-  // Try new AI streaming endpoint first, fallback to gemini-stream
-  const endpoints = ['/api/ai-stream', '/api/gemini-stream']
+  // Use GROQ AI streaming endpoint only (no fallback to old Gemini)
+  const endpoints = ['/api/ai-stream']
   
   for (const endpoint of endpoints) {
     try {
