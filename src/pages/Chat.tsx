@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Send, AlertCircle, BookOpen, Zap } from 'lucide-react'
-import { streamGeminiAPI } from '../lib/gemini'
+import { streamGeminiAPI, callGeminiAPI } from '../lib/gemini'
 import LoginPrompt from '../components/LoginPrompt'
 import { PROMPTS } from '../lib/prompts'
 import { useAuth } from '../lib/authContext'
@@ -145,31 +145,69 @@ export default function Chat() {
       // Clear the "connecting" message and start streaming
       let isFirstChunk = true
       
-      // Use streaming API with RAG flag
-      await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
-        // Update the last message with streamed chunk
+      try {
+        // TRY STREAMING FIRST (faster)
+        await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
+          // Update the last message with streamed chunk
+          setMessages(prev => {
+            const updated = [...prev]
+            const lastMsg = updated[updated.length - 1]
+            if (lastMsg.role === 'assistant') {
+              if (isFirstChunk) {
+                // Replace "connecting" message with first chunk
+                lastMsg.content = chunk
+                isFirstChunk = false
+              } else {
+                lastMsg.content += chunk
+              }
+            }
+            return updated
+          })
+        }, ragMode === 'book')  // Pass useRag flag based on mode
+
+        // Refresh user quota in background
+        refreshUser().catch(console.error)
+      } catch (streamError: any) {
+        console.error('Streaming failed:', streamError)
+        
+        // FALLBACK TO NON-STREAMING (more reliable)
+        console.log('🔄 Falling back to non-streaming API...')
+        
+        // Update message to show fallback
         setMessages(prev => {
           const updated = [...prev]
           const lastMsg = updated[updated.length - 1]
           if (lastMsg.role === 'assistant') {
-            if (isFirstChunk) {
-              // Replace "connecting" message with first chunk
-              lastMsg.content = chunk
-              isFirstChunk = false
-            } else {
-              lastMsg.content += chunk
-            }
+            lastMsg.content = '🔄 Đang thử phương án dự phòng...'
           }
           return updated
         })
-      }, ragMode === 'book')  // Pass useRag flag based on mode
 
-      // Refresh user quota in background
-      refreshUser().catch(console.error)
+        // Use non-streaming API as backup
+        const result = await callGeminiAPI(prompt, 'chat')
+        
+        if (result.success && result.result) {
+          // Replace with actual response
+          setMessages(prev => {
+            const updated = [...prev]
+            const lastMsg = updated[updated.length - 1]
+            if (lastMsg.role === 'assistant') {
+              lastMsg.content = result.result || 'Không có phản hồi'
+            }
+            return updated
+          })
+          
+          // Refresh quota
+          refreshUser().catch(console.error)
+        } else {
+          throw new Error(result.error || 'Cả 2 phương án đều thất bại')
+        }
+      }
     } catch (err: any) {
       // Remove placeholder message on error
       setMessages(prev => prev.slice(0, -1))
-      setError(err.message || 'Có lỗi xảy ra khi gửi tin nhắn')
+      setError(err.message || 'Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.')
+      console.error('Chat error:', err)
     } finally {
       setLoading(false)
     }
