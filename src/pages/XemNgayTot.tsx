@@ -4,6 +4,7 @@ import { callGeminiAPI } from '../lib/gemini'
 import { shareContent } from '../lib/shareUtils'
 import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
+import RelatedFeatures from '../components/RelatedFeatures'
 
 interface GoodDate {
   solar: string
@@ -581,6 +582,40 @@ Dương lịch: DD/MM/YYYY
                 </button>
               </div>
             </div>
+
+            {/* Related Features */}
+            <RelatedFeatures
+              currentFeature="Xem Ngày Tốt"
+              suggestions={[
+                {
+                  title: 'Xem Tử Vi 2026',
+                  description: 'Vận mệnh năm Rắn, tài lộc, tình duyên',
+                  icon: '🔮',
+                  link: '/tu-vi',
+                  badge: 'PHỔ BIẾN'
+                },
+                {
+                  title: 'Lịch Phong Thủy',
+                  description: 'Xem ngày tốt xấu từng tháng',
+                  icon: '📅',
+                  link: '/lich-phong-thuy',
+                  badge: 'MỚI'
+                },
+                {
+                  title: 'Chat Với Thầy Tám',
+                  description: 'Hỏi thêm về ngày đã chọn',
+                  icon: '💬',
+                  link: '/chat'
+                },
+                {
+                  title: 'Xông Đất Tết',
+                  description: 'Tìm người xông nhà may mắn',
+                  icon: '🎊',
+                  link: '/xong-dat',
+                  badge: 'TẾT 2026'
+                }
+              ]}
+            />
           </>
         )}
       </div>

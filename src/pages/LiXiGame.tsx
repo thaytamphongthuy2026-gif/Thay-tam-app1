@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Gift, Trophy, Star, TrendingUp, Sparkles, Clock } from 'lucide-react'
+import RelatedFeatures from '../components/RelatedFeatures'
 
 interface LixiScenario {
   id: number
@@ -422,6 +423,40 @@ export default function LiXiGame() {
             </div>
           </div>
         )}
+
+        {/* Related Features - Always visible */}
+        <div className="mt-8">
+          <RelatedFeatures
+            currentFeature="Lì Xì Thông Minh"
+            suggestions={[
+              {
+                title: 'Xông Đất Tết',
+                description: 'Tìm người xông nhà may mắn năm mới',
+                icon: '🎊',
+                link: '/xong-dat',
+                badge: 'TẾT 2026'
+              },
+              {
+                title: 'Số May Mắn',
+                description: 'Xem số phát tài năm Rắn',
+                icon: '🎲',
+                link: '/so-may-man'
+              },
+              {
+                title: 'Xin Xăm Ảo',
+                description: 'Rút xăm xem vận đầu năm',
+                icon: '🏮',
+                link: '/xin-xam'
+              },
+              {
+                title: 'Xem Tử Vi 2026',
+                description: 'Vận mệnh năm Ất Tỵ',
+                icon: '🔮',
+                link: '/tu-vi'
+              }
+            ]}
+          />
+        </div>
       </div>
     </div>
   )

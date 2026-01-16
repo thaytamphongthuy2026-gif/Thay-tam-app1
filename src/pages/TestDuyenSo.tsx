@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Heart, Loader2, AlertCircle, TrendingUp, Gift, Users, Share2, Sparkles, Star, ChevronRight } from 'lucide-react'
 import { shareContent } from '../lib/shareUtils'
 import { calculateCompatibility } from '../lib/fengShuiCalculator'
+import RelatedFeatures from '../components/RelatedFeatures'
 
 interface CompatibilityResult {
   totalScore: number
@@ -351,6 +352,39 @@ export default function TestDuyenSo() {
                 Chia sẻ kết quả
               </button>
             </div>
+
+            {/* Related Features */}
+            <RelatedFeatures
+              currentFeature="Test Duyên Số"
+              suggestions={[
+                {
+                  title: 'Xem Ngày Cưới Tốt',
+                  description: 'Chọn ngày hoàng đạo cho đám cưới',
+                  icon: '💒',
+                  link: '/xem-ngay-tot',
+                  badge: 'PHỔ BIẾN'
+                },
+                {
+                  title: 'Xông Đất Tết',
+                  description: 'Tìm người xông nhà hợp tuổi',
+                  icon: '🎊',
+                  link: '/xong-dat',
+                  badge: 'TẾT 2026'
+                },
+                {
+                  title: 'Xem Tử Vi 2026',
+                  description: 'Vận mệnh năm mới của hai người',
+                  icon: '🔮',
+                  link: '/tu-vi'
+                },
+                {
+                  title: 'Chat Với Thầy Tám',
+                  description: 'Hỏi thêm về tình duyên',
+                  icon: '💬',
+                  link: '/chat'
+                }
+              ]}
+            />
           </div>
         ) : null}
       </div>

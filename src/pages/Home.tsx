@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MessageCircle, Calendar, Star, TrendingUp, Shield, Zap, Sparkles, Dices, Flame, Users, Gift } from 'lucide-react'
+import { MessageCircle, Calendar, Star, TrendingUp, Shield, Zap, Sparkles, Dices, Flame, Users, Gift, Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
@@ -218,6 +218,171 @@ export default function Home() {
               >
                 <Sparkles className="w-4 h-4" />
                 Xem Bảng Giá
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TẾT 2026 SPECIAL SECTION */}
+      <section className="py-20 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 border-t-4 border-red-600 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 text-8xl animate-spin-slow">🏮</div>
+          <div className="absolute top-20 right-20 text-7xl animate-bounce">🐍</div>
+          <div className="absolute bottom-20 left-1/4 text-6xl" style={{animation: 'bounce 3s infinite'}}>🧧</div>
+          <div className="absolute bottom-10 right-1/3 text-7xl animate-pulse">🎆</div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-full text-lg font-bold mb-6 shadow-2xl animate-pulse">
+              <span className="text-3xl">🎊</span>
+              <span>ĐẶC BIỆT TẾT ẤT TỴ 2026</span>
+              <span className="text-3xl">🎊</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent mb-6">
+              🐍 Năm Rắn 2026 - Năm Của Trí Tuệ & Tài Lộc
+            </h2>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto font-medium">
+              Chuẩn bị đón Tết với các tính năng đặc biệt từ Thầy Tám! 
+              <span className="text-red-600 font-bold"> Xem vận năm, tìm người xông nhà, lì xì thông minh, và nhiều hơn nữa! 🎉</span>
+            </p>
+          </div>
+
+          {/* Tết Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Feature 1: Xem Tử Vi 2026 */}
+            <Link
+              to="/tu-vi"
+              className="group bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-purple-200 hover:border-purple-400"
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform shadow-lg">
+                  <Star className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">🔮 Xem Tử Vi 2026</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Vận may, tài lộc, tình duyên năm Rắn
+                </p>
+                <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-semibold">
+                  MIỄN PHÍ 3 LƯỢT
+                </span>
+              </div>
+            </Link>
+
+            {/* Feature 2: Xông Đất Tết */}
+            <Link
+              to="/xong-dat"
+              className="group bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-red-200 hover:border-red-400"
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform shadow-lg">
+                  <Users className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">🎊 Xông Đất Tết</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Tìm người xông nhà may mắn + thiệp mời
+                </p>
+                <span className="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full font-semibold">
+                  HOT NHẤT TẾT
+                </span>
+              </div>
+            </Link>
+
+            {/* Feature 3: Lì Xì Thông Minh */}
+            <Link
+              to="/li-xi-game"
+              className="group bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-orange-200 hover:border-orange-400"
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform shadow-lg">
+                  <Gift className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">🧧 Lì Xì Thông Minh</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Game test kiến thức phong tục Tết
+                </p>
+                <span className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-semibold">
+                  VUI HỌC KẾT HỢP
+                </span>
+              </div>
+            </Link>
+
+            {/* Feature 4: Xin Xăm Ảo */}
+            <Link
+              to="/xin-xam"
+              className="group bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-yellow-200 hover:border-yellow-400"
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform shadow-lg">
+                  <Flame className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">🏮 Xin Xăm Ảo</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Rút xăm online xem vận năm mới
+                </p>
+                <span className="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-semibold">
+                  MIỄN PHÍ 3 LẦN/NGÀY
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Additional Tết Features - Smaller Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+            <Link
+              to="/so-may-man"
+              className="bg-white hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all text-center group"
+            >
+              <Dices className="w-8 h-8 text-purple-600 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-semibold text-gray-900">Số May Mắn</p>
+              <p className="text-xs text-gray-600">Số phát tài năm mới</p>
+            </Link>
+
+            <Link
+              to="/test-duyen-so"
+              className="bg-white hover:bg-gradient-to-br hover:from-pink-50 hover:to-red-50 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all text-center group"
+            >
+              <Heart className="w-8 h-8 text-pink-600 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-semibold text-gray-900">Test Duyên Số</p>
+              <p className="text-xs text-gray-600">Xem độ hợp cặp đôi</p>
+            </Link>
+
+            <Link
+              to="/lich-phong-thuy"
+              className="bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all text-center group"
+            >
+              <Calendar className="w-8 h-8 text-blue-600 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <p className="text-sm font-semibold text-gray-900">Lịch Phong Thủy</p>
+              <p className="text-xs text-gray-600">Xem ngày tốt từng tháng</p>
+            </Link>
+          </div>
+
+          {/* Tết CTA Banner */}
+          <div className="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 rounded-3xl p-8 md:p-12 shadow-2xl text-center">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              🎉 Đăng Ký Ngay - Nhận Ưu Đãi Tết! 🎉
+            </h3>
+            <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+              Gói <strong>Lộc Phát 68K</strong> & <strong>Đại Cát 168K</strong> - 
+              Không giới hạn xem ngày, tử vi, chat với Thầy Tám!
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/register"
+                className="bg-white text-red-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:scale-105"
+              >
+                Đăng Ký Miễn Phí
+              </Link>
+              <Link
+                to="/pricing"
+                className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 px-8 py-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:scale-105"
+              >
+                Xem Bảng Giá Tết
               </Link>
             </div>
           </div>

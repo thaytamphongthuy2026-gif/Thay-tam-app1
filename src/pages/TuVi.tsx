@@ -5,6 +5,7 @@ import { shareContent } from '../lib/shareUtils'
 import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
 import DateInput from '../components/DateInput'
+import RelatedFeatures from '../components/RelatedFeatures'
 
 interface MonthPrediction {
   month: number
@@ -610,6 +611,43 @@ THÁNG MAY MẮN: Tháng X, Tháng Y, Tháng Z`
             </div>
           </div>
         ) : null}
+
+        {/* Related Features - Always visible after viewing */}
+        {result && (
+          <div className="mt-8">
+            <RelatedFeatures
+              currentFeature="Tử Vi 2026"
+              suggestions={[
+                {
+                  title: 'Xem Ngày Tốt',
+                  description: 'Chọn ngày hoàng đạo khai trương, cưới hỏi',
+                  icon: '📅',
+                  link: '/xem-ngay-tot',
+                  badge: 'PHỔ BIẾN'
+                },
+                {
+                  title: 'Test Duyên Số',
+                  description: 'Xem độ hợp tuổi với người yêu',
+                  icon: '💕',
+                  link: '/test-duyen-so'
+                },
+                {
+                  title: 'Xông Đất Tết',
+                  description: 'Tìm người xông nhà may mắn năm mới',
+                  icon: '🎊',
+                  link: '/xong-dat',
+                  badge: 'TẾT 2026'
+                },
+                {
+                  title: 'Chat Với Thầy Tám',
+                  description: 'Hỏi thêm về vận mệnh của bạn',
+                  icon: '💬',
+                  link: '/chat'
+                }
+              ]}
+            />
+          </div>
+        )}
       </div>
     </div>
   )
