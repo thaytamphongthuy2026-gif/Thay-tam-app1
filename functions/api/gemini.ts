@@ -212,7 +212,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     const requestBody = buildGeminiRequestWithRAG(prompt, env, quotaType)
     
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: {
@@ -282,7 +282,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     const responseData = {
       result: formattedResult,
       metadata: {
-        model: 'gemini-2.0-flash-exp',
+        model: 'gemini-1.5-flash',
         processingTime: geminiDuration,
         quotaType,
         cached: false,
@@ -298,7 +298,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         result: formattedResult,
         remainingQuota: newQuota,
         metadata: {
-          model: 'gemini-2.0-flash-exp',
+          model: 'gemini-1.5-flash',
           processingTime: geminiDuration,
           quotaType,
           cached: false,

@@ -104,7 +104,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         }
     
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:streamGenerateContent?key=${env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?key=${env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: {
@@ -115,8 +115,13 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     )
 
     if (!geminiResponse.ok) {
+      const errorText = await geminiResponse.text()
+      console.error('Gemini API Error:', geminiResponse.status, errorText)
       return new Response(
-        JSON.stringify({ error: 'Lỗi khi gọi AI. Vui lòng thử lại sau.' }),
+        JSON.stringify({ 
+          error: 'Lỗi khi gọi AI. Vui lòng thử lại sau.',
+          details: env.ENVIRONMENT === 'development' ? errorText : undefined
+        }),
         {
           status: 500,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
