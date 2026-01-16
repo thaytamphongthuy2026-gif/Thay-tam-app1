@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Calendar, ChevronLeft, ChevronRight, Loader2, AlertCircle } from 'lucide-react'
 import { callGeminiAPI } from '../lib/gemini'
 import { solarToLunar } from '../lib/lunarCalendar'
+import { getStaticCalendarData, loadFromCache, saveToCache } from '../lib/calendarData'
 
 interface MonthData {
   month: number
@@ -36,6 +37,44 @@ export default function LichPhongThuy() {
     setError('')
     
     try {
+      // Step 1: Try static data first (instant)
+      const staticData = getStaticCalendarData(currentMonth, currentYear)
+      if (staticData) {
+        console.log('✅ Using static calendar data (instant)')
+        setMonthData({
+          month: currentMonth,
+          year: currentYear,
+          goodDays: staticData.goodDays,
+          badDays: staticData.badDays,
+          details: staticData.advice,
+          monthlyAdvice: staticData.advice,
+          luckyColors: staticData.luckyColors,
+          luckyDirection: staticData.luckyDirection
+        })
+        setLoading(false)
+        return
+      }
+
+      // Step 2: Try cache (fast)
+      const cachedData = loadFromCache(currentMonth, currentYear)
+      if (cachedData) {
+        console.log('✅ Using cached calendar data (fast)')
+        setMonthData({
+          month: currentMonth,
+          year: currentYear,
+          goodDays: cachedData.goodDays,
+          badDays: cachedData.badDays,
+          details: cachedData.advice,
+          monthlyAdvice: cachedData.advice,
+          luckyColors: cachedData.luckyColors,
+          luckyDirection: cachedData.luckyDirection
+        })
+        setLoading(false)
+        return
+      }
+
+      // Step 3: Fallback to AI (slow but comprehensive)
+      console.log('⏳ Loading from AI (10s)...')
       const prompt = `Hãy cung cấp thông tin lịch phong thủy cho tháng ${currentMonth} năm ${currentYear}:
 
 1. Các ngày tốt trong tháng (liệt kê 7-10 ngày tốt nhất)
@@ -80,7 +119,7 @@ MÀU SẮC: [danh sách màu]`
       const directionMatch = response.match(/PHƯƠNG VỊ:([^\n]+)/)
       const direction = directionMatch ? directionMatch[1].trim() : 'Đông Nam'
 
-      setMonthData({
+      const monthDataResult = {
         month: currentMonth,
         year: currentYear,
         goodDays,
@@ -89,7 +128,18 @@ MÀU SẮC: [danh sách màu]`
         monthlyAdvice: response || '',
         luckyColors: colors,
         luckyDirection: direction
+      }
+
+      // Save to cache for future use
+      saveToCache(currentMonth, currentYear, {
+        goodDays,
+        badDays,
+        luckyColors: colors,
+        luckyDirection: direction,
+        advice: response
       })
+
+      setMonthData(monthDataResult)
     } catch (err: any) {
       console.error('Error loading month data:', err)
       setError(err.message || 'Không thể tải lịch phong thủy. Vui lòng thử lại.')
