@@ -73,9 +73,10 @@ export async function streamGeminiAPI(
   
   for (const endpoint of endpoints) {
     try {
-      // Add timeout protection (30 seconds)
+      // Add timeout protection (60 seconds for RAG mode, 30 for quick mode)
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 30000)
+      const timeoutMs = useRag ? 60000 : 30000
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -91,6 +92,12 @@ export async function streamGeminiAPI(
 
       if (!response.ok) {
         const error = await response.json().catch(() => ({ error: 'Lỗi kết nối' }))
+        
+        // If rate limited, throw specific error
+        if (response.status === 429) {
+          throw new Error(error.error || 'Bạn đang thao tác quá nhanh. Vui lòng đợi 1 phút.')
+        }
+        
         throw new Error(error.error || 'Có lỗi xảy ra')
       }
 

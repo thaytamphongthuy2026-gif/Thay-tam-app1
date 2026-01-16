@@ -224,6 +224,11 @@ export default function Chat() {
       setMessages(prev => prev.slice(0, -1))
       setError(err.message || 'Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.')
       console.error('Chat error:', err)
+      
+      // Auto-dismiss error after 10 seconds (except login errors)
+      if (!err.message?.includes('đăng nhập')) {
+        setTimeout(() => setError(''), 10000)
+      }
     } finally {
       setLoading(false)
     }
