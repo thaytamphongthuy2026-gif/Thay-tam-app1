@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import { AuthProvider } from './lib/authContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Breadcrumb from './components/Breadcrumb'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -53,6 +54,7 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <Breadcrumb />
       <main className="flex-1">
         <Suspense fallback={<PageLoader />}>
           <Routes>
