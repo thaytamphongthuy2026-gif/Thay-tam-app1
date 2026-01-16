@@ -117,20 +117,26 @@ export default function Chat() {
       timestamp: new Date()
     }
 
+    const currentInput = input
+    
+    // Set loading FIRST for immediate feedback
+    setLoading(true)
     setMessages(prev => [...prev, userMessage])
     setInput('')
-    setLoading(true)
     setError('')
 
-    // Add placeholder for streaming response
+    // Add placeholder for streaming response with "Đang kết nối..." text
     setMessages(prev => [...prev, {
       role: 'assistant',
-      content: '',
+      content: '⏳ Đang kết nối với Thầy Tám...',
       timestamp: new Date()
     }])
 
     try {
-      const prompt = PROMPTS.chat(input)
+      const prompt = PROMPTS.chat(currentInput)
+      
+      // Clear the "connecting" message and start streaming
+      let isFirstChunk = true
       
       // Use streaming API
       await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
@@ -139,14 +145,20 @@ export default function Chat() {
           const updated = [...prev]
           const lastMsg = updated[updated.length - 1]
           if (lastMsg.role === 'assistant') {
-            lastMsg.content += chunk
+            if (isFirstChunk) {
+              // Replace "connecting" message with first chunk
+              lastMsg.content = chunk
+              isFirstChunk = false
+            } else {
+              lastMsg.content += chunk
+            }
           }
           return updated
         })
       })
 
-      // Refresh user quota
-      await refreshUser()
+      // Refresh user quota in background
+      refreshUser().catch(console.error)
     } catch (err: any) {
       // Remove placeholder message on error
       setMessages(prev => prev.slice(0, -1))
@@ -200,6 +212,16 @@ export default function Chat() {
               >
                 {message.role === 'user' ? (
                   <p className="whitespace-pre-wrap">{message.content}</p>
+                ) : message.content.startsWith('⏳') ? (
+                  // Show connecting message with animation
+                  <div className="flex items-center space-x-2">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
+                    <p className="text-gray-700">{message.content}</p>
+                  </div>
                 ) : (
                   formatChatContent(message.content)
                 )}

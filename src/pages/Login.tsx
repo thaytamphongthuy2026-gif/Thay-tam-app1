@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { login } from '../lib/auth'
-import { supabase } from '../lib/supabase'
 import { LogIn, AlertCircle } from 'lucide-react'
 
 export default function Login() {
@@ -21,22 +20,8 @@ export default function Login() {
     try {
       await login(email, password)
       
-      // Wait for auth state to update (max 2 seconds)
-      let attempts = 0
-      const maxAttempts = 20 // 2 seconds with 100ms intervals
-      
-      while (attempts < maxAttempts) {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) {
-          // Auth state updated, safe to navigate to original page
-          navigate(redirectTo)
-          return
-        }
-        await new Promise(resolve => setTimeout(resolve, 100))
-        attempts++
-      }
-      
-      // Timeout - navigate anyway
+      // AuthContext will handle session update automatically
+      // Navigate immediately after successful login
       navigate(redirectTo)
     } catch (err: any) {
       // Parse error messages
