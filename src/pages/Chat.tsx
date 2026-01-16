@@ -136,10 +136,34 @@ export default function Chat() {
     setInput('')
     setError('')
 
-    // Add placeholder for streaming response
+    // Add placeholder for streaming response with animated book names
+    const books = [
+      'Bát Trạch Minh Kinh',
+      'Ngọc Hạp Thông Thư',
+      'Hiệp Kỷ Biện Phương Thư'
+    ]
+    
     const connectingMessage = ragMode === 'book' 
-      ? '📚 Thầy Tám đang lật sách:\n• Bát Trạch Minh Kinh\n• Ngọc Hạp Thông Thư\n• Hiệp Kỷ Biện Phương Thư'
+      ? `📚 Thầy Tám đang lật sách:\n• ${books[0]}\n• ${books[1]}\n• ${books[2]}`
       : '' // Quick mode: only animation
+    
+    // Start book animation for RAG mode
+    let bookIndex = 0
+    let bookAnimationInterval: ReturnType<typeof setInterval> | null = null
+    
+    if (ragMode === 'book') {
+      bookAnimationInterval = setInterval(() => {
+        bookIndex = (bookIndex + 1) % books.length
+        setMessages(prev => {
+          const updated = [...prev]
+          const lastMsg = updated[updated.length - 1]
+          if (lastMsg.role === 'assistant' && lastMsg.content.startsWith('📚')) {
+            lastMsg.content = `📚 Thầy Tám đang lật sách:\n→ ${books[bookIndex]}...`
+          }
+          return updated
+        })
+      }, 1500) // Switch book every 1.5s
+    }
       
     setMessages(prev => [...prev, {
       role: 'assistant',
@@ -164,6 +188,12 @@ export default function Chat() {
       try {
         // TRY STREAMING FIRST (faster)
         await streamGeminiAPI(prompt, 'chat', (chunk: string) => {
+          // Clear book animation on first chunk
+          if (isFirstChunk && bookAnimationInterval) {
+            clearInterval(bookAnimationInterval)
+            bookAnimationInterval = null
+          }
+          
           // Update the last message with streamed chunk
           setMessages(prev => {
             const updated = [...prev]
@@ -181,6 +211,9 @@ export default function Chat() {
           })
         }, ragMode === 'book')  // Pass useRag flag based on mode
 
+        // Cleanup animation
+        if (bookAnimationInterval) clearInterval(bookAnimationInterval)
+        
         // Refresh user quota in background
         refreshUser().catch(console.error)
       } catch (streamError: any) {
@@ -220,6 +253,9 @@ export default function Chat() {
         }
       }
     } catch (err: any) {
+      // Cleanup animation on error
+      if (bookAnimationInterval) clearInterval(bookAnimationInterval)
+      
       // Remove placeholder message on error
       setMessages(prev => prev.slice(0, -1))
       setError(err.message || 'Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.')

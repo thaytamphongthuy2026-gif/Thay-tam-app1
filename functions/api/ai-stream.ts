@@ -96,12 +96,13 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
     // Build messages for AI
     const systemPrompt = buildSystemPrompt(quotaType)
     
-    // Use RAG when useRag=true (book mode) - Slower but more accurate
-    // Use GROQ when useRag=false (quick mode) - Fast responses
+    // CHANGED: Use Gemini for ALL modes (better xưng hô consistency)
+    // RAG mode: Gemini + 3 books (5-8s)
+    // Quick mode: Gemini only (2-3s) - Slightly slower but MORE STABLE
     let aiResponse: Response
     
     if (useRag) {
-      console.log('📚 Using RAG with 3 books (Gemini)...')
+      console.log('📚 Using Gemini + RAG (3 books)...')
       // Build Gemini request with RAG support
       const ragRequest = buildGeminiRequestWithRAG(prompt, env, quotaType)
       
@@ -126,15 +127,15 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       aiResponse = geminiResponse
       console.log('✅ Gemini RAG streaming started')
     } else {
-      console.log('⚡ Using GROQ (fast mode, no RAG)...')
-      // Quick mode: Use GROQ for fastest response
+      console.log('⚡ Using Gemini (fast mode, no RAG)...')
+      // Quick mode: Use Gemini WITHOUT RAG for consistent xưng hô
+      // Slightly slower than GROQ but MUCH more stable
       const messages: AIMessage[] = [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt }
       ]
       
-      // Call GROQ directly for speed (500+ tok/s)
-      // Reduced maxTokens for faster completion
+      // Call Gemini directly (will use callAI with Gemini priority)
       aiResponse = await callAI({ messages, maxTokens: 2048 }, env)
     }
 
