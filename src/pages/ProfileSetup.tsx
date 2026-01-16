@@ -28,7 +28,7 @@ export default function ProfileSetup() {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) {
-        navigate('/login')
+        navigate(`/login?redirect=${encodeURIComponent('/profile-setup')}`)
       }
     }
     checkAuth()

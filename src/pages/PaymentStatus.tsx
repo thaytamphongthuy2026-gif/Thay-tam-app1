@@ -52,7 +52,7 @@ export default function PaymentStatus() {
     try {
       const token = localStorage.getItem('jwt_token')
       if (!token) {
-        navigate('/login')
+        navigate(`/login?redirect=${encodeURIComponent('/payment-status')}`)
         return
       }
 

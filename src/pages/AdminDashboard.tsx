@@ -74,7 +74,7 @@ export default function AdminDashboard() {
     ]
     
     if (!token || !userEmail || !ADMIN_EMAILS.includes(userEmail)) {
-      navigate('/login')
+      navigate(`/login?redirect=${encodeURIComponent('/admin')}`)
       return
     }
 
@@ -88,7 +88,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('jwt_token')
       if (!token) {
-        navigate('/login')
+        navigate(`/login?redirect=${encodeURIComponent('/admin')}`)
         return
       }
 
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('jwt_token')
       if (!token) {
-        navigate('/login')
+        navigate(`/login?redirect=${encodeURIComponent('/admin')}`)
         return
       }
 

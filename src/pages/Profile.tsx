@@ -20,7 +20,8 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login')
+      // Redirect to login with current path for redirect back
+      navigate(`/login?redirect=${encodeURIComponent('/profile')}`)
       return
     }
 

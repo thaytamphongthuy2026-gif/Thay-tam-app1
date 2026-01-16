@@ -129,7 +129,7 @@ export default function QRPayment() {
     try {
       const token = localStorage.getItem('jwt_token')
       if (!token) {
-        navigate('/login')
+        navigate(`/login?redirect=${encodeURIComponent('/qr-payment')}`)
         return
       }
 
