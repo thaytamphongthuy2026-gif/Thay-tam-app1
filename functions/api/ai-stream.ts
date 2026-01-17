@@ -136,7 +136,8 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       ]
       
       // Call Gemini directly (will use callAI with Gemini priority)
-      aiResponse = await callAI({ messages, maxTokens: 2048 }, env)
+      // Increased maxTokens: 2048 → 3072 for fuller responses
+      aiResponse = await callAI({ messages, maxTokens: 3072 }, env)
     }
 
     console.log(`📝 AI Request: quotaType=${quotaType}, useRag=${useRag}, promptLength=${prompt.length}`)
