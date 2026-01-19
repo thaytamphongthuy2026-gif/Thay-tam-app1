@@ -1,20 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, Sparkles } from 'lucide-react'
-import { callGeminiAPI } from '../lib/gemini'
+import { findGoodDates, type GoodDate } from '../lib/lichPhongThuyCalculator'
 import { shareContent } from '../lib/shareUtils'
 import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
 import RelatedFeatures from '../components/RelatedFeatures'
 
-interface GoodDate {
-  solar: string
-  lunar: string
-  dayName: string
-  reasons: string[]
-  bestHours: string[]
-  avoid: string[]
-  rating: number
-}
+
 
 export default function XemNgayTot() {
   const { user, updateUserInfo } = useAuth()
@@ -65,93 +57,48 @@ export default function XemNgayTot() {
     setLoading(true)
 
     try {
-      // Auto-save user info to profile (name and birth year only for this form)
+      // Auto-save user info to profile
       if (user && updateUserInfo && (userName || birthYear)) {
         await updateUserInfo({
           name: userName || user.name,
-          // Keep existing birth_date if user only updated name
         })
       }
 
-      const purposeLabel = purposes.find(p => p.value === purpose)?.label || purpose
+      // Parse dates
+      const start = new Date(dateFrom)
+      const end = new Date(dateTo)
       
-      const prompt = `Bạn là chuyên gia phong thủy. Hãy tìm 5 ngày TỐT NHẤT từ ${dateFrom} đến ${dateTo} cho mục đích: ${purposeLabel}.
+      // Validate dates
+      if (start > end) {
+        setError('Ngày bắt đầu phải trước ngày kết thúc')
+        return
+      }
       
-Người hỏi: ${userName || 'Không cung cấp'}, năm sinh: ${birthYear || 'Không cung cấp'}.
+      const daysDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+      if (daysDiff > 90) {
+        setError('Chỉ có thể xem tối đa 90 ngày')
+        return
+      }
 
-Hãy trả về CHÍNH XÁC theo format sau (không thêm bớt):
-
-NGÀY 1:
-Dương lịch: DD/MM/YYYY
-Âm lịch: DD/MM (Tên ngày Can Chi)
-Lý do: Lý do 1 | Lý do 2 | Lý do 3
-Giờ tốt: Giờ 1 (07:00-09:00) | Giờ 2 (13:00-15:00) | Giờ 3 (19:00-21:00)
-Tránh: Tuổi 1 | Tuổi 2
-Đánh giá: 5/5
-
-NGÀY 2:
-Dương lịch: DD/MM/YYYY
-...
-
-(Tiếp tục cho 5 ngày)`
-
-      const response = await callGeminiAPI(prompt, 'xemNgay')
-
-      if (response.success && response.result) {
-        const parsed = parseGeminiResponse(response.result)
-        setResults(parsed)
+      // Use Can Chi calculator - NO AI, instant results
+      const year = birthYear ? parseInt(birthYear) : undefined
+      const goodDates = findGoodDates(start, end, purpose, year)
+      
+      if (goodDates.length > 0) {
+        setResults(goodDates)
         setStep('result')
       } else {
-        setError(response.error || 'Có lỗi xảy ra khi xem ngày tốt')
+        setError('Không tìm thấy ngày phù hợp trong khoảng thời gian này. Vui lòng thử khoảng thời gian khác hoặc mục đích khác.')
       }
     } catch (err: any) {
+      console.error('XemNgayTot error:', err)
       setError(err.message || 'Có lỗi xảy ra')
     } finally {
       setLoading(false)
     }
   }
 
-  function parseGeminiResponse(text: string): GoodDate[] {
-    const dates: GoodDate[] = []
-    const dayBlocks = text.split(/NGÀY \d+:/).filter(b => b.trim())
-
-    dayBlocks.forEach(block => {
-      try {
-        const lines = block.split('\n').filter(l => l.trim())
-        
-        const solarMatch = lines.find(l => l.includes('Dương lịch:'))
-        const lunarMatch = lines.find(l => l.includes('Âm lịch:'))
-        const reasonMatch = lines.find(l => l.includes('Lý do:'))
-        const hoursMatch = lines.find(l => l.includes('Giờ tốt:'))
-        const avoidMatch = lines.find(l => l.includes('Tránh:'))
-        const ratingMatch = lines.find(l => l.includes('Đánh giá:'))
-
-        if (solarMatch && lunarMatch) {
-          const solar = solarMatch.split(':')[1]?.trim() || ''
-          const lunar = lunarMatch.split(':')[1]?.trim() || ''
-          const reasons = reasonMatch?.split(':')[1]?.split('|').map(r => r.trim()) || []
-          const bestHours = hoursMatch?.split(':')[1]?.split('|').map(h => h.trim()) || []
-          const avoid = avoidMatch?.split(':')[1]?.split('|').map(a => a.trim()) || []
-          const ratingText = ratingMatch?.split(':')[1]?.trim() || '5/5'
-          const rating = parseInt(ratingText.split('/')[0]) || 5
-
-          dates.push({
-            solar,
-            lunar,
-            dayName: lunar.split('(')[1]?.replace(')', '') || '',
-            reasons,
-            bestHours,
-            avoid,
-            rating
-          })
-        }
-      } catch (err) {
-        console.error('Parse error:', err)
-      }
-    })
-
-    return dates.slice(0, 5) // Max 5 dates
-  }
+  
 
   function getRatingColor(rating: number) {
     if (rating >= 5) return 'from-yellow-400 to-orange-500'
