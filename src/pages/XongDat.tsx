@@ -1,21 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../lib/authContext'
 import { Home, Loader2, AlertCircle, Share2, Users, Sparkles, Calendar, Download, Gift, Star } from 'lucide-react'
-import { callGeminiAPI } from '../lib/gemini'
+import { findCompatiblePeople, type CompatiblePerson } from '../lib/canChiCalculator'
 import { shareContent } from '../lib/shareUtils'
 import { Link } from 'react-router-dom'
 import LoginPrompt from '../components/LoginPrompt'
-
-interface CompatiblePerson {
-  ageRange: string
-  zodiac: string
-  element: string
-  compatibility: string
-  reasons: string[]
-  luckyHours: string[]
-  gifts: string[]
-  rating: number
-}
 
 export default function XongDat() {
   const { user, updateUserInfo } = useAuth()
@@ -55,92 +44,28 @@ export default function XongDat() {
         })
       }
 
-      const prompt = `Bạn là chuyên gia phong thủy. Gia chủ sinh năm ${birthYear}, giới tính ${gender === 'male' ? 'nam' : 'nữ'}.
+      // Validate input
+      const year = parseInt(birthYear)
+      if (isNaN(year) || year < 1900 || year > 2025) {
+        setError('Năm sinh không hợp lệ')
+        return
+      }
 
-Hãy tìm 3 NHÓM TUỔI may mắn nhất để xông đất đầu năm Tết 2026 dựa trên:
-- Tam hợp (三合)
-- Lục hợp (六合)  
-- Ngũ hành tương sinh
-
-Hãy trả về CHÍNH XÁC theo format sau:
-
-NHÓM 1:
-Độ tuổi: 25-35 tuổi
-Tuổi con gì: Tuổi Mão (Mèo)
-Mệnh ngũ hành: Mộc
-Độ hợp: Tam Hợp - Cực kỳ may mắn
-Lý do: Lý do 1 | Lý do 2 | Lý do 3
-Giờ tốt: Mão (05:00-07:00) | Ngọ (11:00-13:00) | Tý (23:00-01:00)
-Quà tặng nên mang: Cây cảnh | Trái cây tươi | Bánh kẹo màu xanh
-Đánh giá: 5/5
-
-NHÓM 2:
-...
-
-NHÓM 3:
-...`
-
-      const response = await callGeminiAPI(prompt, 'xemNgay')
-
-      if (response.success && response.result) {
-        const parsed = parseGeminiResponse(response.result)
-        setResults(parsed)
+      // Use Can Chi calculator - NO AI
+      const compatiblePeople = findCompatiblePeople(year, gender)
+      
+      if (compatiblePeople.length > 0) {
+        setResults(compatiblePeople)
         setStep('result')
       } else {
-        setError(response.error || 'Có lỗi xảy ra khi tìm người xông đất')
+        setError('Không tìm thấy người phù hợp. Vui lòng thử lại.')
       }
     } catch (err: any) {
+      console.error('XongDat error:', err)
       setError(err.message || 'Có lỗi xảy ra')
     } finally {
       setLoading(false)
     }
-  }
-
-  function parseGeminiResponse(text: string): CompatiblePerson[] {
-    const people: CompatiblePerson[] = []
-    const blocks = text.split(/NHÓM \d+:/).filter(b => b.trim())
-
-    blocks.forEach(block => {
-      try {
-        const lines = block.split('\n').filter(l => l.trim())
-        
-        const ageMatch = lines.find(l => l.includes('Độ tuổi:'))
-        const zodiacMatch = lines.find(l => l.includes('Tuổi con gì:'))
-        const elementMatch = lines.find(l => l.includes('Mệnh ngũ hành:'))
-        const compatMatch = lines.find(l => l.includes('Độ hợp:'))
-        const reasonMatch = lines.find(l => l.includes('Lý do:'))
-        const hoursMatch = lines.find(l => l.includes('Giờ tốt:'))
-        const giftsMatch = lines.find(l => l.includes('Quà tặng:'))
-        const ratingMatch = lines.find(l => l.includes('Đánh giá:'))
-
-        if (ageMatch && zodiacMatch) {
-          const ageRange = ageMatch.split(':')[1]?.trim() || ''
-          const zodiac = zodiacMatch.split(':')[1]?.trim() || ''
-          const element = elementMatch?.split(':')[1]?.trim() || ''
-          const compatibility = compatMatch?.split(':')[1]?.trim() || ''
-          const reasons = reasonMatch?.split(':')[1]?.split('|').map(r => r.trim()) || []
-          const luckyHours = hoursMatch?.split(':')[1]?.split('|').map(h => h.trim()) || []
-          const gifts = giftsMatch?.split(':')[1]?.split('|').map(g => g.trim()) || []
-          const ratingText = ratingMatch?.split(':')[1]?.trim() || '5/5'
-          const rating = parseInt(ratingText.split('/')[0]) || 5
-
-          people.push({
-            ageRange,
-            zodiac,
-            element,
-            compatibility,
-            reasons,
-            luckyHours,
-            gifts,
-            rating
-          })
-        }
-      } catch (err) {
-        console.error('Parse error:', err)
-      }
-    })
-
-    return people.slice(0, 3) // Max 3 groups
   }
 
   function getRatingColor(rating: number) {
