@@ -1,0 +1,12 @@
+# Cloudflare Pages Redirects
+# Handle custom domain and missing pages
+
+# Redirect www to non-www (if using custom domain)
+https://www.thaytamphongthuy.com/* https://thaytamphongthuy.com/:splat 301
+
+# Missing pages - redirect to home or create them
+/chinh-sach-bao-mat /privacy-policy 301
+/dieu-khoan-su-dung /terms 301
+
+# 404 fallback
+/* /index.html 200

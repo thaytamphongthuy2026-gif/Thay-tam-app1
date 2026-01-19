@@ -83,8 +83,10 @@ function AppContent() {
             <Route path="/payment-status" element={<PaymentStatus />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/dieu-khoan-su-dung" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/chinh-sach-bao-mat" element={<PrivacyPolicy />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/xong-dat" element={<XongDat />} />
           </Routes>

@@ -112,7 +112,7 @@ export default function Home() {
         {/* Animated Tet decorations */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 text-6xl animate-bounce">🏮</div>
-          <div className="absolute top-20 right-20 text-5xl animate-pulse">🐍</div>
+          <div className="absolute top-20 right-20 text-5xl animate-pulse">🐴</div>
           <div className="absolute bottom-10 left-1/4 text-4xl animate-bounce" style={{animationDelay: '1s'}}>🧧</div>
           <div className="absolute bottom-20 right-1/3 text-5xl animate-pulse" style={{animationDelay: '0.5s'}}>🎆</div>
         </div>
@@ -229,7 +229,7 @@ export default function Home() {
         {/* Decorative elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 text-8xl animate-spin-slow">🏮</div>
-          <div className="absolute top-20 right-20 text-7xl animate-bounce">🐍</div>
+          <div className="absolute top-20 right-20 text-7xl animate-bounce">🐴</div>
           <div className="absolute bottom-20 left-1/4 text-6xl" style={{animation: 'bounce 3s infinite'}}>🧧</div>
           <div className="absolute bottom-10 right-1/3 text-7xl animate-pulse">🎆</div>
         </div>
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
             
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent mb-6">
-              🐍 Năm Ngựa 2026 - Năm Của Trí Tuệ & Tài Lộc
+              🐴 Năm Ngựa 2026 - Năm Của Trí Tuệ & Tài Lộc
             </h2>
             
             <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto font-medium">
@@ -726,7 +726,7 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-4">🐍 Năm Ngựa 2026 Là Năm Gì?</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">🐴 Năm Ngựa 2026 Là Năm Gì?</h3>
                 <p className="text-gray-700 leading-relaxed">
                   Năm 2026 là <strong>năm Bính Ngọ (Bính Ngọ)</strong> theo âm lịch, mệnh <strong>Hỏa</strong>. 
                   Năm Ngựa mang lại cơ hội lớn về tài lộc, nhưng cần thận trọng trong các quyết định quan trọng.
@@ -797,7 +797,7 @@ export default function Home() {
                   <p className="text-sm text-green-600">★★★★☆</p>
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <span className="text-2xl mb-2">🐍</span>
+                  <span className="text-2xl mb-2">🐴</span>
                   <p className="font-semibold">Tỵ (Rắn)</p>
                   <p className="text-sm text-red-600">★★☆☆☆ Tuổi phạm</p>
                 </div>
