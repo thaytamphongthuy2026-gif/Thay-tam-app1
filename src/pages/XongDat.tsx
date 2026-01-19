@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../lib/authContext'
-import { Home, Loader2, AlertCircle, Share2, Users, Sparkles, Calendar, Download, Gift, Star } from 'lucide-react'
+import { Home, Loader2, AlertCircle, Share2, Users, Sparkles, Calendar, Download, Gift, Star, Image as ImageIcon } from 'lucide-react'
 import { findCompatiblePeople, type CompatiblePerson } from '../lib/canChiCalculator'
+import { downloadInvitationCard, type CardData } from '../lib/cardGenerator'
 import { shareContent } from '../lib/shareUtils'
 import { Link } from 'react-router-dom'
 import LoginPrompt from '../components/LoginPrompt'
@@ -421,7 +422,8 @@ ${person.gifts.map(g => `• ${g}`).join('\n')}
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 pt-4 border-t border-gray-100">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-4 border-t border-gray-100">
+                    {/* Download Text */}
                     <button 
                       onClick={() => {
                         const card = generateInvitationCard(person)
@@ -431,12 +433,35 @@ ${person.gifts.map(g => `• ${g}`).join('\n')}
                         a.href = url
                         a.download = `moi-xong-dat-${person.zodiac}.txt`
                         a.click()
+                        URL.revokeObjectURL(url)
                       }}
-                      className="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+                      className="bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
                     >
                       <Download className="w-5 h-5" />
-                      Tải thiệp mời
+                      Text
                     </button>
+
+                    {/* Download JPG */}
+                    <button 
+                      onClick={async () => {
+                        const cardData: CardData = {
+                          zodiac: person.zodiac,
+                          element: person.element,
+                          ageRange: person.ageRange,
+                          compatibility: person.compatibility,
+                          luckyHours: person.luckyHours,
+                          gifts: person.gifts,
+                          year: 2026
+                        }
+                        await downloadInvitationCard(cardData, `thiep-xong-dat-${person.zodiac.replace(/[^a-zA-Z0-9]/g, '')}.jpg`)
+                      }}
+                      className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      <ImageIcon className="w-5 h-5" />
+                      Thiệp JPG
+                    </button>
+
+                    {/* Share */}
                     <button 
                       onClick={() => {
                         const card = generateInvitationCard(person)
@@ -445,7 +470,7 @@ ${person.gifts.map(g => `• ${g}`).join('\n')}
                           text: card
                         })
                       }}
-                      className="flex-1 bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+                      className="bg-green-50 hover:bg-green-100 text-green-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
                     >
                       <Share2 className="w-5 h-5" />
                       Chia sẻ
