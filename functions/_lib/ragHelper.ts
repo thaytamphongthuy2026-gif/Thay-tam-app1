@@ -93,13 +93,20 @@ FORMAT TRẢ LỜI (KHÔNG DÙNG MARKDOWN):
 `.trim()
 
 /**
- * RAG File IDs - ENABLED with Gemini fallback for book mode
- * These are the 3 core feng shui books uploaded to Gemini Files API
+ * RAG File IDs - TEMPORARILY DISABLED (403 Permission Denied)
+ * Files need to be re-uploaded or made publicly accessible
+ * 
+ * TODO: Re-upload files to Gemini Files API:
+ * 1. Go to https://aistudio.google.com/app/files
+ * 2. Upload PDFs (Bát Trạch Minh Kinh, Ngọc Hạp Thông Thư, Hiệp Kỷ Biện Phương Thư)
+ * 3. Copy new File IDs
+ * 4. Update this array
  */
 const RAG_FILE_IDS: string[] = [
-  'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (2.4MB) - Essential for house feng shui
-  'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (885KB) - Essential for date selection
-  'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư - Tập 2 (1.6MB) - Compact reference
+  // DISABLED - 403 errors
+  // 'files/yfwh12rn5i98',   // Bát Trạch Minh Kinh (PERMISSION_DENIED)
+  // 'files/3od2t5rd75rf',   // Ngọc Hạp Thông Thư (PERMISSION_DENIED)
+  // 'files/wnt8d9qmsges',   // Hiệp Kỷ Biện Phương Thư (PERMISSION_DENIED)
 ]
 
 /**

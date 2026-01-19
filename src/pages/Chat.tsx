@@ -323,14 +323,14 @@ export default function Chat() {
               }`}
             >
               <BookOpen className="w-4 h-4" />
-              <span className="text-sm">Tra sách</span>
+              <span className="text-sm">Chi tiết</span>
             </button>
           </div>
           
           {/* Hide note on mobile to save space */}
           {ragMode === 'book' && (
             <p className="text-xs text-gray-500 mt-2 bg-yellow-50 border border-yellow-200 rounded p-2 hidden md:block">
-              💡 Chế độ <strong>Tra sách</strong>: Thầy Tám sẽ dựa vào 6 quyển sách cổ để trả lời (chậm hơn nhưng có trích dẫn)
+              💡 Chế độ <strong>Chi tiết</strong>: Thầy Tám sẽ trả lời chi tiết và đầy đủ hơn (mất 5-8 giây)
             </p>
           )}
         </div>
