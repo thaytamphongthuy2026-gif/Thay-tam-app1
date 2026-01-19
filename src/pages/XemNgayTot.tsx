@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Download, Sparkles } from 'lucide-react'
+import { Calendar, Loader2, AlertCircle, Star, Clock, Users, Share2, Sparkles, Info } from 'lucide-react'
 import { findGoodDates, type GoodDate } from '../lib/lichPhongThuyCalculator'
 import { shareContent } from '../lib/shareUtils'
 import { useAuth } from '../lib/authContext'
 import LoginPrompt from '../components/LoginPrompt'
 import RelatedFeatures from '../components/RelatedFeatures'
+import DayDetailModal from '../components/DayDetailModal'
 
 
 
@@ -19,6 +20,7 @@ export default function XemNgayTot() {
   const [results, setResults] = useState<GoodDate[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [selectedDate, setSelectedDate] = useState<GoodDate | null>(null)
 
   useEffect(() => {
     document.title = 'Xem Ngày Tốt 2026 - Chọn Ngày Hoàng Đạo Khai Trương, Cưới Hỏi'
@@ -493,14 +495,11 @@ export default function XemNgayTot() {
                   {/* Action Buttons */}
                   <div className="flex gap-3 pt-4 border-t border-gray-100">
                     <button 
-                      onClick={() => {
-                        // Add to calendar functionality (placeholder)
-                        alert('🗓️ Tính năng thêm vào lịch đang được phát triển!')
-                      }}
-                      className="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
+                      onClick={() => setSelectedDate(date)}
+                      className="flex-1 bg-purple-50 hover:bg-purple-100 text-purple-700 px-4 py-3 rounded-xl font-semibold transition inline-flex items-center justify-center gap-2"
                     >
-                      <Download className="w-5 h-5" />
-                      Thêm vào lịch
+                      <Info className="w-5 h-5" />
+                      Xem Chi Tiết
                     </button>
                     <button 
                       onClick={() => shareContent({
@@ -566,6 +565,17 @@ export default function XemNgayTot() {
           </>
         )}
       </div>
+
+      {/* Day Detail Modal */}
+      {selectedDate && (
+        <DayDetailModal
+          date={selectedDate}
+          purposeLabel={purposes.find(p => p.value === purpose)?.label || purpose}
+          birthYear={birthYear}
+          userName={userName}
+          onClose={() => setSelectedDate(null)}
+        />
+      )}
     </div>
   )
 }
